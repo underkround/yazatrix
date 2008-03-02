@@ -17,8 +17,8 @@ class TetrisBoard {
     TetrisBoard(void);
     ~TetrisBoard(void);
 
-    int getWidth(void);
-    int getHeight(void);
+    const int* getWidth(void);
+    const int* getHeight(void);
     int getRemovedLines(void);
     int getRemovedLinesLast(void);
     int getSlot(int x, int y);

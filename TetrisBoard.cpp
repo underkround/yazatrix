@@ -17,12 +17,12 @@ TetrisBoard::~TetrisBoard(void) {
 
 }
 
-int TetrisBoard::getWidth(void) {
-
+const int* TetrisBoard::getWidth(void) {
+  return width;
 }
 
-int TetrisBoard::getHeight(void) {
-
+const int* TetrisBoard::getHeight(void) {
+  return height;
 }
 
 int TetrisBoard::getRemovedLines(void) {
