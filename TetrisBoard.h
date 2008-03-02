@@ -12,7 +12,8 @@
  #define __X__ 16
  #define __Y__ 20
 
-class TetrisBoard {
+class CTetrisBoard {
+
   public:
     TetrisBoard(void);
     ~TetrisBoard(void);
@@ -32,6 +33,7 @@ class TetrisBoard {
     void notifyChange(void);
     bool registerBoardChangeListener(BoardChangeListener* bcl);
     bool unregisterBoardChangeListener(BoardChangeListener* bcl);
+
   private:
     int width;
     int height;
@@ -42,4 +44,5 @@ class TetrisBoard {
 
     bool removeLine(int y); // siirrä yläpuolen rivejä yhdellä
 }
+
 #endif //__TETRISBOARD_H__
