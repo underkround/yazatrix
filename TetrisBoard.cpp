@@ -66,8 +66,8 @@ int TetrisBoard::getRemovedLinesLast(void) {
  *          kentän rajojen
  */
 int TetrisBoard::getSlot(const int x, const int y) {
-    if(x < 0 || x > width) return -1;
-    if(y < 0 || y > height) return -1;
+    if(x < 0 || x >= width) return -1;
+    if(y < 0 || y >= height) return -1;
     return matrix[y][x];
 }
 
@@ -79,8 +79,8 @@ int TetrisBoard::getSlot(const int x, const int y) {
  *          yli kentän rajojen
  */
 int TetrisBoard::setSlot(const int x, const int y, const int content) {
-    if(x < 0 || x > width) return -1;
-    if(y < 0 || y > height) return -1;
+    if(x < 0 || x >= width) return -1;
+    if(y < 0 || y >= height) return -1;
     int old = matrix[y][x];
     matrix[y][x] = content;
     return old;
@@ -108,15 +108,19 @@ bool TetrisBoard::isEmpty(){
  *             katsoen (sivusuunnassa kentällä, ylhäältä yli = true)
  */
 bool TetrisBoard::isEmpty(const int x, const int y) {
-    return (matrix[y][x] < 1);
+    if(x < 0 || x >= width || y < 0) return false;
+    if(y >= height) return true;
+    return (matrix[y][x] < 1) ? true : false;
 }
 
 /**
  * Yksittäisen rivin tyhjyyden tarkistus
  * @return  true, jos rivi y on kokonaan tyhjä (kaikkien rivin
  *          ruudut < 1)
+ *          false, jos rivillä on jotain tai se on yli rajojen
  */
 bool TetrisBoard::isEmpty(const int y) {
+    if(y < 0 || y >= height) return false;
     for(int i=0; i<width; i++)
         if(matrix[y][i] > 0)
             return false; // vähintään yksi ruutu ei ole tyhjä
