@@ -1,5 +1,7 @@
 *** TETRIS ***
 
+$Revision$
+
 palikka liikkuu ylh‰‰lt‰ alasp‰in tietyin mikrosekuntiv‰lein
 
  tˆssˆ kuvassa palikka kartalla matkalla alasp‰in \o/
@@ -86,3 +88,211 @@ jos palikka yritt‰‰ liikkua kartassa estettyyn ruutuun ->
 eri palikat eri v‰risi‰
 
 putoamisnopeus kiihtyy pelin edetess‰
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+VERSION: 2008-03-01 20:51
+
+
+Ominaisuuksia mukaan:
+	ghost piece
+	lock delay hard dropillakin?
+	fps = 60? 30?
+		http://www.tetrisconcept.com/wiki/index.php?title=TGM_legend#Frame
+		http://www.tetrisconcept.com/wiki/index.php?title=Drop#Gravity
+
+
+TODO:
+ - tutki gamea viel‰.. handlerit ainakin (start, stop jne)
+ - statistiikka/pistelaskija. sis‰iseksi luokaksi boardille? gamelle?
+ - ghost-palikka? tetrominolle?
+ - listener r‰j‰ht‰ville riveille -> statistiikkaolio.. t‰llˆin se rekisterˆityisi TetrisBoard:lle
+
+
+Huomioita:
+ - Game[Logic] luo ja pit‰‰ sis‰ll‰‰n:
+   - pelilaudan (TetrisBoard)
+   - nykyisen nappulan ja tulevat nappulat
+     - hoitaa nykyisen nappulan h‰vitt‰misen ja seuraavan k‰skytt‰misen pelilaudalle
+   - timerin, jolle rekisterˆityy TickListeneriksi
+
+
+
+
+---------------------------------------------
+---------------- LUOKAT ---------------------
+
+metodeissa:  - = private,  + = public
+
+
+
+/**
+ * TetrisBoard
+ *
+ * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
+ */
+-	int width
+-	int height
+-	int[y][x] matrix // taulukko pelilaudasta, joko tyhj‰ (0 tai negat.), tai palikan tyypin vakion int-arvo
+-	int removedLines // laskuri r‰j‰ytetyist‰ riveist‰
+-	int removedLinesLast // viimeksi r‰j‰ht‰neet rivit
+-	BoardChangeListener[] changeListeners;
+
++	int getWidth()
++	int getHeight()
++	int getRemovedLines()
++	int getRemovedLinesLast()
++	int getSlot(int x, int y)
++	int setSlot(int x, int y, int content) // returns old content
++	bool isEmpty() // koko lauta
++	bool isEmpty(int x, int y) // haluttu ruutu, offgrid = false, paitsi ylh‰‰ll‰
++	bool isEmpty(int y) // rivi
++	bool isFull(int y) // rivi
++	void reset()
++	int clearFullLines()
+-	bool removeLine(int y) // siirr‰ yl‰puolen rivej‰ yhdell‰
++	void notifyChange()
++	bool registerBoardChangeListener(BoardChangeListener bcl)
++	bool unregisterBoardChangeListener(BoardChangeListener bcl)
+
+
+---
+
+
+/**
+ * TetrominoFactory (????)
+ * T‰ss‰ voisi toteuttaa monimutkaisempia arpomisia tilastojen perusteella,
+ * mik‰li kaikki uudet palikat luotaisiin t‰m‰n kautta (jolloin t‰ll‰ saa
+ * tilastot palikoista
+ */
+-	(tilastoa ..)
++	create(int tetrominoType)
++	random() // palauttaa randomin oman logiikkansa mukaan
+
+
+---
+
+
+/**
+ * Tetromino
+ *
+ * Palikka.. ei oteta viel‰ kantaa miten muoto s‰ilytet‰‰n
+ */
++	final int TETROMINO_S
++	final int TETROMINO_Z \\ palikkatyypit --> tietotyyppi? oma luokka? taulukko?
++	final int TETROMINO_O \\ n‰ill‰ t‰ytet‰‰n pelilaudan matrix
++	...
++	final int EMPTY ??
+-	TetrisBoard board
+-	int x
+-	int y
+-	int orientation
+
+-	bool canMoveTo(int x, int y, int orientation)
+/*	//int getRelative(int x, int y, int orientation) */
+-	int getOrientationX(.. // k‰ytet‰‰n sis‰isi‰ apufunkkareita rotaatiossa,
+-	int getOrientationY(.. // tai sitten tehd‰‰n rotaatio yhess‰ funkkarissa
++	int getRotation() // palauttaa nykyisen rotaation
++	bool setRotation(int rotation) // asettaa rotaation r
+-	int getNextRotation()     // k‰ytet‰‰n kun testataan ja asetetaan seuraavaa rotaatiota,
+-	int getPreviousRotation() // pyˆr‰ytt‰‰ rotaation viimeisen j‰lkeen ensimm‰iseen jne
++	bool rotateLeft() // sis‰isesti: testaa canMoveTo(x,y,getNextRotation()) ja true:lla vaihtaa: setRotation(getNextRotation())
++	bool isAttached() // onko palikka jossain laudassa
++	bool attach(TetrisBoard board) // detachaa eka vanhasta, return false jos collision uuteen spawnattaessa
++	bool attach(TetrisBoard board, int offsetY) // x aina keskell‰
++	void detach(bool clear) // tyhj‰t‰‰nkˆ vanhan laudan ruudut
++	bool moveLeft()
++	bool moveRight()
++	bool moveDown()
++	bool moveDown(int n) // k‰ytet‰‰n preview-boardissa siirtymiseen, jos monen palikan preview, eli previewiss‰
++	bool moveUp(int n)   // palikoita p‰‰llek‰in (esim jos seuraava palikka on ylimp‰n‰ laudalla)
++	bool drop() // tiputa niin paljon ett‰ seuraava olisi collision -> mahdollisuus liikuttaa viel‰ yhen tickin
++	bool contains(int x, int y) // sis‰lt‰‰kˆ nappula ko. koordinaatin vai onko se tyhj‰
+-	void insert() // tai paint tai.. ? piirt‰‰ itsens‰ lautaan asettamalla koordinaattinsa ruudut oman typen int:ksi
+-	void remove() // tai clear tai.. ? poistaa itsens‰ laudalta nollaamalla koordinaattinsa ruudut
++	void hasLanded() // seuraava droppi olisi collision, tai palikka ei ole miss‰‰n laudassa (detached)
++	void fullyVisible() // koko nappula on pelilaudalla (spawnatessa yl‰reuna on yli laudan)
+
+
+---
+
+ !! TODO
+
+/**
+ * Game[Logic?] extends TickListener
+ */
+-	LevelTimer timer
+-	int level
+-	final int LEVEL_MAX = 15
+-	final int PREVIEWS = 1 // montako seuraavaa palikkaa n‰ytet‰‰n
+-	TetrisBoard board
+-	TetrisBoard previewBoard
+-	Tetromino currentTetromino // liitetty pelilautaan
+-	Tetromino[] nextTetrominoes // liitetty previewlautaan
+-	GameController[] gameControllers
+-	GameController currentGameController // jos useita, t‰ll‰ p‰‰tet‰‰n kuka on ohjausvuorossa
+-	List<int/GameCommand> commandQueue
+
++	Game(int width, int height)
++	void reset()
++	void reset(int width, int height)
++	bool registerGameController(GameController gc)
++	bool unregisterGameController(GameController gc)
++	bool gameControlRequest(GameController sender) // pyyt‰‰ kontrollointivuoroa
++	bool gameControlReturn() // palauttaa kontrollin edelliselle kontrolloijalle
++	bool gameControl(GameController sender, int GameController.COMMAND_..) // throws unknown...
++	void tick() // @Override TickListener, tehd‰‰n joko: nextTetromino, handleLandedTetromino tai dropTetromino
+
+
+---
+
+
+/**
+ * abstract GameController
+ */
++	final int COMMAND_LEFT
++	final int COMMAND_RIGHT
++	final int COMMAND_DOWN
++	final int COMMAND_DROP
++	final int COMMAND_ROTATE
++	final int COMMAND_ROTATE_LEFT
++	final int COMMAND_PREVIEW_SWAP
++	final int COMMAND_NOISE_MEDIUM
++	final int COMMAND_NOISE_SINGLE
+// ei tarvitse metodeja koska t‰m‰ k‰skytt‰‰ - ei toisinp‰in
+
+
+---
+
+
+/**
+ * LevelTimer extends Thread/Runnable
+ */
+-	int delay/speed/sleeptime/fps.. ?
+-	bool running
+
++	LevelTimer(int maxLevels)
++	int getLevel()
++	int setLevel()
++	bool increase() // false jos ollaan jo tapissa
++	bool decrease() // false jos ollaan l‰htˆleveliss‰
++	bool setPause(bool val) // toggle-pause
++	bool isPaused()
++	bool resetTick() // jos tiputetaan palikkaa manuaalisesti, resetoidaan tickin kesto ?
++	bool reset() // asettaa l‰htˆnopeuteen
++	bool register(TickListener tl, int priority) // n‰ille ilmoitetaan tickeist‰, priority = abs vai rel?
++	bool unregister(TickListener tl)
+
+
+---
+
+
+/**
+ * abstract/interface TickListener
+ */
++	void tick()
+
+
+---
