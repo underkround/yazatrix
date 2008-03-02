@@ -4,7 +4,6 @@
  * TetrisBoard.h
  *
  * $Id$
- * $HeadURL$
  *
  * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
  */
@@ -63,6 +62,6 @@ class CTetrisBoard {
 
     void notifyChange(void);
     bool removeLine(int y); // siirrä yläpuolen rivejä yhdellä
-}
+};
 
 #endif //__TETRISBOARD_H__

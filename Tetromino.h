@@ -134,6 +134,6 @@ private:
      */
     void removeFromBoard();
 
-}
+};
 
 #endif //__TETRISBOARD_H__
