@@ -6,6 +6,9 @@
 /**
  * Tetromino
  *
+ * $Id$
+ * $Revision$
+ *
 
  TODO:
    ongelma:
@@ -41,13 +44,14 @@ class CTetromino {
 public:
 
     /**
-     * Konstruktori, jossa määritetään palikan muoto, sekä mitä se maalaa
-     * pelilautaan kohdalleen, ja mitä se jättää jälkeensä (tyhjää yleensä)
+     * Konstruktori, jossa määritetään palikan muoto, sekä mitä se maalaa.
      */
-    CTetromino(int SLOT_TYPE slotType, SLOT_TYPE emptySlotType);
+    CTetromino(int cellCoordsX[], int cellCoordsY[], int maxRotation, CELL_TYPE type);
 
     ~CTetromino(void);
 
+
+    // TODO: metodit
 
 
 // ===========================================================================
@@ -63,34 +67,41 @@ private:
     TetrisBoard board;
 
     /**
-     * mySlotType = palikan oma tyyppi, jota se piirtää pelikenttään
+     * palikan oma tyyppi, jota se piirtää pelikenttään
      * omiin koordinaatteihinsa
-     * EmptySlotType = tyhjä ruutu jota palikka piirtää vanhaan
-     * sijaintiinsa, kun se liikkuu uusiin ruutuihin.
      */
-    const SLOT_TYPE mySlotType;
-    static const SLOT_TYPE emptySlotType;
+    const CELL_TYPE m_type;
 
     /**
      * Palikan koordinaatit nykyisessä kentässään.
      * Palikka tarkistaa kenttään kiinnittyessään, että sen sijainti
      * koordinaateissa on sallittu, tai kiinnittymistä ei tapahdu.
      */
-    int m_intX;
-    int m_intY;
+    int m_x;
+    int m_y;
+
+    /**
+     * Palikan muoto, eli koordinaatit joissa palikalla on solu
+     * rotaatiossa 0 (oletus) pivot-pointtinsa suhteen
+     * (eli negatiivisia ja positiivisia koordinaatteja).
+     * Tetromino koostuu neljästä solusta/ruudusta, eli tetrominolla
+     * tauluissa on aina neljä koordinaattiparia.
+     */
+    int m_cellCoordsX[4];
+    int m_cellCoordsY[4];
 
     /**
      * Palikan nykyinen orientaatio
      *
      * Orientaatio on
      */
-    short m_shortOrientation;
+    int m_rotation;
 
     /**
-     * Palikan suurin sallittu orientaatio (0 -> maxOrientation)
+     * Palikan suurin sallittu rotaatio (0 -> m_rotationMax)
      * Asetetaan constructorissa.
      */
-    const short m_shortMaxOrientation
+    const int m_rotationMax;
 
     // ================= METODIT =============================================
 
@@ -101,26 +112,26 @@ private:
      * @return  false, jos joku palikan ruuduista ei ole tyhjä laudalla,
      *          tai jos palikka menee ohi laudasta sivusuunnassa (tai pohjasta)
      */
-    bool canMoveTo(const int newX, const int newY, const int newOrientation);
+    bool canMoveTo(const int x, const int y, const int rotation);
 
 //    bool getOrientationX... TODO!!
 
     /**
      * @return  nykyinen rotaatio (arvo väliltä 0..3)
      */
-    short getRotation();
+    int getRotation();
 
     /**
      * @return  nykyisestä seuraava rotaatio (pyöräytettäessä myötäpäivään)
      *          arvo väliltä 0..3
      */
-    short getNextRotation();
+    int getNextRotation();
 
     /**
      * @return  nykyisestä edellinen rotaatio (pyöräytettäessä vastapäivään)
      *          arvo väliltä 0..3
      */
-    short getPreviousRotation();
+    int getPreviousRotation();
 
     /**
      * "Polttaa" palikan pelilaudan kenttään, eli vaihtaa omat ruutunsa

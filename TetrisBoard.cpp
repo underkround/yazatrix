@@ -9,7 +9,7 @@
  */
 
 #include "TetrisBoard.h"
-
+#include "CellType.h"
 
 /**
  * Kutsuu pääkonstruktoria oletusarvoilla
@@ -28,9 +28,9 @@ CTetrisBoard::CTetrisBoard(const int cols, const int rows) {
     m_height = rows;
     // luo vaaditun kokoinen matrix-taulukko
     // TODO: lolapua miten alustan taulukon
-    m_matrix = new int*[rows];
+    m_matrix = new CELL_TYPE*[rows];
     for(int iy=0; iy<rows; iy++)
-        m_matrix[iy] = new int[cols];
+        m_matrix[iy] = new CELL_TYPE[cols];
 //    int m_mat
     // alusta matrix nollilla
     reset();
@@ -57,19 +57,19 @@ void CTetrisBoard::reset(void) {
     // foreach matrix.. = 0
     for(int iy=0; iy<m_height; iy++) {
         for(int ix=0; ix<m_width; ix++) {
-            m_matrix[iy][ix] = 0;
+            m_matrix[iy][ix] = EMPTY;
         }
     }
 }
 
 
 /**
- * @return  matrixin solun {x,y} arvon tai tai -1 jos menee yli
+ * @return  matrixin solun {x,y} arvon tai OFFGRID jos menee yli
  *          kentän rajojen
  */
-int CTetrisBoard::getSlot(const int x, const int y) {
-    if(x < 0 || x >= m_width) return -1;
-    if(y < 0 || y >= m_height) return -1;
+CELL_TYPE CTetrisBoard::getSlot(const int x, const int y) {
+    if(x < 0 || x >= m_width) return OFFGRID;
+    if(y < 0 || y >= m_height) return OFFGRID;
     return m_matrix[y][x];
 }
 
@@ -78,13 +78,13 @@ int CTetrisBoard::getSlot(const int x, const int y) {
  * Asettaa kentän koordinaatin {x,y} annettuun arvoon, jos koordinaatti
  * on kentän rajojen sisäpuolella.
  * @param   content koordinaattiin asetettava arvo
- * @return  koordinaatin entinen arvo, tai -1 jos koordinaatti oli
+ * @return  koordinaatin entinen arvo, tai OFFGRID jos koordinaatti oli
  *          yli kentän rajojen
  */
-int CTetrisBoard::setSlot(const int x, const int y, const int content) {
-    if(x < 0 || x >= m_width) return -1;
-    if(y < 0 || y >= m_height) return -1;
-    int old = m_matrix[y][x];
+CELL_TYPE CTetrisBoard::setSlot(const int x, const int y, const CELL_TYPE content) {
+    if(x < 0 || x >= m_width) return OFFGRID;
+    if(y < 0 || y >= m_height) return OFFGRID;
+    CELL_TYPE old = m_matrix[y][x];
     m_matrix[y][x] = content;
     return old;
 }
@@ -97,7 +97,7 @@ int CTetrisBoard::setSlot(const int x, const int y, const int content) {
 bool CTetrisBoard::isEmpty(){
     for(int iy=0; iy<m_height; iy++) {
         for(int ix=0; ix<m_width; ix++) {
-            if(m_matrix[iy][ix] > 0)
+            if(m_matrix[iy][ix] != EMPTY)
                 return false; // vähintään yksi ruutu ei ole tyhjä
         }
     }
@@ -115,7 +115,7 @@ bool CTetrisBoard::isEmpty(){
 bool CTetrisBoard::isEmpty(const int x, const int y) {
     if(x < 0 || x >= m_width || y < 0) return false;
     if(y >= m_height) return true;
-    return (m_matrix[y][x] < 1) ? true : false;
+    return (m_matrix[y][x] == EMPTY) ? true : false;
 }
 
 
@@ -128,7 +128,7 @@ bool CTetrisBoard::isEmpty(const int x, const int y) {
 bool CTetrisBoard::isEmpty(const int y) {
     if(y < 0 || y >= m_height) return false;
     for(int i=0; i<m_width; i++)
-        if(m_matrix[y][i] > 0)
+        if(m_matrix[y][i] != EMPTY)
             return false; // vähintään yksi ruutu ei ole tyhjä
     return true;
 }
@@ -141,7 +141,7 @@ bool CTetrisBoard::isEmpty(const int y) {
  */
 bool CTetrisBoard::isFull(const int y){
     for(int i=0; i<m_width; i++)
-        if(m_matrix[y][i] < 1)
+        if(m_matrix[y][i] == EMPTY)
             return false; // vähintään yksi ruutu on tyhjä
     return true;
 }
@@ -209,7 +209,7 @@ bool CTetrisBoard::removeLine(const int y) {
 
     // alusta uusi rivi matriksiin (ylimmäksi)
     for(int ix=0; ix<m_width; ix++) {
-        m_matrix[m_height-1][ix] = 0;
+        m_matrix[m_height-1][ix] = EMPTY;
     }
     return true;
 }

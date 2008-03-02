@@ -4,14 +4,16 @@
  * TetrisBoard.h
  *
  * $Id$
+ * $Revision$
  *
  * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
  */
 
+#include "CellType.h"
+
 class CTetrisBoard {
 
   public:
-//    CTetrisBoard(void);
 
     CTetrisBoard(const int cols, const int rows);
 
@@ -37,8 +39,8 @@ class CTetrisBoard {
     }
 
     /** */
-    int getSlot(const int x, const int y);
-    int setSlot(const int x, const int y, const int content); // returns old content
+    CELL_TYPE getSlot(const int x, const int y);
+    CELL_TYPE setSlot(const int x, const int y, const CELL_TYPE content); // returns old content
     bool isEmpty(void); // koko lauta
     bool isEmpty(const int x, const int y); // haluttu ruutu, offgrid = false, paitsi ylhäällä
     bool isEmpty(const int y); // rivi
@@ -54,8 +56,7 @@ class CTetrisBoard {
   private:
     int m_width;
     int m_height;
-    int **m_matrix;
-//    int m_matrix[][]; // taulukko pelilaudasta, joko tyhjä (0 tai negat.), tai palikan tyypin vakion int-arvo
+    CELL_TYPE **m_matrix;
     int m_removedLines; // laskuri räjäytetyistä riveistä
     int m_removedLinesLast; // viimeksi räjähtäneet rivit
 //    BoardChangeListener changeListeners[];
