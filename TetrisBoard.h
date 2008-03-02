@@ -9,9 +9,6 @@
  * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
  */
 
-#define __X__ 16
-#define __Y__ 20
-
 class CTetrisBoard {
 
   public:
