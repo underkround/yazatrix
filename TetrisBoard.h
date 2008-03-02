@@ -40,7 +40,7 @@ class CTetrisBoard {
     int matrix[__Y__][__X__]; // taulukko pelilaudasta, joko tyhjä (0 tai negat.), tai palikan tyypin vakion int-arvo
     int removedLines; // laskuri räjäytetyistä riveistä
     int removedLinesLast; // viimeksi räjähtäneet rivit
-    BoardChangeListener[] changeListeners;
+    BoardChangeListener changeListeners[];
 
     bool removeLine(int y); // siirrä yläpuolen rivejä yhdellä
 }
