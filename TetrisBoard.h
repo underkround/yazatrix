@@ -12,16 +12,32 @@
 class CTetrisBoard {
 
   public:
-    TetrisBoard(void);
+//    CTetrisBoard(void);
 
-    TetrisBoard(const int cols, const int rows);
+    CTetrisBoard(const int cols, const int rows);
 
-    ~TetrisBoard(void);
+    ~CTetrisBoard();
 
-    const int* getWidth(void);
-    const int* getHeight(void);
-    int getRemovedLines(void);
-    int getRemovedLinesLast(void);
+    /** Inline-getterit */
+
+    inline int getWidth(void) {
+        return m_width;
+    }
+
+    inline int getHeight(void) {
+        return m_height;
+    }
+
+    inline int getRemovedLines(void) {
+        return m_removedLines;
+    }
+
+    /** @return  viimeisellä siivouksella räjähtäneiden rivien määrä */
+    inline int getRemovedLinesLast(void) {
+        return m_removedLinesLast;
+    }
+
+    /** */
     int getSlot(const int x, const int y);
     int setSlot(const int x, const int y, const int content); // returns old content
     bool isEmpty(void); // koko lauta
@@ -29,19 +45,23 @@ class CTetrisBoard {
     bool isEmpty(const int y); // rivi
     bool isFull(const int y); // rivi
     void reset(void);
-    int clearFullLines(void);
-    void notifyChange(void);
-    bool registerBoardChangeListener(BoardChangeListener* bcl);
-    bool unregisterBoardChangeListener(BoardChangeListener* bcl);
+//    int[][] getMatrix(void); // palauttaa koko matriksin
+    int clearFullLines(void); // käytetään joka tickillä
+//    bool registerBoardChangeListener(BoardChangeListener* bcl);
+//    bool unregisterBoardChangeListener(BoardChangeListener* bcl);
+
+
 
   private:
-    int width;
-    int height;
-    int matrix[][]; // taulukko pelilaudasta, joko tyhjä (0 tai negat.), tai palikan tyypin vakion int-arvo
-    int removedLines; // laskuri räjäytetyistä riveistä
-    int removedLinesLast; // viimeksi räjähtäneet rivit
-    BoardChangeListener changeListeners[];
+    int m_width;
+    int m_height;
+    int **m_matrix;
+//    int m_matrix[][]; // taulukko pelilaudasta, joko tyhjä (0 tai negat.), tai palikan tyypin vakion int-arvo
+    int m_removedLines; // laskuri räjäytetyistä riveistä
+    int m_removedLinesLast; // viimeksi räjähtäneet rivit
+//    BoardChangeListener changeListeners[];
 
+    void notifyChange(void);
     bool removeLine(int y); // siirrä yläpuolen rivejä yhdellä
 }
 

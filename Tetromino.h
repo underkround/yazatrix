@@ -2,7 +2,6 @@
 #define __TETRISBOARD_H__
 
 #include "TetrisBoard.h"
-#include "ESlotType.h"
 
 /**
  * Tetromino
