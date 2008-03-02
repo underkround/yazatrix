@@ -14,11 +14,13 @@
  */
 TetrisBoard::TetrisBoard(void) {
     // TODO: miten kutsun toista rakentajaa default-arvoilla?
+    // TetrisBoard::TetrisBoard(10, 16);
 }
 TetrisBoard::TetrisBoard(const int cols, const int rows) {
     width = cols;
     height = rows;
     // luo vaaditun kokoinen matrix-taulukko
+    // TODO: lolapua miten alustan taulukon
     // alusta matrix nollilla
     reset();
 }
@@ -26,7 +28,9 @@ TetrisBoard::TetrisBoard(const int cols, const int rows) {
 /**
  */
 TetrisBoard::~TetrisBoard(void) {
-
+    // pitääkö matrix delliä? alustettiinko se new .. ?
+    // listenereitä ei pidä tuhota..
+    // muut onkin sitten kai primitiivejä
 }
 
 /**
