@@ -2,7 +2,7 @@
  * TetrisBoard.cpp
  *
  * $Id$
- * $Revision: $
+ * $Revision$
  * $HeadURL$
  *
  * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
