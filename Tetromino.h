@@ -50,8 +50,8 @@ public:
 
     ~CTetromino(void);
 
+    // ================= METODIT =============================================
 
-    // TODO: metodit
 
 
 // ===========================================================================
@@ -114,24 +114,30 @@ private:
      */
     bool canMoveTo(const int x, const int y, const int rotation);
 
-//    bool getOrientationX... TODO!!
-
     /**
      * @return  nykyinen rotaatio (arvo väliltä 0..3)
      */
-    int getRotation();
+    inline int getRotation() {
+        return m_rotation;
+    }
 
     /**
      * @return  nykyisestä seuraava rotaatio (pyöräytettäessä myötäpäivään)
      *          arvo väliltä 0..3
      */
-    int getNextRotation();
+    inline int getNextRotation() {
+        return (m_rotation+1 > m_rotationMax) ? 0
+            : m_rotation+1;
+    }
 
     /**
      * @return  nykyisestä edellinen rotaatio (pyöräytettäessä vastapäivään)
      *          arvo väliltä 0..3
      */
-    int getPreviousRotation();
+    inline int getPreviousRotation() {
+        return (m_rotation-1 < 0) ? m_rotationMax
+            : m_rotation-1;
+    }
 
     /**
      * "Polttaa" palikan pelilaudan kenttään, eli vaihtaa omat ruutunsa
