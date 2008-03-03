@@ -192,24 +192,13 @@ metodeissa:  - = private,  + = public
  *
  * Palikka.. ei oteta viel‰ kantaa miten muoto s‰ilytet‰‰n
  */
-+	final int TETROMINO_S
-+	final int TETROMINO_Z \\ palikkatyypit --> tietotyyppi? oma luokka? taulukko?
-+	final int TETROMINO_O \\ n‰ill‰ t‰ytet‰‰n pelilaudan matrix
-+	...
-+	final int EMPTY ??
 -	TetrisBoard board
 -	int x
 -	int y
 -	int orientation
 
--	bool canMoveTo(int x, int y, int orientation)
-/*	//int getRelative(int x, int y, int orientation) */
--	int getOrientationX(.. // k‰ytet‰‰n sis‰isi‰ apufunkkareita rotaatiossa,
--	int getOrientationY(.. // tai sitten tehd‰‰n rotaatio yhess‰ funkkarissa
 +	int getRotation() // palauttaa nykyisen rotaation
-+	bool setRotation(int rotation) // asettaa rotaation r
--	int getNextRotation()     // k‰ytet‰‰n kun testataan ja asetetaan seuraavaa rotaatiota,
--	int getPreviousRotation() // pyˆr‰ytt‰‰ rotaation viimeisen j‰lkeen ensimm‰iseen jne
+-	bool setRotation(int rotation) // asettaa rotaation r
 +	bool rotateLeft() // sis‰isesti: testaa canMoveTo(x,y,getNextRotation()) ja true:lla vaihtaa: setRotation(getNextRotation())
 +	bool isAttached() // onko palikka jossain laudassa
 +	bool attach(TetrisBoard board) // detachaa eka vanhasta, return false jos collision uuteen spawnattaessa
@@ -222,10 +211,17 @@ metodeissa:  - = private,  + = public
 +	bool moveUp(int n)   // palikoita p‰‰llek‰in (esim jos seuraava palikka on ylimp‰n‰ laudalla)
 +	bool drop() // tiputa niin paljon ett‰ seuraava olisi collision -> mahdollisuus liikuttaa viel‰ yhen tickin
 +	bool contains(int x, int y) // sis‰lt‰‰kˆ nappula ko. koordinaatin vai onko se tyhj‰
--	void insert() // tai paint tai.. ? piirt‰‰ itsens‰ lautaan asettamalla koordinaattinsa ruudut oman typen int:ksi
--	void remove() // tai clear tai.. ? poistaa itsens‰ laudalta nollaamalla koordinaattinsa ruudut
 +	void hasLanded() // seuraava droppi olisi collision, tai palikka ei ole miss‰‰n laudassa (detached)
 +	void fullyVisible() // koko nappula on pelilaudalla (spawnatessa yl‰reuna on yli laudan)
+
+-	void insertToBoard() // tai paint tai.. ? piirt‰‰ itsens‰ lautaan asettamalla koordinaattinsa ruudut oman typen int:ksi
+-	void removeFromBoard() // tai clear tai.. ? poistaa itsens‰ laudalta nollaamalla koordinaattinsa ruudut
+-	int getNextRotation()     // k‰ytet‰‰n kun testataan ja asetetaan seuraavaa rotaatiota,
+-	int getPreviousRotation() // pyˆr‰ytt‰‰ rotaation viimeisen j‰lkeen ensimm‰iseen jne
+-	bool canMoveTo(int x, int y, int orientation)
+/*	//int getRelative(int x, int y, int orientation) */
+-	int getOrientationX(.. // k‰ytet‰‰n sis‰isi‰ apufunkkareita rotaatiossa,
+-	int getOrientationY(.. // tai sitten tehd‰‰n rotaatio yhess‰ funkkarissa
 
 
 ---

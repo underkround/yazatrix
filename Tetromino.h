@@ -52,7 +52,65 @@ public:
 
     // ================= METODIT =============================================
 
+    /** Palauttaa nykyisen rotaation */
+    int getRotation();
 
+    /** K‰‰nt‰‰ palikkaa myˆt‰p‰iv‰‰n */
+    bool rotateRight();
+
+    /** K‰‰nt‰‰ palikkaa vastap‰iv‰‰n */
+    bool rotateRight();
+
+    /** @return true jos palikka on kiinnitetty johonkin boardiin */
+    bool isAttached();
+
+    /**
+     * Kiinnitt‰‰ palikan lautaan jos ei tule collisionia (jolloin palauttaa
+     * false).
+     * Kiinnittyminen tapahtuu vaakasuunnassa keskelle, pystysuunnassa
+     * palikan pivot-point/origo tulee kent‰n ylimp‰‰n riviin. Jos palikka
+     * on ennest‰‰n toisessa laudassa, tehd‰‰n siihen ensin clean
+     * detach.
+     */
+    bool attach(TetrisBoard board);
+
+    /**
+     * Kiinnittyy boardiin jos ei tule collisionia (collisionissa liitosta ei
+     * tapahdu ja palautetaan false)
+     * Kiinnittyminen tapahtuu vaakasuunnassa keskelle, pystysuunnassa laudan
+     * ylimp‰‰n koordinaattiin + offset
+     */
+    bool attach(TetrisBoard board, int offsetY);
+
+    /** Detachaa nykyisest‰ boardista, jos bool = true, tyhj‰‰ sijaintinsa laudassa */
+    bool detach(bool clear);
+
+    bool moveLeft();
+
+    bool moveRight();
+
+    bool moveUp(int n);
+
+    bool moveDown();
+
+    bool moveDown(int n);
+
+    bool drop();
+
+    bool contains(const int x, const int y);
+
+    /**
+     * Onko palikka laskeutunut:
+     * a) seuraava tiputus olisi collision
+     * b) palikka ei ole miss‰‰n boardissa
+     */
+    void hasLanded();
+
+    /**
+     * Palikka on boardissa ja jokainen sen ruutu on laudan sis‰puolella
+     * (palikka voi aluksi olla yl‰puolelta boardin ulkopuolella)
+     */
+    bool isFullyVisible();
 
 // ===========================================================================
 // PRIVATE
@@ -106,6 +164,12 @@ private:
     // ================= METODIT =============================================
 
     /**
+     * Asettaa rotaaion r jos mahdollista
+     * @return  asettamisen onnistuminen
+     */
+    bool setRotation(int r);
+
+    /**
      * Testaa voiko palikka olla laudalla annetuissa koordinaateissa,
      * annetulla orientaatiolla.
      *
@@ -138,6 +202,12 @@ private:
         return (m_rotation-1 < 0) ? m_rotationMax
             : m_rotation-1;
     }
+
+    /**
+     * Palauttaa halutun rotaation relatiivisen koordinaatin
+     */
+    int getRelativeX(const int x, const int rotation);
+    int getRelativeY(const int y, const int rotation);
 
     /**
      * "Polttaa" palikan pelilaudan kentt‰‰n, eli vaihtaa omat ruutunsa
