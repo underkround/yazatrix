@@ -31,7 +31,6 @@ CTetrisBoard::CTetrisBoard(const int cols, const int rows) {
     m_matrix = new CELL_TYPE*[rows];
     for(int iy=0; iy<rows; iy++)
         m_matrix[iy] = new CELL_TYPE[cols];
-//    int m_mat
     // alusta matrix nollilla
     reset();
 }
