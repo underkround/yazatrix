@@ -11,10 +11,10 @@
  * lisää build asetuksien linker asetuksiiin link libraries listaan libconio.a
  */
 
-class Graphics {
+class CGraphics {
   public:
-  Graphics(void);
-  ~Graphics(void);
+  CGraphics(void);
+  ~CGraphics(void);
 
   //peruspiirtotyökalut
   void drawChar(const int x, const int y, const char c);

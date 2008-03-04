@@ -18,7 +18,7 @@ using namespace std;
 /**
  * Piirtotilan initialisoinnit
  */
-Graphics::Graphics(void) {
+CGraphics::CGraphics(void) {
   //piilotetaan kursori (asettamalla sen korkeudeksi 0%)
   _setcursortype(0);
   //tyhjennetään ruutu
@@ -28,39 +28,39 @@ Graphics::Graphics(void) {
 /**
  * Piirtotilan sulkeminen
  */
-Graphics::~Graphics(void) {
+CGraphics::~CGraphics(void) {
   //varmistetaan että käyttäjä palaa konsoliin perusväreissä
   //resetColors();
   normvideo();
   //clrscr();
 }
 
-void Graphics::drawChar(const int x, const int y, const char c) {
+void CGraphics::drawChar(const int x, const int y, const char c) {
   putchxy(x, y, c);
 }
 
-void Graphics::drawChar(const int x, const int y, const int fg, const int bg, const char c) {
+void CGraphics::drawChar(const int x, const int y, const int fg, const int bg, const char c) {
   setColors(fg, bg);
   putchxy(x, y, c);
 }
 
-void Graphics::drawSquare(const int x, const int y, const int color) {
+void CGraphics::drawSquare(const int x, const int y, const int color) {
   setColors(0, color);
   putchxy(x, y, ' '); //'█'
 }
 
-void Graphics::drawString(const int x, const int y, const char* str) {
+void CGraphics::drawString(const int x, const int y, const char* str) {
   moveCursor(y, x);
   cout << str;
 }
 
-void Graphics::drawString(const int x, const int y, const int fg, const int bg, const char* str) {
+void CGraphics::drawString(const int x, const int y, const int fg, const int bg, const char* str) {
   moveCursor(y, x);
   setColors(fg, bg);
   cout << str;
 }
 
-void Graphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle) {
+void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle) {
   char n,e,w,s,se,nw,ne,sw;
   switch(borderstyle) {
     case 0:
@@ -106,15 +106,15 @@ void Graphics::drawBox(const int from_x, const int from_y, const int to_x, const
   drawChar(to_x, to_y, se);
 }
 
-int Graphics::getX() {
+int CGraphics::getX() {
   return wherex();
 }
 
-int Graphics::getY() {
+int CGraphics::getY() {
   return wherey();
 }
 
-int Graphics::getHeight() {
+int CGraphics::getHeight() {
   text_info *x = new text_info;
   gettextinfo(x);
   int out = 0;
@@ -123,7 +123,7 @@ int Graphics::getHeight() {
   return out;
 }
 
-int Graphics::getWidth() {
+int CGraphics::getWidth() {
   text_info *x = new text_info;
   gettextinfo(x);
   int out = 0;
@@ -133,24 +133,24 @@ int Graphics::getWidth() {
 }
 
 //*** private ***
-void Graphics::moveCursor(const int x, const int y) {
+void CGraphics::moveCursor(const int x, const int y) {
   gotoxy(y, x);
 }
 
-void Graphics::resetColors(void) {
+void CGraphics::resetColors(void) {
   textcolor(DEFAULT_FOREGROUND_COLOR);
   textbackground(DEFAULT_BACKGROUND_COLOR);
 }
 
-void Graphics::setForegroundColor(const int fg) {
+void CGraphics::setForegroundColor(const int fg) {
   textcolor(fg);
 }
 
-void Graphics::setBackgroundColor(const int bg) {
+void CGraphics::setBackgroundColor(const int bg) {
   textbackground(bg);
 }
 
-void Graphics::setColors(const int fg, const int bg) {
+void CGraphics::setColors(const int fg, const int bg) {
   textcolor(fg);
   textbackground(bg);
 }

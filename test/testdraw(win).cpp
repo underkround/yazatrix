@@ -8,7 +8,7 @@
  #include <string>
 
 int main() {
-  Graphics *konsoli = new Graphics();
+  CGraphics *konsoli = new CGraphics();
   konsoli->drawBox(2,2,12,12,0);
   konsoli->drawChar(10,4, 'x');
   konsoli->drawChar(4,10, 'y');
