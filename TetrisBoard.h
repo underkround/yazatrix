@@ -40,29 +40,43 @@ class CTetrisBoard {
 
     /** */
     CELL_TYPE getSlot(const int x, const int y);
+
     CELL_TYPE setSlot(const int x, const int y, const CELL_TYPE content); // returns old content
+
     bool isEmpty(void); // koko lauta
+
     bool isEmpty(const int x, const int y); // haluttu ruutu, offgrid = false, paitsi ylhäällä
+
     bool isEmpty(const int y); // rivi
+
     bool isFull(const int y); // rivi
+
     void reset(void);
+
 //    int[][] getMatrix(void); // palauttaa koko matriksin
+
     int clearFullLines(void); // käytetään joka tickillä
+
 //    bool registerBoardChangeListener(BoardChangeListener* bcl);
+
 //    bool unregisterBoardChangeListener(BoardChangeListener* bcl);
 
-
+    bool removeLine(int y); // siirrä yläpuolen rivejä yhdellä
 
   private:
+
     int m_width;
     int m_height;
-    CELL_TYPE **m_matrix;
-    int m_removedLines; // laskuri räjäytetyistä riveistä
+    CELL_TYPE **m_matrix; // kentän sisältö CELL_TYPE vakioina
+    int m_removedLines; // räjähtäneet rivit yhteensä
     int m_removedLinesLast; // viimeksi räjähtäneet rivit
+
+    void resetLine(const int y); // asettaa rivin alkiot EMPTY:n mukaiseksi
+
 //    BoardChangeListener changeListeners[];
 
     void notifyChange(void);
-    bool removeLine(int y); // siirrä yläpuolen rivejä yhdellä
+
 };
 
 #endif //__TETRISBOARD_H__

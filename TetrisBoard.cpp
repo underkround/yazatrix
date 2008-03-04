@@ -39,7 +39,7 @@ CTetrisBoard::CTetrisBoard(const int cols, const int rows) {
 CTetrisBoard::~CTetrisBoard() {
     // tuhotaan matrix
     for(int iy=0; iy<m_height; iy++)
-        delete []m_matrix[iy];
+        delete [] m_matrix[iy];
     delete [] m_matrix;
     // listenereitä ei pidä tuhota..
     // muut onkin sitten kai primitiivejä
@@ -55,12 +55,18 @@ void CTetrisBoard::reset(void) {
     m_removedLinesLast = 0;
     // foreach matrix.. = 0
     for(int iy=0; iy<m_height; iy++) {
-        for(int ix=0; ix<m_width; ix++) {
+        /*for(int ix=0; ix<m_width; ix++) {
             m_matrix[iy][ix] = EMPTY;
-        }
+        }*/
+        resetLine(iy);
     }
 }
 
+void CTetrisBoard::resetLine(const int y) {
+    for(int ix=0; ix<m_width; ix++) {
+        m_matrix[y][ix] = EMPTY;
+    }
+}
 
 /**
  * @return  matrixin solun {x,y} arvon tai OFFGRID jos menee yli
@@ -163,8 +169,34 @@ int CTetrisBoard::clearFullLines(void) {
     if(m_removedLinesLast > 0)
         notifyChange();
 
-        return m_removedLines; //??
+    return m_removedLines; //??
 }
+
+
+/**
+ * Poistaa kentän rivin, ja siirtää ylempiä rivejä yhdellä alaspäin.
+ * @return  false, jos kentässä ei ole riviä y (yli rajojen)
+ */
+bool CTetrisBoard::removeLine(const int y) {
+    if(y >= m_height || y < 0)
+        return false;
+    // tuhotaan rivi
+    delete [] m_matrix[y];
+    // aseta ylempien rivien indeksit yhdellä alaspäin
+    for(int iy=y+1; iy<m_height; iy++) {
+        // TODO, voiko taulukkoa kopioida valmiilla funkkarilla? matrix[iy-1] = matrix[iy]
+        m_matrix[iy-1] = m_matrix[iy];
+    }
+    // luodaan uusi rivi päällimmäiseksi
+    m_matrix[m_height-1] = new CELL_TYPE[m_width];
+    // alusta uusi rivi matriksiin (ylimmäiseksi)
+    resetLine(m_height-1);
+    m_removedLines++;
+    return true;
+}
+
+
+// ==================== METODIT LISTENEREILLE ====================
 
 
 /**
@@ -193,24 +225,3 @@ void CTetrisBoard::notifyChange(void) {
 //bool CTetrisBoard::unregisterBoardChangeListener(BoardChangeListener* bcl) {
     // TODO
 //}
-
-
-/**
- * Poistaa kentän rivin, ja siirtää ylempiä rivejä yhdellä alaspäin.
- * @return  false, jos kentässä ei ole riviä y (yli rajojen)
- */
-bool CTetrisBoard::removeLine(const int y) {
-    if(y >= m_height || y < 0)
-        return false;
-
-    // aseta ylempien rivien indeksit yhdellä alaspäin
-    for(int iy=y+1; iy<m_height; iy++) {
-        // TODO, voiko taulukkoa kopioida valmiilla funkkarilla? matrix[iy-1] = matrix[iy]
-    }
-
-    // alusta uusi rivi matriksiin (ylimmäksi)
-    for(int ix=0; ix<m_width; ix++) {
-        m_matrix[m_height-1][ix] = EMPTY;
-    }
-    return true;
-}
