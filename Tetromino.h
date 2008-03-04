@@ -1,8 +1,6 @@
 #ifndef __TETRISBOARD_H__
 #define __TETRISBOARD_H__
 
-#include "TetrisBoard.h"
-
 /**
  * Tetromino
  *
@@ -39,6 +37,9 @@
  *
  */
 
+#include "CellType.h"
+#include "TetrisBoard.h"
+
 class CTetromino {
 
 public:
@@ -46,43 +47,39 @@ public:
     /**
      * Konstruktori, jossa määritetään palikan muoto, sekä mitä se maalaa.
      */
-    CTetromino(int cellCoordsX[], int cellCoordsY[], int maxRotation, CELL_TYPE type);
+    CTetromino(int cellCoordsX[4], int cellCoordsY[4], int maxRotation, CELL_TYPE type);
 
     ~CTetromino(void);
 
     // ================= METODIT =============================================
 
-    int getRotation();
+    bool rotateRight(void);
 
-    bool rotateRight();
+    bool isAttached(void);
 
-    bool rotateRight();
+    bool attach(CTetrisBoard *targetBoard);
 
-    bool isAttached();
-
-    bool attach(TetrisBoard board);
-
-    bool attach(TetrisBoard board, int offsetY);
+    bool attach(CTetrisBoard *targetBoard, int offsetY);
 
     bool detach(bool clear);
 
-    bool moveLeft();
+    bool moveLeft(void);
 
-    bool moveRight();
+    bool moveRight(void);
 
     bool moveUp(int n);
 
-    bool moveDown();
+    bool moveDown(void);
 
     bool moveDown(int n);
 
-    bool drop();
+    bool drop(void);
 
     bool contains(const int x, const int y);
 
-    void hasLanded();
+    void hasLanded(void);
 
-    bool isFullyVisible();
+    bool isFullyVisible(void);
 
 // ===========================================================================
 // PRIVATE
@@ -94,13 +91,13 @@ private:
      * Kenttä (TetrisBoard), johon tämä palikka on kiinnittyneenä.
      * NULL, jos palikka ei ole kiinni missään kentässä.
      */
-    TetrisBoard board;
+//    CTetrisBoard *board;
 
     /**
      * palikan oma tyyppi, jota se piirtää pelikenttään
      * omiin koordinaatteihinsa
      */
-    const CELL_TYPE m_type;
+    CELL_TYPE m_type;
 
     /**
      * Palikan koordinaatit nykyisessä kentässään.
@@ -117,8 +114,8 @@ private:
      * Tetromino koostuu neljästä solusta/ruudusta, eli tetrominolla
      * tauluissa on aina neljä koordinaattiparia.
      */
-    int m_cellCoordsX[4];
-    int m_cellCoordsY[4];
+    int *m_cellCoordsX[4];
+    int *m_cellCoordsY[4];
 
     /**
      * Palikan nykyinen orientaatio
@@ -131,7 +128,7 @@ private:
      * Palikan suurin sallittu rotaatio (0 -> m_rotationMax)
      * Asetetaan constructorissa.
      */
-    const int m_rotationMax;
+    int m_rotationMax;
 
     // ================= METODIT =============================================
 
@@ -151,8 +148,7 @@ private:
      *          arvo väliltä 0..3
      */
     inline int getNextRotation() {
-        return (m_rotation+1 > m_rotationMax) ? 0
-            : m_rotation+1;
+        return (m_rotation+1 > m_rotationMax) ? 0 : m_rotation+1;
     }
 
     /**
@@ -160,8 +156,7 @@ private:
      *          arvo väliltä 0..3
      */
     inline int getPreviousRotation() {
-        return (m_rotation-1 < 0) ? m_rotationMax
-            : m_rotation-1;
+        return (m_rotation-1 < 0) ? m_rotationMax : m_rotation-1;
     }
 
     /**

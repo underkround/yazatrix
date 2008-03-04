@@ -12,6 +12,8 @@
 #include "CellType.h"
 #include "BoardChangeListener.h"
 
+using namespace std;
+
 class CTetrisBoard {
 
   public:
@@ -58,9 +60,9 @@ class CTetrisBoard {
 
     int clearFullLines(void); // käytetään joka tickillä
 
-    bool registerBoardChangeListener(BoardChangeListener* bcl);
+    bool registerBoardChangeListener(VBoardChangeListener* bcl);
 
-    bool unregisterBoardChangeListener(BoardChangeListener* bcl);
+    bool unregisterBoardChangeListener(VBoardChangeListener* bcl);
 
     bool removeLine(int y); // siirrä yläpuolen rivejä yhdellä
 
@@ -74,7 +76,10 @@ class CTetrisBoard {
 
     void resetLine(const int y); // asettaa rivin alkiot EMPTY:n mukaiseksi
 
-    BoardChangeListener changeListeners[];
+//    vector<VBoard..
+//    VBoardChangeListener changeListeners[4];
+//    const int maxListeners = 4;
+//    int numListeners;
 
     void notifyChange(void);
 

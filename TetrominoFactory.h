@@ -26,25 +26,17 @@ public:
     ~CTetrominoFactory(void);
 
     // palauttaa halutun palikan
-    Tetromino create(CELL_TYPE);
+    CTetromino create(CELL_TYPE t);
 
     // valitsee logiikalla seuraavan palikan ja palauttaa sen:
     // return create(TETROMINO);
 
-    Tetromino createRandom(void);
+    CTetromino createRandom(void);
 
 private:
 
     // Factory osaa luoda nämä
-    const CELL_TYPES[] KNOWN_TYPES = {
-        BLOCK_Z,
-        BLOCK_S,
-        BLOCK_I,
-        BLOCK_O,
-        BLOCK_L,
-        BLOCK_J,
-        BLOCK_T,
-    };
+    const CELL_TYPE SUPPORTED[];
 
     // count luoduista palikoista
     int tetrominoCount = 0;

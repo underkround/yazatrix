@@ -10,7 +10,7 @@
 /**
  * Luo halutun tyyppisen palikan
  */
-CTetrominoeFactory::create(CELL_TYPE type) {
+CTetrominoFactory::create(CELL_TYPE type) {
     switch(type) {
         //inits
         case BLOCK_Z:
@@ -18,3 +18,13 @@ CTetrominoeFactory::create(CELL_TYPE type) {
         default: return null;
     }
 }
+
+CTetrominoFactory::SUPPORTED[] = {
+        BLOCK_Z,
+        BLOCK_S,
+        BLOCK_I,
+        BLOCK_O,
+        BLOCK_L,
+        BLOCK_J,
+        BLOCK_T
+    };
