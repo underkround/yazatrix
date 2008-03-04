@@ -35,31 +35,91 @@ CGraphics::~CGraphics(void) {
   //clrscr();
 }
 
+/**
+ * drawChar
+ *
+ * Piirtää yhden merkin määrättyyn kohtaan ruudulle
+ *
+ * @param x   x-koordinaatti
+ * @param y   y-koordinaatti
+ * @param c   merkki
+ */
 void CGraphics::drawChar(const int x, const int y, const char c) {
   putchxy(x, y, c);
 }
 
+/**
+ * drawChar
+ *
+ * Piirtää yhden merkin määrättyyn kohtaan ruudulle halutuilla väreillä
+ *
+ * @param x     x-koordinaatti
+ * @param y     y-koordinaatti
+ * @param fg    tekstin väri
+ * @param bg    taustan väri
+ * @param c     merkki
+ */
 void CGraphics::drawChar(const int x, const int y, const int fg, const int bg, const char c) {
   setColors(fg, bg);
   putchxy(x, y, c);
 }
 
+/**
+ * drawSquare
+ *
+ * värittää yhden ruudun halutulla värillä
+ *
+ * @param x       x-koordinaatti
+ * @param y       y-koordinaatti
+ * @param color   väri
+ */
 void CGraphics::drawSquare(const int x, const int y, const int color) {
   setColors(0, color);
   putchxy(x, y, ' '); //'█'
 }
 
+/**
+ * drawString
+ *
+ * Piirtää merkkijonon määrättyyn kohtaan ruudulle
+ *
+ * @param x     x-koordinaatti
+ * @param y     y-koordinaatti
+ * @param str   merkkijono
+ */
 void CGraphics::drawString(const int x, const int y, const char* str) {
   moveCursor(y, x);
   cout << str;
 }
 
+/**
+ * drawString
+ *
+ * Piirtää merkkijonon määrättyyn kohtaan ruudulle halutulla värillä
+ *
+ * @param x     x-koordinaatti
+ * @param y     y-koordinaatti
+ * @param fg    tekstin väri
+ * @param bg    taustan väri
+ * @param str   merkkijono
+ */
 void CGraphics::drawString(const int x, const int y, const int fg, const int bg, const char* str) {
   moveCursor(y, x);
   setColors(fg, bg);
   cout << str;
 }
 
+/**
+ * drawBox
+ *
+ * Piirtää ruudulle laatikon
+ *
+ * @param from_x        vasemman yläkulman x-koordinaatti
+ * @param from_y        vasemman yläkulman y-koordinaatti
+ * @param to_x          oikean alakulman x-koordinaatti
+ * @param to_y          oikean alakulman y-koordinaatti
+ * @param borderstyle   reunuksen tyyli
+ */
 void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle) {
   char n,e,w,s,se,nw,ne,sw;
   switch(borderstyle) {
@@ -106,15 +166,27 @@ void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, cons
   drawChar(to_x, to_y, se);
 }
 
+/**
+ * getX
+ *
+ * @return kursorin sijainti ruudulla x-akselin suhteen
+ */
 int CGraphics::getX() {
   return wherex();
 }
 
+/**
+ * getY
+ *
+ * @return kursorin sijainti ruudulla y-akselin suhteen
+ */
 int CGraphics::getY() {
   return wherey();
 }
 
 /**
+ * getHeight
+ *
  * @return käytössä olevan ruudun korkeus
  */
 int CGraphics::getHeight() {
@@ -127,6 +199,8 @@ int CGraphics::getHeight() {
 }
 
 /**
+ * getWidth
+ *
  * @return käytössä olevan ruudun leveys
  */
 int CGraphics::getWidth() {
@@ -139,23 +213,58 @@ int CGraphics::getWidth() {
 }
 
 //*** private ***
+/**
+ * moveCursor
+ *
+ * Siirtää kursoria kohtaan (x, y)
+ *
+ * @param x     x-koordinaatti
+ * @param y     y-koordinaatti
+ */
 void CGraphics::moveCursor(const int x, const int y) {
   gotoxy(y, x);
 }
 
+/**
+ * resetColors
+ *
+ * @deprecated tämä olikin ihan turha, käytä => conio.h::normvideo();
+ */
 void CGraphics::resetColors(void) {
   textcolor(DEFAULT_FOREGROUND_COLOR);
   textbackground(DEFAULT_BACKGROUND_COLOR);
 }
 
+/**
+ * setForegroundColor
+ *
+ * Asettaa tekstin piirtovärin
+ *
+ * @param fg    väri
+ */
 void CGraphics::setForegroundColor(const int fg) {
   textcolor(fg);
 }
 
+/**
+ * setBackgroundColor
+ *
+ * Asettaa taustan piirtovärin
+ *
+ * @param bg    väri
+ */
 void CGraphics::setBackgroundColor(const int bg) {
   textbackground(bg);
 }
 
+/**
+ * setForegroundColor
+ *
+ * Asettaa sekä tekstin että taustan piirtovärit
+ *
+ * @param fg    tekstin väri
+ * @param bg    taustan väri
+ */
 void CGraphics::setColors(const int fg, const int bg) {
   textcolor(fg);
   textbackground(bg);
