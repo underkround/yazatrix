@@ -12,6 +12,10 @@ int main() {
   konsoli->drawBox(2,2,12,12,0);
   konsoli->drawChar(10,4, 'x');
   konsoli->drawChar(4,10, 'y');
+  konsoli->drawSquare(5,4,4);
+  konsoli->drawSquare(5,5,4);
+  konsoli->drawSquare(6,5,4);
+  konsoli->drawSquare(6,6,4);
   konsoli->drawString(2, 14, 4, 0, "hello jussi <3");
   char ch[2];
   for(int i=0;i<16;i++) {

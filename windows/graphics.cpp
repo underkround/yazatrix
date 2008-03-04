@@ -44,6 +44,11 @@ void Graphics::drawChar(const int x, const int y, const int fg, const int bg, co
   putchxy(x, y, c);
 }
 
+void Graphics::drawSquare(const int x, const int y, const int color) {
+  setColors(0, color);
+  putchxy(x, y, ' '); //'█'
+}
+
 void Graphics::drawString(const int x, const int y, const char* str) {
   moveCursor(y, x);
   cout << str;
