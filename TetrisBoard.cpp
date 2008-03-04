@@ -162,6 +162,8 @@ int CTetrisBoard::clearFullLines(void) {
     }
     if(m_removedLinesLast > 0)
         notifyChange();
+
+        return m_removedLines; //??
 }
 
 
