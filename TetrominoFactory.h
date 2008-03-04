@@ -36,17 +36,17 @@ public:
 private:
 
     // Factory osaa luoda n‰m‰
-    const CELL_TYPE SUPPORTED[];
+    CELL_TYPE SUPPORTED[];
 
     // count luoduista palikoista
-    int tetrominoCount = 0;
+    int tetrominoCount;
 
     // tilastoa luoduista palikoista
     // todo: indeksitaulukko jossa totals[TETROMINOE] = m‰‰r‰
 
     // lastlogin koko, eli montako viimeist‰ palikkaa otetaan huomioon arvonnassa
     // (katso vaikka http://www.tetrisconcept.com/wiki/index.php?title=TGM_randomizer )
-    const int lastlogSize = 10;
+    int lastlogSize;
 
     // tilastoa viimeksi luoduista palikoista
     // TODO: k‰yt‰ jotain palikka-painoarvo -pareja?

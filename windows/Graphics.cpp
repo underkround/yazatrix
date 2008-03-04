@@ -8,7 +8,7 @@
 #define DEFAULT_FOREGROUND_COLOR 7
 #define DEFAULT_BACKGROUND_COLOR 0
 
-#include "../graphics.h"
+#include "../Graphics.h"
 #include <conio2.h>
 #include <iostream>
 

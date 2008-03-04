@@ -16,6 +16,7 @@
 
 #include "BoardChangeListener.h"
 #include "TetrisBoard.h"
+#include "Graphics.h"
 
 class CBoardGraphics : VBoardChangeListener {
 
@@ -27,7 +28,7 @@ class CBoardGraphics : VBoardChangeListener {
      * offsetY = --||--
      *
      */
-    CBoardGraphics(CTetrisBoard *myBoard, Graphics *g, int offsetX, int offsetY);
+    CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int offsetX, int offsetY);
 
     ~CBoardGraphics();
 
@@ -45,7 +46,8 @@ class CBoardGraphics : VBoardChangeListener {
   private:
 
     CTetrisBoard *board; // t‰m‰ ei ole vastuussa boardin tuhoamisesta!
-    Graphics *g; // eik‰ myˆsk‰‰n grafiikan tuhoamisesta!
+    CGraphics *g; // eik‰ myˆsk‰‰n grafiikan tuhoamisesta!
+    bool m_borders;
     int m_x; //
     int m_y; // koordinaatit joista t‰m‰ alkaa piirt‰‰ itse‰‰n
     int m_width;  // montako merkki‰ vied‰‰n tilaa

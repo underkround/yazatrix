@@ -70,9 +70,9 @@ bool CTetromino::isAttached() {
  * on ennest‰‰n toisessa laudassa, tehd‰‰n siihen ensin clean
  * detach.
  */
-bool CTetromino::attach(CTetrisBoard* board) {
-  return false;
-}
+//bool CTetromino::attach(CTetrisBoard* board) {
+//  return false;
+//}
 
 /**
  * Kiinnittyy boardiin jos ei tule collisionia (collisionissa liitosta ei
@@ -80,9 +80,9 @@ bool CTetromino::attach(CTetrisBoard* board) {
  * Kiinnittyminen tapahtuu vaakasuunnassa keskelle, pystysuunnassa laudan
  * ylimp‰‰n koordinaattiin + offset
  */
-bool CTetromino::attach(TetrisBoard* board, int offsetY) {
-  return false;
-}
+//bool CTetromino::attach(TetrisBoard* board, int offsetY) {
+//  return false;
+//}
 
 /** Detachaa nykyisest‰ boardista, jos bool = true, tyhj‰‰ sijaintinsa laudassa */
 bool CTetromino::detach(bool clear) {

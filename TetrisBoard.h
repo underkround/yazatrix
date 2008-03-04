@@ -12,8 +12,6 @@
 #include "CellType.h"
 #include "BoardChangeListener.h"
 
-using namespace std;
-
 class CTetrisBoard {
 
   public:

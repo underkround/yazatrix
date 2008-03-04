@@ -40,6 +40,7 @@
 #include "CellType.h"
 #include "TetrisBoard.h"
 
+
 class CTetromino {
 
 public:
@@ -57,9 +58,9 @@ public:
 
     bool isAttached(void);
 
-    bool attach(CTetrisBoard *targetBoard);
+//    bool attach(CTetrisBoard *targetBoard);
 
-    bool attach(CTetrisBoard *targetBoard, int offsetY);
+//    bool attach(CTetrisBoard *targetBoard, int offsetY);
 
     bool detach(bool clear);
 
