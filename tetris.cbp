@@ -29,11 +29,10 @@
 				</Linker>
 			</Target>
 			<Target title="testboard">
-				<Option output="testboard" prefix_auto="1" extension_auto="1" />
+				<Option output="bin\tests\testboard" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\tests\board" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option use_console_runner="0" />
 			</Target>
 		</Build>
 		<Compiler>
