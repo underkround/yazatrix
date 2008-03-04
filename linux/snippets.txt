@@ -1,0 +1,27 @@
+Q: Is there a getch() (from conio) equivalent on Linux/UNIX?
+
+A: No. But it's easy to emulate:
+
+code:--------------------------------------------------------------------------------
+
+#include <stdio.h>
+#include <termios.h>
+#include <unistd.h>
+
+int mygetch( ) {
+struct termios oldt,
+newt;
+int ch;
+tcgetattr( STDIN_FILENO, &oldt );
+newt = oldt;
+newt.c_lflag &= ~( ICANON | ECHO );
+tcsetattr( STDIN_FILENO, TCSANOW, &newt );
+ch = getchar();
+tcsetattr( STDIN_FILENO, TCSANOW, &oldt );
+return ch;
+}--------------------------------------------------------------------------------
+
+This code sets the terminal into non-canonical mode, thus disabling line buffering, reads a character from stdin and then restores the old terminal status. For more info on what else you can do with termios, see ``man termios''.
+There's also a ``getch()'' function in the curses library, but it is /not/ equivalent to the DOS ``getch()'' and may only be used within real curses applications (ie: it only works in curses ``WINDOW''s)..
+
+Thanks to VvV for writing this.
