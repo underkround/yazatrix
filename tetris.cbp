@@ -14,7 +14,6 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add option="-D#define DEBUG" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -24,7 +23,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add option="-D#define RELEASE" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -36,7 +34,6 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-D#define TEST" />
 				</Compiler>
 			</Target>
 			<Target title="testdraw">
@@ -47,7 +44,6 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add option="-D#define TEST" />
 				</Compiler>
 				<Linker>
 					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio.a" />
