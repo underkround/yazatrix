@@ -28,6 +28,12 @@
 					<Add option="-s" />
 				</Linker>
 			</Target>
+			<Target title="testboard">
+				<Option output="testboard" prefix_auto="1" extension_auto="1" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -36,11 +42,29 @@
 		<Unit filename="CellType.h" />
 		<Unit filename="TetrisBoard.cpp" />
 		<Unit filename="TetrisBoard.h" />
-		<Unit filename="TetrisLogic.h" />
-		<Unit filename="Tetromino.cpp" />
-		<Unit filename="Tetromino.h" />
-		<Unit filename="TetrominoFactory.cpp" />
-		<Unit filename="TetrominoFactory.h" />
+		<Unit filename="TetrisLogic.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="Tetromino.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="Tetromino.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="TetrominoFactory.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="TetrominoFactory.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="test\testboard.cpp">
+			<Option target="testboard" />
+		</Unit>
 		<Unit filename="tetris.plan">
 			<Option target="Debug" />
 		</Unit>
