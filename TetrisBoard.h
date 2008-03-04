@@ -10,6 +10,7 @@
  */
 
 #include "CellType.h"
+#include "BoardChangeListener.h"
 
 class CTetrisBoard {
 
@@ -53,13 +54,13 @@ class CTetrisBoard {
 
     void reset(void);
 
-//    int[][] getMatrix(void); // palauttaa koko matriksin
+    CELL_TYPE** getMatrix(void); // palauttaa koko matriksin
 
     int clearFullLines(void); // käytetään joka tickillä
 
-//    bool registerBoardChangeListener(BoardChangeListener* bcl);
+    bool registerBoardChangeListener(BoardChangeListener* bcl);
 
-//    bool unregisterBoardChangeListener(BoardChangeListener* bcl);
+    bool unregisterBoardChangeListener(BoardChangeListener* bcl);
 
     bool removeLine(int y); // siirrä yläpuolen rivejä yhdellä
 
@@ -73,7 +74,7 @@ class CTetrisBoard {
 
     void resetLine(const int y); // asettaa rivin alkiot EMPTY:n mukaiseksi
 
-//    BoardChangeListener changeListeners[];
+    BoardChangeListener changeListeners[];
 
     void notifyChange(void);
 
