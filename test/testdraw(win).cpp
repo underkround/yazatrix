@@ -17,6 +17,8 @@ int main() {
   konsoli->drawSquare(6,5,4);
   konsoli->drawSquare(6,6,4);
   konsoli->drawString(2, 14, 4, 0, "hello jussi <3");
+  konsoli->setColors(15,0);
+  printf("\nkorkeus: %d\nleveys: %d", konsoli->getHeight(), konsoli->getWidth());
   char ch[2];
   for(int i=0;i<16;i++) {
     for(int j=0;j<16;j++) {
