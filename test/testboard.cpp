@@ -1,5 +1,7 @@
 #include "../TetrisBoard.h"
-#include <iostream.h>
+#include <iostream>
+
+using namespace std;
 
 int main(void) {
     CTetrisBoard *board = new CTetrisBoard(10, 10);
