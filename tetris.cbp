@@ -58,6 +58,8 @@
 			<Option target="Release" />
 			<Option target="testboard" />
 		</Unit>
+		<Unit filename="BoardGraphics.cpp" />
+		<Unit filename="BoardGraphics.h" />
 		<Unit filename="CellType.h">
 			<Option target="Debug" />
 			<Option target="Release" />
