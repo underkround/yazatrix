@@ -50,10 +50,32 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\include" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\lib" />
 				</Compiler>
 				<Linker>
 					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio.a" />
 					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio_unicode.a" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\include" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\lib" />
+				</Linker>
+			</Target>
+			<Target title="vs2008">
+				<Option platforms="Windows;" />
+				<Option output="bin\vs2008\tetris" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\vs2008" />
+				<Option type="1" />
+				<Option compiler="msvc8" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add directory="C:\Program Files\codeblocks\devpaks\include" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\lib" />
+				</Compiler>
+				<Linker>
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio.a" />
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio_unicode.a" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\include" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -65,6 +87,7 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testboard" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="BoardGraphics.cpp" />
 		<Unit filename="BoardGraphics.h" />
@@ -72,55 +95,68 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testboard" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="Graphics.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testdraw" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="TetrisBoard.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testboard" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="TetrisBoard.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testboard" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="TetrisLogic.h">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="Tetromino.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="Tetromino.h">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="TetrominoFactory.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="TetrominoFactory.h">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="test\testboard.cpp">
 			<Option target="testboard" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="test\testdraw(win).cpp">
 			<Option target="testdraw" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="tetris.plan">
 			<Option target="Debug" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="windows\Graphics.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testdraw" />
+			<Option target="vs2008" />
 		</Unit>
 		<Extensions>
 			<code_completion />
