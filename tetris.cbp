@@ -41,7 +41,9 @@
 		<Unit filename="Tetromino.h" />
 		<Unit filename="TetrominoFactory.cpp" />
 		<Unit filename="TetrominoFactory.h" />
-		<Unit filename="tetris.plan" />
+		<Unit filename="tetris.plan">
+			<Option target="Debug" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
