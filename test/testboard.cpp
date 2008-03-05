@@ -1,10 +1,34 @@
 #include "../TetrisBoard.h"
+#include "../TetrominoFactory.h"
+#include "../Tetromino.h"
 #include <iostream>
+
+using namespace std;
+
+#define TEST2
 
 void printBoard(CTetrisBoard *board);
 void fillRow(CTetrisBoard *board, const int y, CELL_TYPE ct);
 
-using namespace std;
+
+// --------------------------------------------------------------------
+#ifdef TEST2
+
+int main(void) {
+    CTetrisBoard *board = new CTetrisBoard(10, 10);
+    CTetrominoFactory *factory = new CTetrominoFactory();
+    CTetromino *block = factory->create(BLOCK_T);
+
+    if(block->attach(board, 5)) cout << "Palikka pitaisi olla nyt laudassa (" << block->getX() << ":" << block->getY() << ")\n";
+    else cout << "Palikka ei halunnut mennä lautaan :(\n";
+
+    printBoard(board);
+    return 0;
+}
+
+#endif // TEST2
+// --------------------------------------------------------------------
+#ifdef TEST1
 
 int main(void) {
     CTetrisBoard *board = new CTetrisBoard(10, 10);
@@ -32,12 +56,13 @@ int main(void) {
     return 0;
 }
 
+#endif // TEST2
+// --------------------------------------------------------------------
 
 void fillRow(CTetrisBoard *board, const int y, CELL_TYPE ct) {
     for(int x=0; x<board->getWidth(); x++)
         board->setSlot(x, y, ct);
 }
-
 
 void printBoard(CTetrisBoard *board) {
     cout << "\n         ";

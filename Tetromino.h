@@ -53,6 +53,11 @@ public:
 
   // ================= METODIT =============================================
 
+    // temps
+    inline int getX() { return m_x; }
+    inline int getY() { return m_y; }
+    // /temps
+
   bool rotateRight(void);
 
   bool rotateLeft(void);

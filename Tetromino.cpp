@@ -41,6 +41,8 @@
  */
 CTetromino::CTetromino(int cellCoordsX[4], int cellCoordsY[4], int maxRotation, CELL_TYPE type) {
   m_type = type;
+  m_x = 0;
+  m_y = 0;
   m_rotationMax = maxRotation;
   m_rotation = 0;
   for(int i=0; i<4; i++) {
@@ -102,6 +104,7 @@ bool CTetromino::attach(CTetrisBoard *targetBoard, int offsetX, int offsetY) {
   int y = targetBoard->getHeight()-1 + offsetY;
   if(canMoveTo(x, y, m_rotation, targetBoard)) {
     board = targetBoard;
+    insertToBoard();
     return true;
   }
   return false;
@@ -163,6 +166,7 @@ bool CTetromino::drop() {
     return false; // ei voitu tiputtaa yht‰‰n
   m_y = y;
   insertToBoard();
+  return true;
 }
 
 

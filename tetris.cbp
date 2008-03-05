@@ -124,21 +124,25 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="vs2008" />
+			<Option target="testboard" />
 		</Unit>
 		<Unit filename="Tetromino.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="vs2008" />
+			<Option target="testboard" />
 		</Unit>
 		<Unit filename="TetrominoFactory.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="vs2008" />
+			<Option target="testboard" />
 		</Unit>
 		<Unit filename="TetrominoFactory.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="vs2008" />
+			<Option target="testboard" />
 		</Unit>
 		<Unit filename="test\testboard.cpp">
 			<Option target="testboard" />
