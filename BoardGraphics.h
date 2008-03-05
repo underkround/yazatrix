@@ -30,7 +30,7 @@ class CBoardGraphics : VBoardChangeListener {
      */
     CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int offsetX, int offsetY);
 
-    ~CBoardGraphics();
+    virtual ~CBoardGraphics();
 
     void setBorder(bool visible); // borderit p‰‰ll‰? jos moisia jaksaa tehd‰. lis‰‰ tietty leveytt‰ ja korkeutta +2
 

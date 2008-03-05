@@ -11,10 +11,13 @@
 
 #include "CellType.h"
 #include "BoardChangeListener.h"
+//#include "Tetromino.h"
 
 class CTetrisBoard {
 
   public:
+
+    CTetrisBoard();
 
     CTetrisBoard(const int cols, const int rows);
 

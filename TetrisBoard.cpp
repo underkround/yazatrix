@@ -11,13 +11,20 @@
 #include "TetrisBoard.h"
 #include "CellType.h"
 
+#define TETRIS_QUIDELINE_WIDTH 10
+#define TETRIS_QUIDELINE_HEIGHT 22
+
 /**
  * Kutsuu pääkonstruktoria oletusarvoilla
  */
-//CTetrisBoard::CTetrisBoard(void) {
-    // TODO: miten kutsun toista rakentajaa default-arvoilla?
-    // TetrisBoard::TetrisBoard(10, 16);
-//}
+CTetrisBoard::CTetrisBoard(void) {
+  m_width = TETRIS_QUIDELINE_WIDTH;
+  m_height = TETRIS_QUIDELINE_HEIGHT;
+  m_matrix = new CELL_TYPE*[TETRIS_QUIDELINE_HEIGHT];
+  for(int iy=0; iy<TETRIS_QUIDELINE_HEIGHT; iy++)
+    m_matrix[iy] = new CELL_TYPE[TETRIS_QUIDELINE_WIDTH];
+  reset();
+}
 
 /**
  * Pääkonstruktori

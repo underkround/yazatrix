@@ -20,33 +20,31 @@
 
 class CTetrominoFactory {
 
-public:
+  public:
     CTetrominoFactory(void);
 
     ~CTetrominoFactory(void);
 
     // palauttaa halutun palikan
-    CTetromino create(CELL_TYPE t);
+    // palikan vastaanottaja vastaa sen tuhoamisesta
+    CTetromino* create(CELL_TYPE t);
 
     // valitsee logiikalla seuraavan palikan ja palauttaa sen:
     // return create(TETROMINO);
+    // palikan vastaanottaja vastaa sen tuhoamisesta
+    CTetromino* createRandom(void);
 
-    CTetromino createRandom(void);
-
-private:
-
-    // Factory osaa luoda n‰m‰
-    CELL_TYPE SUPPORTED[];
+  private:
 
     // count luoduista palikoista
-    int tetrominoCount;
+    int m_creationCount;
 
     // tilastoa luoduista palikoista
     // todo: indeksitaulukko jossa totals[TETROMINOE] = m‰‰r‰
 
     // lastlogin koko, eli montako viimeist‰ palikkaa otetaan huomioon arvonnassa
     // (katso vaikka http://www.tetrisconcept.com/wiki/index.php?title=TGM_randomizer )
-    int lastlogSize;
+//    int m_lastlogSize;
 
     // tilastoa viimeksi luoduista palikoista
     // TODO: k‰yt‰ jotain palikka-painoarvo -pareja?
