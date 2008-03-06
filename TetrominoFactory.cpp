@@ -12,6 +12,8 @@ CTetrominoFactory::CTetrominoFactory() {
   m_creationCount = 0;
 }
 
+CTetrominoFactory::~CTetrominoFactory() {
+}
 
 /**
  * Luo uuden halutun tyyppisen tetrominon

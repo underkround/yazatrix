@@ -217,19 +217,9 @@ bool CTetromino::canMoveTo(const int x, const int y, const int rotation, CTetris
     // testataan: a) koordinaatti ei ole oma nykyinen, b) on tyhjä laudalla
     int tx = x + getRelativeX(i, rotation);
     int ty = y + getRelativeY(i, rotation);
-//    std::cout<<"(T) koordinaatti "<<tx<<":"<<ty;
-    if( !containsBoardCoord(tx, ty) ) {
-//      std::cout << " (N) ei ole palikan oma";
-      if( !targetBoard->isEmpty(tx, ty) ) {
-//        std::cout<<" (N) ei ole tyhja\n";
+    if(!containsBoardCoord(tx, ty))
+      if(!targetBoard->isEmpty(tx, ty))
         return false;
-      } else {
-//        std::cout<<" (Y) on tyhja";
-      }
-    } else {
-//      std::cout<<" (Y) on palikan oma";
-    }
-//    std::cout << "\n";
   }
   return true;
 }
@@ -241,10 +231,10 @@ bool CTetromino::canMoveTo(const int x, const int y, const int rotation) {
 
 int CTetromino::getRelativeX(const int x, const int rotation) {
   switch(rotation) {
-    case 0: { return  m_cellCoordsX[x]; }
-    case 3: { return -m_cellCoordsY[x]; }
-    case 2: { return -m_cellCoordsX[x]; }
-    case 1: { return  m_cellCoordsY[x]; }
+    case 0: return  m_cellCoordsX[x];
+    case 3: return -m_cellCoordsY[x];
+    case 2: return -m_cellCoordsX[x];
+    case 1: return  m_cellCoordsY[x];
   }
   return -1;
 }
@@ -277,6 +267,7 @@ void CTetromino::insertToBoard() {
       m_type
     );
   }
+  board->update();
 }
 
 void CTetromino::removeFromBoard() {
@@ -288,4 +279,5 @@ void CTetromino::removeFromBoard() {
       EMPTY
     );
   }
+  board->update();
 }

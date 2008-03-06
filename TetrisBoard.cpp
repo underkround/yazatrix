@@ -201,9 +201,14 @@ bool CTetrisBoard::removeLine(const int y) {
   return true;
 }
 
+void CTetrisBoard::update() {
+  // tutkitaan mitä muutoksia on tapahtunut viimekerran jälkeen
+  // TODO
+  // ilmoitetaan muutokset
+  notifyChange();
+}
 
 // ==================== METODIT LISTENEREILLE ====================
-
 
 /**
  * Ilmoittaa laudan rekisteröityneille tapahtumakuuntelijoille
@@ -211,19 +216,20 @@ bool CTetrisBoard::removeLine(const int y) {
  */
 void CTetrisBoard::notifyChange(void) {
   // foreach listeners
-    // notify listener
+	for(unsigned int i=0; i<changeListeners.size(); i++) {
+		VBoardChangeListener* listener = changeListeners[i];
+		listener->handleFreshBoard(); // TILAPÄISESTI kunnes tarkemmat tiedot päivityksistä kerätään
+	}
 }
-
 
 /**
  * Lisää laudan tapahtumakuuntelijan kuuntelijavektoriin.
  * Ei vastaa kuuntelijaolioiden tuhoamisesta.
  */
 bool CTetrisBoard::registerBoardChangeListener(VBoardChangeListener* bcl) {
-  // TODO
+  changeListeners.push_back(bcl);
   return false;
 }
-
 
 /**
  * Poistaa laudan tapahtumakuuntelijan kuuntelijavektorista
@@ -231,4 +237,5 @@ bool CTetrisBoard::registerBoardChangeListener(VBoardChangeListener* bcl) {
  */
 bool CTetrisBoard::unregisterBoardChangeListener(VBoardChangeListener* bcl) {
   // TODO
+  return false;
 }

@@ -16,6 +16,8 @@ CBoardGraphics::CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int o
   // jos ei borderia tms , niin mitat = boardin mitat
   m_width = board->getWidth();
   m_height = board->getHeight();
+  setBorderStyle(CGraphics::BORDER_SIMPLE);
+  setBorder(true);
 }
 
 CBoardGraphics::~CBoardGraphics() {
@@ -28,6 +30,12 @@ CBoardGraphics::~CBoardGraphics() {
 void CBoardGraphics::setBorder(bool visible) {
   // borderit p‰‰ll‰? jos moisia jaksaa tehd‰. lis‰‰ tietty leveytt‰ ja korkeutta +2
   m_borders = visible; // TODO: pit‰isikˆ olla int, jos bordertyyppej‰ on useita?
+  handleFreshBoard(); // koko lauta muuttuu jos borderit muuttuu p‰‰lle / pois
+}
+
+void CBoardGraphics::setBorderStyle(CGraphics::BORDER_STYLE bs) {
+  m_borderStyle = bs;
+  drawBorder();
 }
 
 void CBoardGraphics::setLocation(int x, int y) {
@@ -45,13 +53,39 @@ void CBoardGraphics::drawCell(int x, int y, CELL_TYPE ct) {
   // lis‰t‰‰n annettu x ja y
   // TODO2: koska boardin y kulkee alhaalta ylˆs, y on luultavasti
   // board->getHeight()-1-y ???
+  int ax = x + m_x;
+//  int ay = y + m_y;
+  int ay = m_height + m_y - y - 1;
+  if(m_borders) { ax++; ay++; } // borderit ottaa yhden merkin tilaa
+  g->drawSquare(ax,ay,getCellTypeColor(ct));
+}
+
+void CBoardGraphics::drawBorder() {
+  if(m_borders) {
+    g->drawBox(m_x, m_y, m_x+m_width+1, m_y+m_height+1, m_borderStyle);
+  }
+}
+
+CGraphics::COLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
+  switch(ct) {
+    case OFFGRID: return CGraphics::COLOR_WHITE;
+    case BLOCK_Z: return CGraphics::COLOR_RED;
+    case BLOCK_S: return CGraphics::COLOR_GREEN;
+    case BLOCK_I: return CGraphics::COLOR_CYAN;
+    case BLOCK_O: return CGraphics::COLOR_YELLOW;
+    case BLOCK_L: return CGraphics::COLOR_BROWN;
+    case BLOCK_J: return CGraphics::COLOR_BLUE;
+    case BLOCK_T: return CGraphics::COLOR_MAGENTA;
+    default:
+    case EMPTY: return CGraphics::COLOR_BLACK;
+  }
 }
 
 // katso BoardChangeListener n‰iden tarkempaan tarkotukseen
 void CBoardGraphics::handleFreshBoard() {
   // hae koko board, ja piirr‰ se
-  for(int ix=0; ix<board->getWidth(); ix++) {
-    for(int iy=0; iy<board->getHeight(); iy++) {
+  for(int ix=0; ix<m_width; ix++) {
+    for(int iy=0; iy<m_height; iy++) {
       drawCell(ix, iy, board->getSlot(ix, iy));
     }
   }
@@ -76,7 +110,7 @@ void CBoardGraphics::handleChangeInLines(int *changedLines[], int numLines) {
   for(int i=0; i<numLines; i++) {
     iy = *changedLines[i];
     // piirret‰‰n rivi uudestaan
-    for(int ix=0; ix<board->getWidth(); ix++) {
+    for(int ix=0; ix<m_width; ix++) {
       drawCell(ix, iy, board->getSlot(ix, iy)); // piirret‰‰n solu
     }
   }
