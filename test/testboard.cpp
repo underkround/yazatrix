@@ -1,33 +1,94 @@
+#define __DEBUG
 #include "../TetrisBoard.h"
 #include "../TetrominoFactory.h"
 #include "../Tetromino.h"
+#include <stdio.h>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
+// Boardin toiminnan testausta
+//#define TEST1
+
+// Palikoiden liikkumisen testausta
 #define TEST2
+
+// ---------------------------------------------------------------------------
 
 void printBoard(CTetrisBoard *board);
 void fillRow(CTetrisBoard *board, const int y, CELL_TYPE ct);
+void pause(void);
+bool boolRaport(bool result, string testStr);
 
 
-// --------------------------------------------------------------------
 #ifdef TEST2
 
 int main(void) {
-    CTetrisBoard *board = new CTetrisBoard(10, 10);
-    CTetrominoFactory *factory = new CTetrominoFactory();
-    CTetromino *block = factory->create(BLOCK_T);
+  CTetrisBoard *board = new CTetrisBoard(10, 10);
+  CTetrominoFactory *factory = new CTetrominoFactory();
+  CTetromino *blockA = factory->create(BLOCK_T);
+  CTetromino *blockB = factory->create(BLOCK_S);
+  // filleripalikoita laudalle
+  blockA->attach(board,-2); blockA->drop(); blockA->detach();
+  blockB->attach(board,-2); blockB->rotateLeft(); blockB->drop(); blockB->detach();
 
-    if(block->attach(board, 5)) cout << "Palikka pitaisi olla nyt laudassa (" << block->getX() << ":" << block->getY() << ")\n";
-    else cout << "Palikka ei halunnut mennä lautaan :(\n";
+  CTetromino *block = factory->create(BLOCK_T);
+  int i = 0;
 
-    printBoard(board);
-    return 0;
+  // --------- TESTEJÄ
+
+  boolRaport(block->attach(board, -1), "Palikka laudassa" );
+  printBoard(board);
+
+  pause();
+  boolRaport(block->moveDown(), "Palikan tiputus");
+  printBoard(board);
+
+  pause();
+  boolRaport(block->rotateRight(), "Palikan kaanto");
+  printBoard(board);
+  boolRaport(block->rotateRight(), "Palikan kaanto");
+  printBoard(board);
+  boolRaport(block->rotateRight(), "Palikan kaanto");
+  printBoard(board);
+
+  pause();
+  while(boolRaport(block->moveLeft(), "Palikan siirto vasemmalle"));
+  printBoard(board);
+
+  pause();
+  while(boolRaport(block->moveRight(), "Palikkan siirto oikealle"));
+  printBoard(board);
+
+  pause();
+  for(i=0; i<3; i++)
+    boolRaport(block->rotateRight(), "Palikan kaanto oikealle");
+  printBoard(board);
+
+  pause();
+  for(i=0; i<3; i++)
+    boolRaport(block->moveLeft(), "Palikan siirto vasemmalle");
+  printBoard(board);
+
+  pause();
+  for(i=0; i<3; i++)
+    boolRaport(block->rotateRight(), "Palikan kaanto oikealle");
+  printBoard(board);
+
+  pause();
+  boolRaport(block->drop(), "Palikan tiputus");
+  printBoard(board);
+
+//  cout << block->hasLanded();
+
+  return 0;
 }
 
 #endif // TEST2
+
 // --------------------------------------------------------------------
+
 #ifdef TEST1
 
 int main(void) {
@@ -87,4 +148,17 @@ void printBoard(CTetrisBoard *board) {
     cout << "    Removed lines: " << board->getRemovedLines();
     cout << ", removed lines on last remove: " << board->getRemovedLinesLast();
     cout << "\n\n";
+}
+
+void pause() {
+  cout << "----------------------------------------- ";
+  cout << "Press ENTER ...\n";
+  fflush ( stdout );
+  getchar();
+}
+
+bool boolRaport(bool result, string testStr) {
+  if(result) cout << "(TEST) " << testStr << ": onnistui\n";
+  else cout << "(TEST) " << testStr << ": epaonnistui\n";
+  return result;
 }

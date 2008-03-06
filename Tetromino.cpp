@@ -35,14 +35,12 @@
  */
 
 #include "Tetromino.h"
+#include <iostream>
 
-/**
- * Konstruktori, jossa m‰‰ritet‰‰n palikan muoto, sek‰ mit‰ se maalaa.
- */
 CTetromino::CTetromino(int cellCoordsX[4], int cellCoordsY[4], int maxRotation, CELL_TYPE type) {
   m_type = type;
-  m_x = 0;
-  m_y = 0;
+  m_x = -10;
+  m_y = -10;
   m_rotationMax = maxRotation;
   m_rotation = 0;
   for(int i=0; i<4; i++) {
@@ -57,42 +55,36 @@ CTetromino::~CTetromino(void) {
 
 // ================= METODIT =============================================
 
-/** K‰‰nt‰‰ palikkaa myˆt‰p‰iv‰‰n */
 bool CTetromino::rotateRight() {
-  if(canMoveTo(m_x, m_y, getNextRotation()))
-    return setRotation(getNextRotation());
+  if(!isAttached() || m_rotationMax == 0) return false;
+  if(canMoveTo(m_x, m_y, getNextRotation())) {
+    removeFromBoard();
+    setRotation(getNextRotation());
+    insertToBoard();
+    return true;
+  }
   return false;
 }
 
-/** K‰‰nt‰‰ palikkaa vastap‰iv‰‰n */
 bool CTetromino::rotateLeft() {
-  if(canMoveTo(m_x, m_y, getPreviousRotation()))
-    return setRotation(getPreviousRotation());
+  if(!isAttached() || m_rotationMax == 0) return false;
+  if(canMoveTo(m_x, m_y, getPreviousRotation())) {
+    removeFromBoard();
+    setRotation(getPreviousRotation());
+    insertToBoard();
+    return true;
+  }
   return false;
 }
 
-/** @return true jos palikka on kiinnitetty johonkin boardiin */
 bool CTetromino::isAttached() {
   return (board != 0) ? true : false;
 }
 
-/**
- * Kiinnitt‰‰ palikan lautaan jos ei tule collisionia (jolloin palauttaa
- * false).
- * Kiinnittyminen tapahtuu vaakasuunnassa keskelle, pystysuunnassa
- * palikan pivot-point/origo tulee kent‰n ylimp‰‰n riviin. Jos palikka
- * on ennest‰‰n toisessa laudassa, tehd‰‰n siihen ensin clean detach.
- */
 bool CTetromino::attach(CTetrisBoard *targetBoard) {
   return attach(targetBoard, 0, 0);
 }
 
-/**
- * Kiinnittyy boardiin jos ei tule collisionia (collisionissa liitosta ei
- * tapahdu ja palautetaan false)
- * Kiinnittyminen tapahtuu vaakasuunnassa keskelle, pystysuunnassa laudan
- * ylimp‰‰n koordinaattiin + offset
- */
 bool CTetromino::attach(CTetrisBoard *targetBoard, int offsetY) {
   return attach(targetBoard, 0, offsetY);
 }
@@ -102,7 +94,10 @@ bool CTetromino::attach(CTetrisBoard *targetBoard, int offsetX, int offsetY) {
     detach(true);
   int x = getBoardCenterX(targetBoard) + offsetX;
   int y = targetBoard->getHeight()-1 + offsetY;
+  if(y < 0) return false;
   if(canMoveTo(x, y, m_rotation, targetBoard)) {
+    m_x = x;
+    m_y = y;
     board = targetBoard;
     insertToBoard();
     return true;
@@ -110,7 +105,6 @@ bool CTetromino::attach(CTetrisBoard *targetBoard, int offsetX, int offsetY) {
   return false;
 }
 
-/** Detachaa nykyisest‰ boardista, jos clear = true, tyhj‰‰ sijaintinsa laudassa */
 bool CTetromino::detach(bool clear) {
   if(clear && board != 0)
     removeFromBoard();
@@ -118,8 +112,14 @@ bool CTetromino::detach(bool clear) {
   return true;
 }
 
+bool CTetromino::detach() {
+  return detach(false);
+}
+
 bool CTetromino::moveLeft() {
+  if(!isAttached()) return false;
   if(canMoveTo(m_x-1, m_y, m_rotation)) {
+    removeFromBoard();
     m_x--;
     insertToBoard();
     return true;
@@ -128,7 +128,9 @@ bool CTetromino::moveLeft() {
 }
 
 bool CTetromino::moveRight() {
+  if(!isAttached()) return false;
   if(canMoveTo(m_x+1, m_y, m_rotation)) {
+    removeFromBoard();
     m_x++;
     insertToBoard();
     return true;
@@ -137,15 +139,19 @@ bool CTetromino::moveRight() {
 }
 
 bool CTetromino::moveUp(int n) {
+  if(!isAttached()) return false;
   return moveDown(-n);
 }
 
 bool CTetromino::moveDown() {
+  if(!isAttached()) return false;
   return moveDown(1);
 }
 
 bool CTetromino::moveDown(int n) {
+  if(!isAttached()) return false;
   if(canMoveTo(m_x, m_y-n, m_rotation)) {
+    removeFromBoard();
     m_y -= n;
     insertToBoard();
     return true;
@@ -153,42 +159,36 @@ bool CTetromino::moveDown(int n) {
   return false;
 }
 
-
-/**
- * Tiputtaa palikkaa niinkauan alas kuin se ei tˆrm‰‰ mihink‰‰n
- */
 bool CTetromino::drop() {
+  if(!isAttached()) return false;
+  int oldY = m_y;
+  int oldX = m_x;
   int y = m_y;
-  while( canMoveTo(m_x, y, m_rotation) ) {
+  while( canMoveTo(m_x, y-1, m_rotation) ) {
     y--;
   }
   if(y == m_y)
     return false; // ei voitu tiputtaa yht‰‰n
+  removeFromBoard();
   m_y = y;
   insertToBoard();
   return true;
 }
 
-
-/**
- * Onko palikka laskeutunut:
- * a) seuraava tiputus olisi collision
- * b) palikka ei ole miss‰‰n boardissa
- */
 bool CTetromino::hasLanded() {
+  // TODO: palikan liikutus dropin j‰lkeen viel‰ yhden tickin verran
+  // Tee hasLanded boolean
+  //  - kun palikka dropataan, sit‰ ei aseteta viel‰
+  //  - kun palikkaa tiputetaan yhdell‰ (pelaaja tai tick), eik‰ se liiku
+  //    en‰‰, hasLanded = true (ja detach laudasta?)
   if(board == 0) return true;
   if( !canMoveTo(m_x, m_y - 1, m_rotation) )
     return true;
   return false;
 }
 
-
-/**
- * Palikka on boardissa ja jokainen sen ruutu on laudan sis‰puolella
- * (palikka voi aluksi olla yl‰puolelta boardin ulkopuolella)
- */
 bool CTetromino::isFullyVisible() {
-  if(board == 0) return false;
+  if(!isAttached()) return false;
   // etsi ylin y-koordinaatti ja vertaa sit‰ laudan ylimp‰‰n koordinaattiin
   for(int i=0; i<4; i++)
     if(m_y + getRelativeY(i, m_rotation) > board->getHeight() - 1)
@@ -196,62 +196,55 @@ bool CTetromino::isFullyVisible() {
   return true;
 }
 
-
-// ===========================================================================
-// == PRIVATE
-
+// ==================== PRIVATE ====================
 
 int CTetromino::getBoardCenterX(CTetrisBoard *targetBoard) {
-  int center = targetBoard->getWidth() / 2;
+  int center = (targetBoard->getWidth() - 1) / 2;
   return center;
 }
 
-/**
- * Asettaa rotaaion r jos mahdollista
- * @return  asettamisen onnistuminen
- */
 bool CTetromino::setRotation(int r) {
   if(0 > r || r > m_rotationMax)
     return false;
   m_rotation = r;
-  insertToBoard();
+//  insertToBoard();
   return true;
 }
 
-// siirretty inlineen
-//int CTetromino::getNextRotation() { return (m_rotation+1 > m_rotationMax) ? 0 : m_rotation+1; }
-//int CTetromino::getPreviousRotation() { return (m_rotation-1 < 0) ? m_rotationMax : m_rotation-1; }
-
-/**
- * Testaa voiko palikka olla laudalla annetuissa koordinaateissa,
- * annetulla orientaatiolla.
- *
- * @return  false, jos joku palikan ruuduista ei ole tyhj‰ laudalla,
- *          tai jos palikka menee ohi laudasta sivusuunnassa (tai pohjasta)
- */
 bool CTetromino::canMoveTo(const int x, const int y, const int rotation, CTetrisBoard *targetBoard) {
   // tarkistetaan onko tulevan sijainnin kaikki paikat boardissa tyhji‰
   for(int i=0; i<4; i++) {
-    if( !targetBoard->isEmpty( x + getRelativeX(i, rotation), y + getRelativeY(i, rotation) ) )
-      return false;
+    // testataan: a) koordinaatti ei ole oma nykyinen, b) on tyhj‰ laudalla
+    int tx = x + getRelativeX(i, rotation);
+    int ty = y + getRelativeY(i, rotation);
+//    std::cout<<"(T) koordinaatti "<<tx<<":"<<ty;
+    if( !containsBoardCoord(tx, ty) ) {
+//      std::cout << " (N) ei ole palikan oma";
+      if( !targetBoard->isEmpty(tx, ty) ) {
+//        std::cout<<" (N) ei ole tyhja\n";
+        return false;
+      } else {
+//        std::cout<<" (Y) on tyhja";
+      }
+    } else {
+//      std::cout<<" (Y) on palikan oma";
+    }
+//    std::cout << "\n";
   }
   return true;
 }
-/** Yll‰oleva omalla laudalla */
+
 bool CTetromino::canMoveTo(const int x, const int y, const int rotation) {
+  if(!isAttached()) return false;
   return canMoveTo(x, y, rotation, board);
 }
 
-
-/**
- * Palauttaa halutun rotaation relatiivisen koordinaatin
- */
 int CTetromino::getRelativeX(const int x, const int rotation) {
   switch(rotation) {
     case 0: { return  m_cellCoordsX[x]; }
-    case 1: { return -m_cellCoordsY[x]; }
+    case 3: { return -m_cellCoordsY[x]; }
     case 2: { return -m_cellCoordsX[x]; }
-    case 3: { return  m_cellCoordsY[x]; }
+    case 1: { return  m_cellCoordsY[x]; }
   }
   return -1;
 }
@@ -259,20 +252,24 @@ int CTetromino::getRelativeX(const int x, const int rotation) {
 int CTetromino::getRelativeY(const int y, const int rotation) {
   switch(rotation) {
     case 0: { return  m_cellCoordsY[y]; }
-    case 1: { return  m_cellCoordsX[y]; }
+    case 3: { return  m_cellCoordsX[y]; }
     case 2: { return -m_cellCoordsY[y]; }
-    case 3: { return -m_cellCoordsX[y]; }
+    case 1: { return -m_cellCoordsX[y]; }
   }
   return -1;
 }
 
+bool CTetromino::containsBoardCoord(int x, int y) {
+  for(int i=0; i<4; i++)
+    if(
+        m_x + getRelativeX(i, m_rotation) == x &&
+        m_y + getRelativeY(i, m_rotation) == y
+    ) return true;
+  return false;
+}
 
-/**
- * "Polttaa" palikan pelilaudan kentt‰‰n, eli vaihtaa omat ruutunsa
- * pelilaudassa oman tyyppins‰ mukaisiksi.
- */
 void CTetromino::insertToBoard() {
-  if(board == 0) return;
+  if(!isAttached()) return;
   for(int i=0; i<4; i++) {
     board->setSlot(
       m_x + getRelativeX(i, m_rotation),
@@ -282,12 +279,8 @@ void CTetromino::insertToBoard() {
   }
 }
 
-/**
- * Poistaa itsens‰ pelilaudalta, eli kirjoittaa tyhj‰n ruudun arvon
- * jokaiseen ruutuunsa pelilaudassa
- */
 void CTetromino::removeFromBoard() {
-  if(board == 0) return;
+  if(!isAttached()) return;
   for(int i=0; i<4; i++) {
     board->setSlot(
       m_x + getRelativeX(i, m_rotation),

@@ -49,7 +49,7 @@ CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
      */
     case BLOCK_T: {
       int x[4] = { -1,  0,  0,  1 };
-      int y[4] = {  0, -1,  0,  0 };
+      int y[4] = {  0,  1,  0,  0 };
       return new CTetromino(x, y, 3, BLOCK_T);
       break;
     }
@@ -60,7 +60,7 @@ CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
      */
     case BLOCK_S: {
       int x[] = { -1,  0,  0,  1 };
-      int y[] = {  0,  0, -1, -1 };
+      int y[] = {  0,  0,  1,  1 };
       return new CTetromino(x, y, 1, BLOCK_S);
       break;
     }
@@ -71,7 +71,7 @@ CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
      */
     case BLOCK_Z: {
       int x[] = { -1,  0,  0,  1 };
-      int y[] = { -1, -1,  0,  1 };
+      int y[] = {  1,  1,  0,  0 };
       return new CTetromino(x, y, 1, BLOCK_Z);
       break;
     }
@@ -82,7 +82,7 @@ CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
      */
     case BLOCK_J: {
       int x[] = { -1, -1,  0,  1 };
-      int y[] = { -1,  0,  0,  0 };
+      int y[] = {  1,  0,  0,  0 };
       return new CTetromino(x, y, 3, BLOCK_J);
       break;
     }
@@ -93,7 +93,7 @@ CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
      */
     case BLOCK_L: {
       int x[] = { -1,  0,  1,  1 };
-      int y[] = {  0,  0,  0, -1 };
+      int y[] = {  0,  0,  0,  1 };
       return new CTetromino(x, y, 3, BLOCK_L);
       break;
     }
