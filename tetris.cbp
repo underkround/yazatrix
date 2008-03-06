@@ -91,30 +91,15 @@
 		</Unit>
 		<Unit filename="BoardGraphics.cpp" />
 		<Unit filename="BoardGraphics.h" />
-		<Unit filename="CellType.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="testboard" />
-			<Option target="vs2008" />
-		</Unit>
+		<Unit filename="CellType.h" />
 		<Unit filename="Graphics.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testdraw" />
 			<Option target="vs2008" />
 		</Unit>
-		<Unit filename="TetrisBoard.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="testboard" />
-			<Option target="vs2008" />
-		</Unit>
-		<Unit filename="TetrisBoard.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="testboard" />
-			<Option target="vs2008" />
-		</Unit>
+		<Unit filename="TetrisBoard.cpp" />
+		<Unit filename="TetrisBoard.h" />
 		<Unit filename="TetrisLogic.h">
 			<Option target="Debug" />
 			<Option target="Release" />

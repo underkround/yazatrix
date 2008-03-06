@@ -9,7 +9,7 @@
 
 int main() {
   CGraphics *konsoli = new CGraphics();
-  konsoli->drawBox(2,2,12,12,0);
+  konsoli->drawBox(2,2,12,12, CGraphics::BORDER_SIMPLE);
   konsoli->drawChar(10,4, 'x');
   konsoli->drawChar(4,10, 'y');
   konsoli->drawSquare(5,4,4);
@@ -28,7 +28,7 @@ int main() {
     }
   }
   konsoli->setColors(15,0);
-  konsoli->drawBox(18, 2, 69, 21, 1);
+  konsoli->drawBox(18, 2, 69, 21, CGraphics::BORDER_GROOVE);
   delete konsoli;
   return 0;
 }

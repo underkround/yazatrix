@@ -16,6 +16,14 @@ class CGraphics {
   CGraphics(void);
   ~CGraphics(void);
 
+  // hifistelyä
+  enum BORDER_STYLE {
+    BORDER_NONE,
+    BORDER_SIMPLE,
+    BORDER_GROOVE,
+    BORDER_DOTTED
+  };
+
   //peruspiirtotyökalut
   void drawChar(const int x, const int y, const char c);
   void drawChar(const int x, const int y, const int fg, const int bg, const char c);
@@ -24,7 +32,8 @@ class CGraphics {
   void drawString(const int x, const int y, const int bg, const int fg, const char* str);
 
   //älykkäämmät piirtotyökalut
-  void drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle);
+//  void drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle);
+  void drawBox(const int from_x, const int from_y, const int to_x, const int to_y, BORDER_STYLE borderstyle);
 
   //muuta tarpeellista
   int getX();

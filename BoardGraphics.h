@@ -20,38 +20,39 @@
 
 class CBoardGraphics : VBoardChangeListener {
 
-  public:
-    /**
-     * myBoard = board jonka t‰m‰ luokka piirt‰‰
-     * g = Graphics jolla t‰m‰ piirt‰‰ ko. boardin
-     * offsetX = mist‰ koordinaatista t‰m‰ alkaa piirt‰‰
-     * offsetY = --||--
-     *
-     */
-    CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int offsetX, int offsetY);
+public:
+  /**
+   * myBoard = board jonka t‰m‰ luokka piirt‰‰
+   * g = Graphics jolla t‰m‰ piirt‰‰ ko. boardin
+   * offsetX = mist‰ koordinaatista t‰m‰ alkaa piirt‰‰
+   * offsetY = --||--
+   *
+   */
+  CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int offsetX, int offsetY);
 
-    virtual ~CBoardGraphics();
+  virtual ~CBoardGraphics();
 
-    void setBorder(bool visible); // borderit p‰‰ll‰? jos moisia jaksaa tehd‰. lis‰‰ tietty leveytt‰ ja korkeutta +2
+  void setBorder(bool visible); // borderit p‰‰ll‰? jos moisia jaksaa tehd‰. lis‰‰ tietty leveytt‰ ja korkeutta +2
 
-    void setLocation(int x, int y); // mihin kohtaan ruutua piirt‰‰ itsens‰
+  void setLocation(int x, int y); // mihin kohtaan ruutua piirt‰‰ itsens‰
 
-    // katso BoardChangeListener n‰iden tarkempaan tarkotukseen
-    virtual void handleFreshBoard();
-    virtual void handleChangeInCoords(int *changedCoordsX[], int *changedCoordsY[], int numCoords);
-    virtual void handleChangeInLines(int *changedLines[], int numLines);
-    virtual void handleChangeInCoord(int x, int y);
+  // katso BoardChangeListener n‰iden tarkempaan tarkotukseen
+  virtual void handleFreshBoard();
+  virtual void handleChangeInCoords(int *changedCoordsX[], int *changedCoordsY[], int numCoords);
+  virtual void handleChangeInLines(int *changedLines[], int numLines);
+  virtual void handleChangeInCoord(int x, int y);
 
+private:
 
-  private:
-
-    CTetrisBoard *board; // t‰m‰ ei ole vastuussa boardin tuhoamisesta!
-    CGraphics *g; // eik‰ myˆsk‰‰n grafiikan tuhoamisesta!
-    bool m_borders;
-    int m_x; //
-    int m_y; // koordinaatit joista t‰m‰ alkaa piirt‰‰ itse‰‰n
-    int m_width;  // montako merkki‰ vied‰‰n tilaa
-    int m_height; // (voi olla eri kun laudankoko esim jos on borderit)
+  CTetrisBoard *board; // t‰m‰ ei ole vastuussa boardin tuhoamisesta!
+  CGraphics *g; // eik‰ myˆsk‰‰n grafiikan tuhoamisesta!
+  bool m_borders; // n‰ytet‰‰nkˆ borderit
+  int m_borderStyle; // borderin tyyli
+  int m_x; //
+  int m_y; // koordinaatit joista t‰m‰ alkaa piirt‰‰ itse‰‰n
+  int m_width;  // montako merkki‰ vied‰‰n tilaa
+  int m_height; // (voi olla eri kun laudankoko esim jos on borderit)
+  void drawCell(int x, int y, CELL_TYPE ct); // x ja y ovat boardin koordinaatteja, eiv‰t ruudun
 
 };
 

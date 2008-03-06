@@ -120,10 +120,21 @@ void CGraphics::drawString(const int x, const int y, const int fg, const int bg,
  * @param to_y          oikean alakulman y-koordinaatti
  * @param borderstyle   reunuksen tyyli
  */
-void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle) {
+//void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle) {
+void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const BORDER_STYLE borderstyle) {
   char n,e,w,s,se,nw,ne,sw;
   switch(borderstyle) {
-    case 0:
+    case BORDER_NONE:
+      n  = ' ';
+      s  = ' ';
+      w  = ' ';
+      e  = ' ';
+      nw = ' ';
+      ne = ' ';
+      sw = ' ';
+      se = ' ';
+      break;
+    case BORDER_SIMPLE:
       n  = '-';
       s  = '-';
       w  = '|';
@@ -133,7 +144,7 @@ void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, cons
       sw = '+';
       se = '+';
       break;
-    case 1:
+    case BORDER_GROOVE:
       n  = 205;
       s  = 205;
       w  = 186;
@@ -142,7 +153,16 @@ void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, cons
       ne = 187;
       sw = 200;
       se = 188;
-
+      break;
+    case BORDER_DOTTED:
+      n  = '.';
+      s  = '.';
+      w  = ':';
+      e  = ':';
+      nw = '.';
+      ne = '.';
+      sw = ':';
+      se = ':';
       break;
   }
   int i=0;
