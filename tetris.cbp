@@ -181,13 +181,12 @@
 			<Option target="testgameloop" />
 		</Unit>
 		<Unit filename="TetrisTimer.cpp">
-			<Option target="Release" />
-			<Option target="testgameloop" />
-			<Option target="testtimer" />
+			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="TetrisTimer.h">
+			<Option target="Debug" />
 			<Option target="Release" />
-			<Option target="testgameloop" />
+			<Option target="vs2008" />
 			<Option target="testtimer" />
 		</Unit>
 		<Unit filename="Tetromino.cpp">
@@ -218,6 +217,12 @@
 			<Option target="testboard" />
 			<Option target="testgameloop" />
 		</Unit>
+		<Unit filename="Thread.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="vs2008" />
+			<Option target="testtimer" />
+		</Unit>
 		<Unit filename="linux\Graphics.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -244,6 +249,18 @@
 			<Option target="testdraw" />
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
+		</Unit>
+		<Unit filename="windows\TetrisTimer.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="vs2008" />
+			<Option target="testtimer" />
+		</Unit>
+		<Unit filename="windows\Thread.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="vs2008" />
+			<Option target="testtimer" />
 		</Unit>
 		<Extensions>
 			<code_completion />

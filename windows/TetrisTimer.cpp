@@ -1,8 +1,4 @@
-#include "../TetrisTimer.h"
-#include "../Thread.h"
-#include <string>
-#include <process.h>
-#include <windows.h>
+
 /**
  * TetrisTimer
  *
@@ -22,6 +18,9 @@
 #include <stdio.h>
 #endif
 
+#include "../TetrisTimer.h"
+#include "../Thread.h"
+#include <string>
 #include <process.h>
 #include <windows.h>
 
