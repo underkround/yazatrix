@@ -88,6 +88,24 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 			</Target>
+			<Target title="testtimer">
+				<Option output="bin\tests\testtimer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\tests\timer" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\include" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\lib" />
+				</Compiler>
+				<Linker>
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio.a" />
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio_unicode.a" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\include" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\lib" />
+				</Linker>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -100,12 +118,54 @@
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
 		</Unit>
-		<Unit filename="BoardGraphics.cpp" />
-		<Unit filename="BoardGraphics.h" />
-		<Unit filename="Graphics.h" />
-		<Unit filename="TetrisBoard.cpp" />
-		<Unit filename="TetrisBoard.h" />
-		<Unit filename="TetrisCommon.h" />
+		<Unit filename="BoardGraphics.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testboard" />
+			<Option target="testdraw" />
+			<Option target="vs2008" />
+			<Option target="testgameloop" />
+		</Unit>
+		<Unit filename="BoardGraphics.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testboard" />
+			<Option target="testdraw" />
+			<Option target="vs2008" />
+			<Option target="testgameloop" />
+		</Unit>
+		<Unit filename="Graphics.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testboard" />
+			<Option target="testdraw" />
+			<Option target="vs2008" />
+			<Option target="testgameloop" />
+		</Unit>
+		<Unit filename="TetrisBoard.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testboard" />
+			<Option target="testdraw" />
+			<Option target="vs2008" />
+			<Option target="testgameloop" />
+		</Unit>
+		<Unit filename="TetrisBoard.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testboard" />
+			<Option target="testdraw" />
+			<Option target="vs2008" />
+			<Option target="testgameloop" />
+		</Unit>
+		<Unit filename="TetrisCommon.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testboard" />
+			<Option target="testdraw" />
+			<Option target="vs2008" />
+			<Option target="testgameloop" />
+		</Unit>
 		<Unit filename="TetrisLogic.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -123,10 +183,12 @@
 		<Unit filename="TetrisTimer.cpp">
 			<Option target="Release" />
 			<Option target="testgameloop" />
+			<Option target="testtimer" />
 		</Unit>
 		<Unit filename="TetrisTimer.h">
 			<Option target="Release" />
 			<Option target="testgameloop" />
+			<Option target="testtimer" />
 		</Unit>
 		<Unit filename="Tetromino.cpp">
 			<Option target="Debug" />
@@ -156,6 +218,10 @@
 			<Option target="testboard" />
 			<Option target="testgameloop" />
 		</Unit>
+		<Unit filename="linux\Graphics.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="test\testboard.cpp">
 			<Option target="testboard" />
 			<Option target="vs2008" />
@@ -164,11 +230,21 @@
 			<Option target="testdraw" />
 			<Option target="vs2008" />
 		</Unit>
+		<Unit filename="test\testtimer.cpp">
+			<Option target="testtimer" />
+		</Unit>
 		<Unit filename="tetris.plan">
 			<Option target="Debug" />
 			<Option target="vs2008" />
 		</Unit>
-		<Unit filename="windows\Graphics.cpp" />
+		<Unit filename="windows\Graphics.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testboard" />
+			<Option target="testdraw" />
+			<Option target="vs2008" />
+			<Option target="testgameloop" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />

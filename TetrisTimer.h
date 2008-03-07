@@ -1,7 +1,13 @@
 #ifndef __TETRISTIMER_H__
 #define __TETRISTIMER_H__
 
-#include "TetrisBoard.h"
+#define DEBUG
+
+//#include "TetrisBoard.h"
+#include "Thread.h"
+#include <string>
+#include <process.h>
+#include <windows.h>
 
 /**
  * TetrisTimer
@@ -15,17 +21,16 @@
  *
  */
 
-class CTetrisTimer {
+class CTetrisTimer : private CThread {
 
 public:
 
   // TODO: ilmoitetaanko viive millisekunteina ja levelin‰?
   // zemm prefers: level, koska viivelogiikka on
-  CTetrisTimer(const int startValue, const int maxValue);
+  static void CTetrisTimer::create(const char* timerName);
+  static CRITICAL_SECTION sync;
 
-  ~CTetrisTimer(void);
-
-  void setPause(bool pause);
+  void setPause();
 
   /**
    * resetTick()
@@ -36,10 +41,33 @@ public:
    */
   void resetTick();
 
+  inline bool isRunning() { return m_intIsRunning; }
+
 // ==================== PRIVATE =========================
 
-private:
+//private:
+  /**
+   * run()
+   *
+   * Timerin k‰ynnistys
+   */
+  void code();
 
+  /**
+   * tick();
+   *
+   * Tehd‰‰n ne asiat mit‰ tickatessa halutaan tehd‰.
+   */
+  void tick();
+
+  CTetrisTimer(const char* timerName) : name(timerName) {}
+  std::string name;
+  bool m_intIsRunning;
+  int m_intStartValue;
+  int m_intMaxValue;
+  #ifdef DEBUG
+  int laskuri;
+  #endif
 };
 
 #endif // __TETRISTIMER_H__
