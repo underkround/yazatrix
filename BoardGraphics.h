@@ -69,7 +69,7 @@ private:
 
   void drawBorder();
 
-  CGraphics::COLOR getCellTypeColor(CELL_TYPE ct);
+  CGraphics::GCOLOR getCellTypeColor(CELL_TYPE ct);
 
 };
 

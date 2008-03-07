@@ -25,34 +25,34 @@ class CGraphics {
   };
 
   // tuetut värit
-  enum COLOR {
-    COLOR_BLACK,
-    COLOR_BLUE,
-    COLOR_GREEN,
-    COLOR_CYAN,
-    COLOR_RED,
-    COLOR_MAGENTA,
-    COLOR_BROWN,
-    COLOR_YELLOW,
-    COLOR_WHITE,
-    COLOR_LIGHTGRAY,
-    COLOR_DARKGRAY,
-    COLOR_LIGHTBLUE,
-    COLOR_LIGHTGREEN,
-    COLOR_LIGHTCYAN,
-    COLOR_LIGHTRED,
-    COLOR_LIGHTMAGENTA
+  enum GCOLOR {
+    GCOLOR_BLACK,
+    GCOLOR_BLUE,
+    GCOLOR_GREEN,
+    GCOLOR_CYAN,
+    GCOLOR_RED,
+    GCOLOR_MAGENTA,
+    GCOLOR_BROWN,
+    GCOLOR_YELLOW,
+    GCOLOR_WHITE,
+    GCOLOR_LIGHTGRAY,
+    GCOLOR_DARKGRAY,
+    GCOLOR_LIGHTBLUE,
+    GCOLOR_LIGHTGREEN,
+    GCOLOR_LIGHTCYAN,
+    GCOLOR_LIGHTRED,
+    GCOLOR_LIGHTMAGENTA
   };
 
   //peruspiirtotyökalut
   void drawChar(const int x, const int y, const char c);
   void drawChar(const int x, const int y, const int fg, const int bg, const char c); // DEPRICATED
-  void drawChar(const int x, const int y, const COLOR fg, const COLOR bg, const char c);
+  void drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char c);
   void drawSquare(const int x, const int y, const int color); // DEPRICATED
-  void drawSquare(const int x, const int y, const COLOR color);
+  void drawSquare(const int x, const int y, const GCOLOR color);
   void drawString(const int x, const int y, const char* str);
   void drawString(const int x, const int y, const int bg, const int fg, const char* str); // DEPRICATED
-  void drawString(const int x, const int y, const COLOR bg, const COLOR fg, const char* str);
+  void drawString(const int x, const int y, const GCOLOR bg, const GCOLOR fg, const char* str);
 
   //älykkäämmät piirtotyökalut
 //  void drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle); // DEPRICATED
@@ -64,17 +64,17 @@ class CGraphics {
   int getHeight();
   int getWidth();
   void setColors(const int fg, const int bg); // DEPRICATED
-  void setColors(const COLOR fg, const COLOR bg);
+  void setColors(const GCOLOR fg, const GCOLOR bg);
 
   private:
   void moveCursor(const int x, const int y);
   void resetColors(void);
   void setForegroundColor(const int fg); // DEPRICATED
   void setBackgroundColor(const int bg); // DEPRICATED
-  void setForegroundColor(const COLOR fg);
-  void setBackgroundColor(const COLOR bg);
-  int getForegroundColor(COLOR col);
-  int getBackgroundColor(COLOR col);
+  void setForegroundColor(const GCOLOR fg);
+  void setBackgroundColor(const GCOLOR bg);
+  int getForegroundColor(GCOLOR col);
+  int getBackgroundColor(GCOLOR col);
 };
 
  #endif //__GRAPHICS_H__

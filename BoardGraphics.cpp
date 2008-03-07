@@ -41,7 +41,7 @@ void CBoardGraphics::setBorderStyle(CGraphics::BORDER_STYLE bs) {
 
 void CBoardGraphics::drawBorder() {
   printf("boder draw");
-  g->setColors(CGraphics::COLOR_WHITE, CGraphics::COLOR_BLACK);
+  g->setColors(CGraphics::GCOLOR_WHITE, CGraphics::GCOLOR_BLACK);
   if(m_borders)
     g->drawBox(m_x, m_y, m_x+m_width+1, m_y+m_height+1, m_borderStyle);
 }
@@ -68,18 +68,18 @@ void CBoardGraphics::drawCell(int x, int y, CELL_TYPE ct) {
   g->drawSquare(ax,ay,getCellTypeColor(ct));
 }
 
-CGraphics::COLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
+CGraphics::GCOLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
   switch(ct) {
-    case OFFGRID: return CGraphics::COLOR_WHITE;
-    case BLOCK_Z: return CGraphics::COLOR_RED;
-    case BLOCK_S: return CGraphics::COLOR_GREEN;
-    case BLOCK_I: return CGraphics::COLOR_CYAN;
-    case BLOCK_O: return CGraphics::COLOR_YELLOW;
-    case BLOCK_L: return CGraphics::COLOR_BROWN;
-    case BLOCK_J: return CGraphics::COLOR_BLUE;
-    case BLOCK_T: return CGraphics::COLOR_MAGENTA;
+    case OFFGRID: return CGraphics::GCOLOR_WHITE;
+    case BLOCK_Z: return CGraphics::GCOLOR_RED;
+    case BLOCK_S: return CGraphics::GCOLOR_GREEN;
+    case BLOCK_I: return CGraphics::GCOLOR_CYAN;
+    case BLOCK_O: return CGraphics::GCOLOR_YELLOW;
+    case BLOCK_L: return CGraphics::GCOLOR_BROWN;
+    case BLOCK_J: return CGraphics::GCOLOR_BLUE;
+    case BLOCK_T: return CGraphics::GCOLOR_MAGENTA;
     default:
-    case EMPTY: return CGraphics::COLOR_BLACK;
+    case EMPTY: return CGraphics::GCOLOR_BLACK;
   }
 }
 

@@ -5,8 +5,8 @@
  * $HeadURL$
  *
  */
-#define DEFAULT_FOREGROUND_COLOR 7
-#define DEFAULT_BACKGROUND_COLOR 0
+#define DEFAULT_FOREGROUND_GCOLOR 7
+#define DEFAULT_BACKGROUND_GCOLOR 0
 
 #include "../Graphics.h"
 #include <conio2.h>
@@ -59,7 +59,7 @@ void CGraphics::drawChar(const int x, const int y, const char c) {
  * @param bg    taustan väri
  * @param c     merkki
  */
-void CGraphics::drawChar(const int x, const int y, const COLOR fg, const COLOR bg, const char c) {
+void CGraphics::drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char c) {
   setColors(getForegroundColor(fg), getBackgroundColor(bg));
   putchxy(x, y, c);
 }
@@ -83,7 +83,7 @@ void CGraphics::drawSquare(const int x, const int y, const int color) {
   putchxy(x, y, ' '); //'█'
 }
 // DEPRICATED
-void CGraphics::drawSquare(const int x, const int y, const COLOR color) {
+void CGraphics::drawSquare(const int x, const int y, const GCOLOR color) {
   setColors(0, getForegroundColor(color));
   putchxy(x, y, ' '); //'█'
 }
@@ -113,7 +113,7 @@ void CGraphics::drawString(const int x, const int y, const char* str) {
  * @param bg    taustan väri
  * @param str   merkkijono
  */
-void CGraphics::drawString(const int x, const int y, const COLOR fg, const COLOR bg, const char* str) {
+void CGraphics::drawString(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char* str) {
   moveCursor(y, x);
   setColors(getForegroundColor(fg), getBackgroundColor(bg));
   cout << str;
@@ -267,8 +267,8 @@ void CGraphics::moveCursor(const int x, const int y) {
  * @deprecated tämä olikin ihan turha, käytä => conio.h::normvideo();
  */
 void CGraphics::resetColors(void) {
-  textcolor(DEFAULT_FOREGROUND_COLOR);
-  textbackground(DEFAULT_BACKGROUND_COLOR);
+  textcolor(DEFAULT_FOREGROUND_GCOLOR);
+  textbackground(DEFAULT_BACKGROUND_GCOLOR);
 }
 
 /**
@@ -278,7 +278,7 @@ void CGraphics::resetColors(void) {
  *
  * @param fg    väri
  */
-void CGraphics::setForegroundColor(const COLOR fg) {
+void CGraphics::setForegroundColor(const GCOLOR fg) {
   textcolor(getForegroundColor(fg));
 }
 // DEPRICATED
@@ -293,7 +293,7 @@ void CGraphics::setForegroundColor(const int fg) {
  *
  * @param bg    väri
  */
-void CGraphics::setBackgroundColor(const COLOR bg) {
+void CGraphics::setBackgroundColor(const GCOLOR bg) {
   textbackground(getBackgroundColor(bg));
 }
 // DEPRICATED
@@ -309,7 +309,7 @@ void CGraphics::setBackgroundColor(const int bg) {
  * @param fg    tekstin väri
  * @param bg    taustan väri
  */
-void CGraphics::setColors(const COLOR fg, const COLOR bg) {
+void CGraphics::setColors(const GCOLOR fg, const GCOLOR bg) {
   textcolor(getForegroundColor(fg));
   textbackground(getBackgroundColor(bg));
 }
@@ -329,25 +329,25 @@ void CGraphics::setColors(const int fg, const int bg) {
  * @param col   värin nimi
  * @return      värin numeroarvo tässä implementaatiossa
  */
-int CGraphics::getForegroundColor(COLOR col) {
+int CGraphics::getForegroundColor(GCOLOR col) {
   switch(col) {
-    case COLOR_BLACK:     return 0;
-    case COLOR_BLUE:      return 1;
-    case COLOR_GREEN:     return 2;
-    case COLOR_CYAN:      return 3;
-    case COLOR_RED:       return 4;
-    case COLOR_MAGENTA:   return 5;
-    case COLOR_BROWN:     return 6;
-    case COLOR_LIGHTGRAY: return 7;
-    case COLOR_DARKGRAY:  return 8;
-    case COLOR_LIGHTBLUE: return 9;
-    case COLOR_LIGHTGREEN:return 10;
-    case COLOR_LIGHTCYAN: return 11;
-    case COLOR_LIGHTRED:  return 12;
-    case COLOR_LIGHTMAGENTA: return 13;
-    case COLOR_YELLOW:    return 14;
+    case GCOLOR_BLACK:     return 0;
+    case GCOLOR_BLUE:      return 1;
+    case GCOLOR_GREEN:     return 2;
+    case GCOLOR_CYAN:      return 3;
+    case GCOLOR_RED:       return 4;
+    case GCOLOR_MAGENTA:   return 5;
+    case GCOLOR_BROWN:     return 6;
+    case GCOLOR_LIGHTGRAY: return 7;
+    case GCOLOR_DARKGRAY:  return 8;
+    case GCOLOR_LIGHTBLUE: return 9;
+    case GCOLOR_LIGHTGREEN:return 10;
+    case GCOLOR_LIGHTCYAN: return 11;
+    case GCOLOR_LIGHTRED:  return 12;
+    case GCOLOR_LIGHTMAGENTA: return 13;
+    case GCOLOR_YELLOW:    return 14;
     default:
-    case COLOR_WHITE:     return 15;
+    case GCOLOR_WHITE:     return 15;
   }
 }
 
@@ -359,6 +359,6 @@ int CGraphics::getForegroundColor(COLOR col) {
  * @param col   värin nimi
  * @return      värin numeroarvo tässä implementaatiossa
  */
-int CGraphics::getBackgroundColor(COLOR col) {
+int CGraphics::getBackgroundColor(GCOLOR col) {
   return getForegroundColor(col); // ainakin coniossa background on sama kuin foreground
 }
