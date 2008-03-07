@@ -16,8 +16,8 @@ CBoardGraphics::CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int o
   // jos ei borderia tms , niin mitat = boardin mitat
   m_width = board->getWidth();
   m_height = board->getHeight();
-  setBorderStyle(CGraphics::BORDER_SIMPLE);
-  setBorder(true);
+  m_borders = true;
+  setBorderStyle(CGraphics::BORDER_GROOVE);
 }
 
 CBoardGraphics::~CBoardGraphics() {
@@ -33,9 +33,17 @@ void CBoardGraphics::setBorder(bool visible) {
   handleFreshBoard(); // koko lauta muuttuu jos borderit muuttuu päälle / pois
 }
 
+// TODO: EI TOIMI >:|
 void CBoardGraphics::setBorderStyle(CGraphics::BORDER_STYLE bs) {
   m_borderStyle = bs;
   drawBorder();
+}
+
+void CBoardGraphics::drawBorder() {
+  printf("boder draw");
+  g->setColors(CGraphics::COLOR_WHITE, CGraphics::COLOR_BLACK);
+  if(m_borders)
+    g->drawBox(m_x, m_y, m_x+m_width+1, m_y+m_height+1, m_borderStyle);
 }
 
 void CBoardGraphics::setLocation(int x, int y) {
@@ -53,17 +61,11 @@ void CBoardGraphics::drawCell(int x, int y, CELL_TYPE ct) {
   // lisätään annettu x ja y
   // TODO2: koska boardin y kulkee alhaalta ylös, y on luultavasti
   // board->getHeight()-1-y ???
-  int ax = x + m_x;
+  int ax = (m_borders) ? x+m_x+1 : x+m_x;
 //  int ay = y + m_y;
-  int ay = m_height + m_y - y - 1;
-  if(m_borders) { ax++; ay++; } // borderit ottaa yhden merkin tilaa
+  int ay = (m_borders) ? m_height+m_y-y : m_height+m_y-y-1;
+//  if(m_borders) { ax++; ay++; } // borderit ottaa yhden merkin tilaa
   g->drawSquare(ax,ay,getCellTypeColor(ct));
-}
-
-void CBoardGraphics::drawBorder() {
-  if(m_borders) {
-    g->drawBox(m_x, m_y, m_x+m_width+1, m_y+m_height+1, m_borderStyle);
-  }
 }
 
 CGraphics::COLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {

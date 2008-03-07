@@ -31,24 +31,26 @@ bool boolReport(bool result, string testStr);
 int main(void) {
   CTetrisBoard *board = new CTetrisBoard(10, 10);
   CTetrominoFactory *factory = new CTetrominoFactory();
-  CTetromino *blockA = factory->create(BLOCK_T);
-  CTetromino *blockB = factory->create(BLOCK_S);
+//  CTetromino *blockA = factory->create(BLOCK_T);
+//  CTetromino *blockB = factory->create(BLOCK_S);
+  CTetromino *blockA = factory->createRandom();
+  CTetromino *blockB = factory->createRandom();
   // filleripalikoita laudalle
-  blockA->attach(board,-2); blockA->drop(); blockA->detach();
-  blockB->attach(board,-2); blockB->rotateLeft(); blockB->drop(); blockB->detach();
+  blockA->attach(board); blockA->drop(); blockA->detach();
+  blockB->attach(board); blockB->rotateLeft(); blockB->drop(); blockB->detach();
 
 #ifdef TEST2_GRAFIIKALLA
   CGraphics *graphics = new CGraphics();
-  CBoardGraphics *boardGraphics = new CBoardGraphics(board, graphics, 1, 1);
-
+  CBoardGraphics *boardGraphics = new CBoardGraphics(board, graphics, 16, 6);
 #endif // TEST2_GRAFIIKALLA
 
-  CTetromino *block = factory->create(BLOCK_T);
+//  CTetromino *block = factory->create(BLOCK_T);
+  CTetromino *block = factory->createRandom();
   int i = 0;
 
   // --------- TESTEJÄ
 
-  boolReport(block->attach(board, -1), "Palikka laudassa" );
+  boolReport(block->attach(board), "Palikka laudassa" );
   printBoard(board);
 
   pause();

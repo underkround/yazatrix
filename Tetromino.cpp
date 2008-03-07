@@ -161,8 +161,6 @@ bool CTetromino::moveDown(int n) {
 
 bool CTetromino::drop() {
   if(!isAttached()) return false;
-  int oldY = m_y;
-  int oldX = m_x;
   int y = m_y;
   while( canMoveTo(m_x, y-1, m_rotation) ) {
     y--;

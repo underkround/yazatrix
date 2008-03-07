@@ -6,10 +6,13 @@
  */
 
 #include "TetrominoFactory.h"
+#include <ctime>
+#include <cstdlib>
 
 CTetrominoFactory::CTetrominoFactory() {
   // todo: alusta lastlog jne
   m_creationCount = 0;
+  srand((unsigned)time(0));
 }
 
 CTetrominoFactory::~CTetrominoFactory() {
@@ -115,6 +118,16 @@ CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
  * TODO: random =) ja joku logiikka sille
  */
 CTetromino* CTetrominoFactory::createRandom() {
-  return create(BLOCK_T);
+  // arvotaan uusi palikka
+  int next = rand() % 7;
+  switch(next) {
+    case 0: return create(BLOCK_I);
+    case 1: return create(BLOCK_O);
+    case 2: return create(BLOCK_T);
+    case 3: return create(BLOCK_S);
+    case 4: return create(BLOCK_Z);
+    case 5: return create(BLOCK_J);
+    case 6: return create(BLOCK_L);
+  }
 }
 
