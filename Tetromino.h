@@ -37,7 +37,7 @@
  *
  */
 
-#include "CellType.h"
+#include "TetrisCommon.h"
 #include "TetrisBoard.h"
 
 class CTetromino {

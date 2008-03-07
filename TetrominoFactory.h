@@ -2,7 +2,7 @@
 #define __TETROMINOFACTORY_H__
 
 #include "Tetromino.h"
-#include "CellType.h"
+#include "TetrisCommon.h"
 
 /**
  * TetrominoFactory

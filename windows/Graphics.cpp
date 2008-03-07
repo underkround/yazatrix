@@ -346,6 +346,7 @@ int CGraphics::getForegroundColor(COLOR col) {
     case COLOR_LIGHTRED:  return 12;
     case COLOR_LIGHTMAGENTA: return 13;
     case COLOR_YELLOW:    return 14;
+    default:
     case COLOR_WHITE:     return 15;
   }
 }

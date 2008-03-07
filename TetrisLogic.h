@@ -4,6 +4,7 @@
 #include "TetrisBoard.h"
 #include "Tetromino.h"
 #include "TetrisTimer.h"
+#include "TetrisCommon.h"
 
 #define PREVIEW_TETROMINOES 3
 

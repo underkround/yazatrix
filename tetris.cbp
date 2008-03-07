@@ -102,10 +102,10 @@
 		</Unit>
 		<Unit filename="BoardGraphics.cpp" />
 		<Unit filename="BoardGraphics.h" />
-		<Unit filename="CellType.h" />
 		<Unit filename="Graphics.h" />
 		<Unit filename="TetrisBoard.cpp" />
 		<Unit filename="TetrisBoard.h" />
+		<Unit filename="TetrisCommon.h" />
 		<Unit filename="TetrisLogic.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />

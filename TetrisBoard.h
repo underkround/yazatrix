@@ -10,7 +10,7 @@
  */
 
 #include <vector>
-#include "CellType.h"
+#include "TetrisCommon.h"
 #include "BoardChangeListener.h"
 //#include "Tetromino.h"
 

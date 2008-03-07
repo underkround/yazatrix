@@ -129,5 +129,6 @@ CTetromino* CTetrominoFactory::createRandom() {
     case 5: return create(BLOCK_J);
     case 6: return create(BLOCK_L);
   }
+  return create(BLOCK_I); // ei pitäisi tapahtua, vältetään vaan käännövaroitukset
 }
 

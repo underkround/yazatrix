@@ -9,7 +9,7 @@
  */
 
 #include "TetrisBoard.h"
-#include "CellType.h"
+#include "TetrisCommon.h"
 
 #define TETRIS_QUIDELINE_WIDTH 10
 #define TETRIS_QUIDELINE_HEIGHT 22
