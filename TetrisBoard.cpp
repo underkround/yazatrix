@@ -11,16 +11,16 @@
 #include "TetrisBoard.h"
 #include "TetrisCommon.h"
 
-#define TETRIS_QUIDELINE_WIDTH 10
-#define TETRIS_QUIDELINE_HEIGHT 22
+#define TETRIS_GUIDELINE_WIDTH 10
+#define TETRIS_GUIDELINE_HEIGHT 22
 
 
 CTetrisBoard::CTetrisBoard(void) {
-  m_width = TETRIS_QUIDELINE_WIDTH;
-  m_height = TETRIS_QUIDELINE_HEIGHT;
-  m_matrix = new CELL_TYPE*[TETRIS_QUIDELINE_HEIGHT];
-  for(int iy=0; iy<TETRIS_QUIDELINE_HEIGHT; iy++)
-    m_matrix[iy] = new CELL_TYPE[TETRIS_QUIDELINE_WIDTH];
+  m_width = TETRIS_GUIDELINE_WIDTH;
+  m_height = TETRIS_GUIDELINE_HEIGHT;
+  m_matrix = new CELL_TYPE*[TETRIS_GUIDELINE_HEIGHT];
+  for(int iy=0; iy<TETRIS_GUIDELINE_HEIGHT; iy++)
+    m_matrix[iy] = new CELL_TYPE[TETRIS_GUIDELINE_WIDTH];
   reset();
 }
 
