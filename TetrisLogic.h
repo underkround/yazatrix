@@ -22,6 +22,9 @@ class CTetrisLogic {
 
 public:
 
+  CTetrisLogic();
+  ~CTetrisLogic();
+
   /**
    * reset()
    *

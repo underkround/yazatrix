@@ -60,14 +60,14 @@ void CGraphics::drawChar(const int x, const int y, const char c) {
  * @param c     merkki
  */
 void CGraphics::drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char c) {
-  setColors(getForegroundColor(fg), getBackgroundColor(bg));
-  putchxy(x, y, c);
-}
-// DEPRICATED
-void CGraphics::drawChar(const int x, const int y, const int fg, const int bg, const char c) {
   setColors(fg, bg);
   putchxy(x, y, c);
 }
+// DEPRICATED
+/*void CGraphics::drawChar(const int x, const int y, const int fg, const int bg, const char c) {
+  setColors(fg, bg);
+  putchxy(x, y, c);
+}*/
 
 /**
  * drawSquare
@@ -84,7 +84,7 @@ void CGraphics::drawSquare(const int x, const int y, const int color) {
 }
 // DEPRICATED
 void CGraphics::drawSquare(const int x, const int y, const GCOLOR color) {
-  setColors(0, getForegroundColor(color));
+  setColors(0, getBackgroundColor(color));
   putchxy(x, y, ' '); //'█'
 }
 
@@ -160,6 +160,17 @@ void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, cons
       sw = '+';
       se = '+';
       break;
+    case BORDER_SINGLE:
+      n  = 196;
+      s  = 196;
+      w  = 179;
+      e  = 179;
+      nw = 191;
+      ne = 218;
+      sw = 192;
+      se = 217;
+      break;
+    default:
     case BORDER_GROOVE:
       n  = 205;
       s  = 205;
@@ -280,10 +291,7 @@ void CGraphics::resetColors(void) {
  */
 void CGraphics::setForegroundColor(const GCOLOR fg) {
   textcolor(getForegroundColor(fg));
-}
-// DEPRICATED
-void CGraphics::setForegroundColor(const int fg) {
-  textcolor(fg);
+  currentForegroundColor = fg;
 }
 
 /**
@@ -295,14 +303,11 @@ void CGraphics::setForegroundColor(const int fg) {
  */
 void CGraphics::setBackgroundColor(const GCOLOR bg) {
   textbackground(getBackgroundColor(bg));
-}
-// DEPRICATED
-void CGraphics::setBackgroundColor(const int bg) {
-  textbackground(bg);
+  currentBackgroundColor = bg;
 }
 
 /**
- * setForegroundColor
+ * setColors
  *
  * Asettaa sekä tekstin että taustan piirtovärit
  *
@@ -311,13 +316,26 @@ void CGraphics::setBackgroundColor(const int bg) {
  */
 void CGraphics::setColors(const GCOLOR fg, const GCOLOR bg) {
   textcolor(getForegroundColor(fg));
+  currentForegroundColor = fg;
   textbackground(getBackgroundColor(bg));
+  currentBackgroundColor = bg;
 }
-// DEPRICATED
+
+/**
+ * setColors
+ *
+ * Asettaa sekä tekstin että taustan piirtovärit
+ *
+ * @param fg    tekstin väri
+ * @param bg    taustan väri
+ */
 void CGraphics::setColors(const int fg, const int bg) {
   textcolor(fg);
+  currentForegroundColor = (GCOLOR)fg;
   textbackground(bg);
+  currentBackgroundColor = (GCOLOR)bg;
 }
+
 
 /**
  * getForegroundColor
@@ -352,7 +370,7 @@ int CGraphics::getForegroundColor(GCOLOR col) {
 }
 
 /**
- * getForegroundColor
+ * getBackgroundColor
  *
  * Palauttaa implementoinnin mukaisen numeron piirtovärille
  *

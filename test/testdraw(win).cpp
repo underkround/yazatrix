@@ -32,9 +32,9 @@ int main() {
       konsoli->drawString(20+3*j, i+4, i, j, ch);
     }
   }
-  konsoli->setColors(15,0);
+  konsoli->setColors(CGraphics::GCOLOR_WHITE,CGraphics::GCOLOR_BLACK);
   konsoli->drawBox(18, 2, 69, 21, CGraphics::BORDER_GROOVE);
-#endif ENUMSTYLE
+#endif //ENUMSTYLE
 
 #ifdef INTSTYLE
   konsoli->drawBox(2,2,12,12, CGraphics::BORDER_SIMPLE);
@@ -55,9 +55,9 @@ int main() {
       konsoli->drawString(20+3*j, i+4, i, j, ch);
     }
   }
-  konsoli->setColors(15,0);
+  konsoli->setColors(CGraphics::GCOLOR_WHITE,CGraphics::GCOLOR_BLACK);
   konsoli->drawBox(18, 2, 69, 21, CGraphics::BORDER_GROOVE);
-#endif INTSTYLE
+#endif //INTSTYLE
 
   delete konsoli;
   return 0;

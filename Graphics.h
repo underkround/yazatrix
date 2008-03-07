@@ -20,6 +20,7 @@ class CGraphics {
   enum BORDER_STYLE {
     BORDER_NONE,
     BORDER_SIMPLE,
+    BORDER_SINGLE,
     BORDER_GROOVE,
     BORDER_DOTTED
   };
@@ -63,18 +64,20 @@ class CGraphics {
   int getY();
   int getHeight();
   int getWidth();
-  void setColors(const int fg, const int bg); // DEPRICATED
   void setColors(const GCOLOR fg, const GCOLOR bg);
+  void setColors(const int fg, const int bg);
 
   private:
   void moveCursor(const int x, const int y);
   void resetColors(void);
-  void setForegroundColor(const int fg); // DEPRICATED
-  void setBackgroundColor(const int bg); // DEPRICATED
   void setForegroundColor(const GCOLOR fg);
   void setBackgroundColor(const GCOLOR bg);
   int getForegroundColor(GCOLOR col);
   int getBackgroundColor(GCOLOR col);
+
+  //muistetaan nykyiset käytössä olevat värit
+  GCOLOR currentForegroundColor;
+  GCOLOR currentBackgroundColor;
 };
 
  #endif //__GRAPHICS_H__
