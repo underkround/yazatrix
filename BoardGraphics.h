@@ -48,22 +48,32 @@ public:
     else return m_height;
   };
 
-  // katso BoardChangeListener n‰iden tarkempaan tarkotukseen
+  /** Tarkemmat selitykset @ BoardChangeListener.h */
   virtual void handleFreshBoard();
-  virtual void handleChangeInCoords(int *changedCoordsX[], int *changedCoordsY[], int numCoords);
-  virtual void handleChangeInLines(int *changedLines[], int numLines);
-  virtual void handleChangeInCoord(int x, int y);
+
+/*
+ * !! DEPRICATED !!
+  virtual void handleChangeInCoords(
+      const int *changedCoordsX[],
+      const int *changedCoordsY[],
+      const CELL_TYPE *cts[],
+      const int numChanges
+  );*/
+
+  virtual void handleChangeInLines(const int *changedLines[], const int numLines);
+
+  virtual void handleChangeInCoord(const int x, const int y, const CELL_TYPE ct);
 
 private:
 
-  CTetrisBoard *board; // t‰m‰ ei ole vastuussa boardin tuhoamisesta!
-  CGraphics *g; // eik‰ myˆsk‰‰n grafiikan tuhoamisesta!
-  bool m_borders; // n‰ytet‰‰nkˆ borderit
+  CTetrisBoard *board;    // t‰m‰ ei ole vastuussa boardin tuhoamisesta!
+  CGraphics *g;           // eik‰ myˆsk‰‰n grafiikan tuhoamisesta!
+  bool m_borders;         // n‰ytet‰‰nkˆ borderit
   CGraphics::BORDER_STYLE m_borderStyle; // borderin tyyli
-  int m_x; //
-  int m_y; // koordinaatit joista t‰m‰ alkaa piirt‰‰ itse‰‰n
-  int m_width;  // montako merkki‰ vied‰‰n tilaa
-  int m_height; // (voi olla eri kun laudankoko esim jos on borderit)
+  int m_x;                //
+  int m_y;                // koordinaatit joista t‰m‰ alkaa piirt‰‰ itse‰‰n
+  int m_width;            // montako merkki‰ vied‰‰n tilaa
+  int m_height;           // (voi olla eri kun laudankoko esim jos on borderit)
 
   void drawCell(int x, int y, CELL_TYPE ct); // x ja y ovat boardin koordinaatteja, eiv‰t ruudun
 

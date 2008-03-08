@@ -16,6 +16,7 @@
 
 
 CTetrisBoard::CTetrisBoard(void) {
+  m_firstReset = true;
   m_width = TETRIS_GUIDELINE_WIDTH;
   m_height = TETRIS_GUIDELINE_HEIGHT;
   m_matrix = new CELL_TYPE*[TETRIS_GUIDELINE_HEIGHT];
@@ -26,6 +27,7 @@ CTetrisBoard::CTetrisBoard(void) {
 
 
 CTetrisBoard::CTetrisBoard(const int cols, const int rows) {
+  m_firstReset = true;
   m_width = cols;
   m_height = rows;
   // luo vaaditun kokoinen matrix-taulukko
@@ -48,6 +50,10 @@ CTetrisBoard::~CTetrisBoard() {
 }
 
 void CTetrisBoard::reset(void) {
+  // nollataan changebufferit
+  while(!m_changeBufferX.empty())   m_changeBufferX.pop();
+  while(!m_changeBufferY.empty())   m_changeBufferY.pop();
+  while(!m_changeBufferCT.empty())  m_changeBufferCT.pop();
   // nollataan linecountit
   m_removedLines = 0;
   m_removedLinesLast = 0;
@@ -55,6 +61,10 @@ void CTetrisBoard::reset(void) {
   for(int iy=0; iy<m_height; iy++) {
     resetLine(iy);
   }
+  // ilmoitetaan tuoreesta boardista
+  notifyFreshBoard();
+  if(m_firstReset)
+    m_firstReset = false;
 }
 
 void CTetrisBoard::resetLine(const int y) {
@@ -74,6 +84,9 @@ CELL_TYPE CTetrisBoard::setSlot(const int x, const int y, const CELL_TYPE conten
   if(y < 0 || y >= m_height) return OFFGRID;
   CELL_TYPE old = m_matrix[y][x];
   m_matrix[y][x] = content;
+  m_changeBufferX.push(x);
+  m_changeBufferY.push(y);
+  m_changeBufferCT.push(content);
   return old;
 }
 
@@ -117,8 +130,7 @@ int CTetrisBoard::clearFullLines(void) {
     }
   }
   if(m_removedLinesLast > 0)
-    notifyChange();
-
+    notifyFreshBoard(); // TODO: ilmoita vain muuttuneet rivit
   return m_removedLinesLast; //??
 }
 
@@ -141,28 +153,46 @@ bool CTetrisBoard::removeLine(const int y) {
 }
 
 void CTetrisBoard::update() {
-  // tutkitaan mitä muutoksia on tapahtunut viimekerran jälkeen
-  // TODO
-  // ilmoitetaan muutokset
-  notifyChange();
+//  notifyFreshBoard(); // TODO: käytä changeBufferia ja ilmoita pelkät muutokset
+  // lähetetään bufferin sisältö kuuntelijalle
+  while(!m_changeBufferCT.empty()) {
+    notifyChangeInCoord(m_changeBufferX.top(), m_changeBufferY.top(), m_changeBufferCT.top());
+    m_changeBufferX.pop();
+    m_changeBufferY.pop();
+    m_changeBufferCT.pop();
+  }
 }
 
 // ==================== METODIT LISTENEREILLE ====================
 
-void CTetrisBoard::notifyChange(void) {
+void CTetrisBoard::notifyFreshBoard(void) {
   // foreach listeners
+	for(int i=0; i<changeListeners.size(); i++) {
+		VBoardChangeListener* listener = changeListeners[i];
+		listener->handleFreshBoard();
+	}
+}
+
+void CTetrisBoard::notifyChangeInCoord(const int x, const int y, const CELL_TYPE ct) {
 	for(unsigned int i=0; i<changeListeners.size(); i++) {
 		VBoardChangeListener* listener = changeListeners[i];
-		listener->handleFreshBoard(); // TILAPÄISESTI kunnes tarkemmat tiedot päivityksistä kerätään
-	}
+		listener->handleChangeInCoord(x, y, ct);
+  }
 }
 
 bool CTetrisBoard::registerBoardChangeListener(VBoardChangeListener* bcl) {
   changeListeners.push_back(bcl);
-  return false;
+  //notifyFreshBoard();
+  return true;
 }
 
 bool CTetrisBoard::unregisterBoardChangeListener(VBoardChangeListener* bcl) {
-  // TODO
+  // TODO: poista kuuntelija changeListeners -vektroista
   return false;
 }
+
+// DEPRICATED
+//void CTetrisBoard::notifyChangeInCoords() {
+  // käytetään changebufferia
+  // tyhjennetään changebuffer
+//}

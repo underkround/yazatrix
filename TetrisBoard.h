@@ -10,9 +10,9 @@
  */
 
 #include <vector>
+#include <stack>
 #include "TetrisCommon.h"
 #include "BoardChangeListener.h"
-//#include "Tetromino.h"
 
 class CTetrisBoard {
 
@@ -41,7 +41,7 @@ public:
   }
 
   /**
-   * GetSlot
+   * GetSlot(int x, int y)
    *
    * Palauttaa kentän solun sisältämän arvon
    *
@@ -53,7 +53,7 @@ public:
   CELL_TYPE getSlot(const int x, const int y);
 
   /**
-   * SetSlot
+   * SetSlot(int x, int y, CELL_TYPE content)
    *
    * Asettaa kentän koordinaatin {x,y} annettuun arvoon, jos koordinaatti
    * on kentän rajojen sisäpuolella.
@@ -67,7 +67,7 @@ public:
   CELL_TYPE setSlot(const int x, const int y, const CELL_TYPE content); // returns old content
 
   /**
-   * isEmpty
+   * isEmpty()
    *
    * Tarkistaa onko koko pelikenttä tyhjä (kaikki arvot EMPTY).
    *
@@ -76,7 +76,7 @@ public:
   bool isEmpty(void); // koko lauta
 
   /**
-   * isEmpty
+   * isEmpty(int x, int y)
    *
    * Tarkistaa, onko yksittäinen koordinaatti tyhjä.
    *
@@ -90,7 +90,7 @@ public:
   bool isEmpty(const int x, const int y); // haluttu ruutu, offgrid = false, paitsi ylhäällä
 
   /**
-   * isEmpty
+   * isEmpty(int y)
    *
    * Tarkistaa, onko yksittäinen rivi tyhjä.
    *
@@ -102,7 +102,7 @@ public:
   bool isEmpty(const int y); // rivi
 
   /**
-   * isFull
+   * isFull(int y)
    *
    * Tarkistaa, onko yksittäisen rivin kaikki solut täysiä (muuta kuin
    * EMPTY).
@@ -114,17 +114,24 @@ public:
   bool isFull(const int y); // rivi
 
   /**
-   * reset
+   * reset()
    *
    * Alustaa pelikentän taulukon (matrix) EMPTY-arvoilla, sekä nollaa
    * laskurit.
    */
   void reset(void);
 
+  /**
+   * getMatrix()
+   *
+   * Palauttaa kutsujalle koko boardin solutaulukon.
+   *
+   * @return    kaksiulotteinen taulukko boardin soluista
+   */
   CELL_TYPE** getMatrix(void); // palauttaa koko matriksin
 
   /**
-   * clearFullLines
+   * clearFullLines()
    *
    * Käy pelilaudan rivit järjestyksessä (alhaalta ylöspäin) läpi, ja
    * poistaa kaikki täynnä olevat rivit. Päivittää poistettujen rivien
@@ -135,8 +142,12 @@ public:
   int clearFullLines(void); // käytetään joka tickillä
 
   /**
+   * registerBoardChangeListener(VBoardChangeListener* bcl)
+   *
    * Lisää laudan tapahtumakuuntelijan kuuntelijavektoriin.
    * Ei vastaa kuuntelijaolioiden tuhoamisesta.
+   *
+   * @param bcl   rekisteröityvä kuuntelija, jolle muutostiedot lähetetään
    */
   bool registerBoardChangeListener(VBoardChangeListener* bcl);
 
@@ -146,16 +157,35 @@ public:
    */
   bool unregisterBoardChangeListener(VBoardChangeListener* bcl);
 
+  /**
+   * update()
+   *
+   * Public -näkyvyyden metodi, jolla boardia muokannut ilmoittaa
+   * muokkauksen loppuneen, jolloin board voi lähettää muutokset
+   * (flush) sen muutoskuuntelijoille.
+   *
+   * Määrittää changeBufferien perusteella, lähetetäänkö kuuntelijoille
+   * muutokset vai käsketäänkö piirtämään koko lauta uudestaan
+   */
   void update(void);
 
 private:
 
-  int m_width;
-  int m_height;
-  CELL_TYPE **m_matrix; // kentän sisältö CELL_TYPE vakioina
-  int m_removedLines; // räjähtäneet rivit yhteensä
+  int m_width;  // solujen määrä vaakasuunnassa
+  int m_height; // solujen määrä pystysuunnassa
+  CELL_TYPE **m_matrix;   // kentän sisältö CELL_TYPE vakioina
+  int m_removedLines;     // räjähtäneet rivit yhteensä
   int m_removedLinesLast; // viimeksi räjähtäneet rivit
+  bool m_firstReset;
   std::vector<VBoardChangeListener*> changeListeners; // laudan muutostapahtumakuuntelijat
+/*  int m_changeBufferMax;        // suurin koko changebufferille, jos ylittyy, käsketään päivittämään koko board
+  int m_changeBufferChanges;    // koordinaatit changebufferissa
+  int *m_changeBufferX[];       // taulukot, joissa on laudan solujen muutokset.
+  int *m_changeBufferY[];       // muutokset ilmoitetaan notify-metodeissa kuuntelijoille
+  CELL_TYPE *changeBufferCT[];  // ja bufferit tyhjennetään */
+  std::stack<int> m_changeBufferX;
+  std::stack<int> m_changeBufferY;
+  std::stack<CELL_TYPE> m_changeBufferCT;
 
   /**
    * removeLine
@@ -163,18 +193,50 @@ private:
    * Poistaa rivin kentästä, ja siirtää ylempiä rivejä alaspäin.
    * Alustaa ylimmäiseksi riviksi uuden tyhjän rivin.
    *
-   * @param   y   poistettavan rivin koordinaatti y
-   * @return  false, jos kentässä ei ole riviä y (yli rajojen)
+   * @param y   poistettavan rivin koordinaatti y
+   * @return    false, jos kentässä ei ole riviä y (yli rajojen)
    */
-  bool removeLine(int y); // siirrä yläpuolen rivejä yhdellä
+  bool removeLine(const int y); // siirrä yläpuolen rivejä yhdellä
 
+  /**
+   * resetline(int y)
+   *
+   * Asettaa rivin y solujen arvoksi EMPTY
+   *
+   * @param y   nollattavan rivin indeksi
+   */
   void resetLine(const int y); // asettaa rivin alkiot EMPTY:n mukaiseksi
 
   /**
-   * Ilmoittaa laudan rekisteröityneille tapahtumakuuntelijoille
-   * muutoksesta pelilaudassa (matrixissa)
+   * notifyFreshBoard()
+   *
+   * Ilmoittaa boardin rekisteröityneille tapahtumakuuntelijoille
+   * suuresta muutoksesta pelilaudassa (matrixissa), jolloin suositeltava
+   * toimenpide kuuntelijoille on hakea koko matrixin tila uudestaan.
    */
-  void notifyChange(void);
+  void notifyFreshBoard(void);
+
+  /**
+   * notifyChangeInCoords()
+   *
+   * !! DEPRICATED !!
+   *
+   * Ilmoittaa boardin kuuntelijoille muutoksista tietyissä
+   * koordinaateissa. Käytetään muutosbuffereita, jotka tyhjätään
+   * mainostamisen jälkeen.
+   */
+//  void notifyChangeInCoords();
+
+  /**
+   * notifyChangeInCoord(int x, int y, CELL_TYPE ct)
+   *
+   * Ilmoittaa boardin kuuntelijoille muutoksesta yksittäisessä
+   * koordinaatissa.
+   * @param   x     muuttuneen solun x koordinaatti
+   * @param   y     muuttuneen solun y koordinaatti
+   * @param   ct    muuttuneen solun uusi sisältö
+   */
+  void notifyChangeInCoord(const int x, const int y, const CELL_TYPE ct);
 
 };
 
