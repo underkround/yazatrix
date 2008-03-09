@@ -7,15 +7,13 @@
 /**
  * TetrominoFactory
  *
- * $Id$
  * $Revision$
+ * $Id$
  *
  * Alustaa halutun palikan, tai random-palikan ‰lykk‰‰ll‰ logiikalla
  * esim: http://www.tetrisconcept.com/wiki/index.php?title=TGM_randomizer
  *
- * TODO:
- *  - create(..) joka luo ja antaa muodon tunnetuille tetrominoille
- *  - logiikka randomille
+ * TODO: ‰lyk‰s logiikka palikan arpomiselle
  */
 
 class CTetrominoFactory {

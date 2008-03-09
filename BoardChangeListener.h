@@ -4,6 +4,11 @@
 #include "TetrisCommon.h"
 
 /**
+ * BoardChangeListener.h
+ *
+ * $Revision$
+ * $Id$
+ *
  * Abstrakti luokka / interface
  * jonka implementoivalle luokalle voidaan välittää tieto
  * muutoksista laudan sisällössä.

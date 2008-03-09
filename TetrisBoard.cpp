@@ -1,11 +1,11 @@
 /**
  * TetrisBoard.cpp
  *
- * $Id$
  * $Revision$
- * $HeadURL$
+ * $Id$
  *
- * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
+ * @see TetrisBoard.h
+ *
  */
 
 #include "TetrisBoard.h"

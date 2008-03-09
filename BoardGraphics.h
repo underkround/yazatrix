@@ -2,6 +2,11 @@
 #define __BOARDGRAPHICS_H__
 
 /**
+ * BoardGraphics.h
+ *
+ * $Revision$
+ * $Id$
+ *
  * CBoardGraphics objekti ottaa luonnissa itselleen TetrisBoard-objektin, jota
  * se mallintaa ruudulle.
  *

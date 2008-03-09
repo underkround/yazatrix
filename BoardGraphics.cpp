@@ -1,5 +1,10 @@
 /**
+ * BoardGraphics.cpp
  *
+ * $Revision$
+ * $Id$
+ *
+ * @see BoardGraphics.h
  *
  */
 

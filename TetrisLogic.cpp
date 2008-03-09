@@ -1,7 +1,14 @@
-#include "TetrisLogic.h"
-/*
+/**
+ * TetrisLogic.cpp
+ *
+ * $Revision$
+ * $Id$
+ *
+ * @see TetrisLogic.h
+ *
  */
 
+#include "TetrisLogic.h"
 
 CTetrisLogic::CTetrisLogic() {
   // luodaan gameboard ja previewboard

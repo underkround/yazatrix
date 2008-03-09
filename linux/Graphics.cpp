@@ -1,8 +1,12 @@
 /**
- * Grafiikkaluokka linux piirtämiseen implementaatio
+ * linux/Graphics.cpp
  *
+ * $Revision$
  * $Id$
- * $HeadURL$
+ *
+ * Grafiikkaluokan implementaatio linux-piirtämiseen
+ *
+ * @see Graphics.h
  *
  */
 #define DEFAULT_FOREGROUND_GCOLOR 7

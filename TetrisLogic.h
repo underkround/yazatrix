@@ -7,16 +7,12 @@
 #include "TetrisTimer.h"
 #include "TetrisCommon.h"
 #include "TetrominoFactory.h"
-//#include <deque>
-
-#define PREVIEW_TETROMINOES 3
-#define GAMEBOARD_WIDTH 12
-#define GAMEBOARD_HEIGHT 20
-#define PREVIEWBOARD_WIDTH 4
-#define PREVIEWBOARD_HEIGHT 20
 
 /**
- * TetrisLogic
+ * TetrisLogic.h
+ *
+ * $Revision$
+ * $Id$
  *
  * Pitää sisällään / vastaa luonnista ja tuhoamisesta:
  *  - TetrisBoard gameBoard
@@ -25,6 +21,13 @@
  *  - Timer -> logiikka rekisteröityy timerille tick-kuuntelijaksi
  *  -
  */
+
+#define PREVIEW_TETROMINOES 3
+#define GAMEBOARD_WIDTH 12
+#define GAMEBOARD_HEIGHT 20
+#define PREVIEWBOARD_WIDTH 4
+#define PREVIEWBOARD_HEIGHT 20
+
 class CTetrisLogic : public VCommandListener {
 
 public:

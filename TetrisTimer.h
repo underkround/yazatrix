@@ -3,14 +3,16 @@
 
 #define DEBUG
 
-//#include "TetrisBoard.h"
 #include "Thread.h"
 #include <string>
 #include <process.h>
 #include <windows.h>
 
 /**
- * TetrisTimer
+ * TetrisTimer.h
+ *
+ * $Revision$
+ * $Id$
  *
  * Timer kutsuu TetrisBoard::tick() tasaisin väliajoin.
  * Jokaisella tickillä palikka tippuu.

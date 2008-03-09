@@ -1,8 +1,12 @@
 /**
+ * windows/Graphics.cpp
+ *
+ * $Revision$
+ * $Id$
+ *
  * Grafiikkaluokka windowsissa piirtämiseen implementaatio
  *
- * $Id$
- * $HeadURL$
+ * @see Graphics.h
  *
  */
 #define DEFAULT_FOREGROUND_GCOLOR 7

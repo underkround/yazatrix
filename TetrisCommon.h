@@ -1,8 +1,9 @@
 #ifndef __TETRISCOMMON_H__
 #define __TETRISCOMMON_H__
 /**
- * TetrisCommon
+ * TetrisCommon.h
  *
+ * $Revision$
  * $Id$
  *
  * Pelille keskeisiä enumeja

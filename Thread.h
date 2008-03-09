@@ -1,6 +1,14 @@
 #ifndef __THREAD_H__
 #define __THREAD_H__
 
+/**
+ * Thread.h
+ *
+ * $Revision$
+ * $Id$
+ *
+ */
+
 class CThread {
 public:
     virtual ~CThread() {}

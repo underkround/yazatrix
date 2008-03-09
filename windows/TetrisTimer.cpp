@@ -1,15 +1,12 @@
-
 /**
- * TetrisTimer
+ * windows/TetrisTimer.cpp
  *
- * Timer kutsuu TetrisBoard::tick() tasaisin väliajoin.
- * Jokaisella tickillä palikka tippuu.
- * Timerin viivettä voidaan lyhentää (timeria nopeuttaa)
- * määritettyyn rajaan asti.
- *
+ * $Revision$
  * $Id$
  *
  * Unhandled exception at 0x7c918fea in testtimer.exe: 0xC0000005: Access violation writing location 0x00000010.
+ *
+ * @see TetrisTimer.h
  *
  */
 #define DEBUG

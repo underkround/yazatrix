@@ -3,8 +3,8 @@
 /**
  * TetrisBoard.h
  *
- * $Id$
  * $Revision$
+ * $Id$
  *
  * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
  */

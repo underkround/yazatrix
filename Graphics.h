@@ -1,10 +1,12 @@
 #ifndef __GRAPHICS_H__
 #define __GRAPHICS_H__
 /**
- * Grafiikka luokka windowsissa piirtämiseen
+ * Graphics.h
  *
+ * $Revision$
  * $Id$
- * $HeadURL$
+ *
+ * Grafiikkaluokka windowsin komentorivillä piirtämiseen
  *
  * conion asentaminen code::blocksiin onnistuu helpoiten käyttmällä devpak pluginiä:
  * hae devpak installer/updater pluginillä devpaks.org -> text console -> conio 2.0

@@ -2,10 +2,10 @@
 #define __COMMANDLISTENER_H__
 
 /**
- * VCommandListener
+ * CommandListener.h
  *
  * $Revision$
- * $ID$
+ * $Id$
  *
  * Abstrakti luokka / interface, jonka perivä luokka (esimerkiksi
  * pelilogiikka ja menu) voi vastaanottaa komentoja (esimerkiksi

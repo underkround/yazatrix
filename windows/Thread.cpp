@@ -1,3 +1,13 @@
+/**
+ * windows/Thread.cpp
+ *
+ * $Revision$
+ * $Id$
+ *
+ * @see Thread.h
+ *
+ */
+
 #include <stdlib.h>
 #include <process.h>
 #include <windows.h>

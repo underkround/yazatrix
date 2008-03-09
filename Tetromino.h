@@ -2,22 +2,11 @@
 #define __TETROMINO_H__
 
 /**
- * Tetromino
+ * Tetromino.h
  *
- * $Id$
  * $Revision$
+ * $Id$
  *
-
- TODO:
-   ongelma:
-    palikan muoto ja rotaatiot tulee antaa konstruktorissa (blockfactory antaa ne),
-    mutta miten muoto pidet‰‰n? ja onko pivot point aina toinen piste x ja y-suunnassa?
-    l‰hdet‰‰n siit‰ ett‰ annetaan ainoastaan rotaation 0 muoto, jota pyˆritet‰‰n
-    laskennallisesti, eli getRotation(int r)-metodi palauttaa halutun rotaation r
-   metodit joihin t‰m‰ vaikuttaa:
-    konstruktori
-    getRotation(int r)
-
  * Palikka huolehtii seuraavista asioista:
  *  - palikka voi olla liitettyn‰ yhteen pelilautaan kerrallaan
  *  - palikka tiet‰‰ muotonsa ja mahdolliset rotaationsa

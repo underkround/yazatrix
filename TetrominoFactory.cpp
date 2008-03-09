@@ -1,8 +1,10 @@
 /**
- * TetrominoFactory
+ * TetrominoFactory.cpp
  *
- * $Id$
  * $Revision$
+ * $Id$
+ *
+ * @see TetrominoFactory.h
  */
 
 #include "TetrominoFactory.h"
