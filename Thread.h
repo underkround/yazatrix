@@ -20,7 +20,7 @@ protected:
     virtual void code() = 0;
 
 private:
-    int running;
+    bool m_boolRunning;
     unsigned long m_pid;
 
     static void dispatch(void* thread_obj);

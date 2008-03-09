@@ -20,6 +20,11 @@ class TKeyboardInput : private CThread {
 
   public:
   /**
+   * Säikeen luontikutsu
+   */
+  static void TKeyboardInput::create(const char* inputName);
+
+  /**
    * Varsinainen koodi joka suoritettaan säiettä ajaessa
    */
   void code();
@@ -32,7 +37,7 @@ class TKeyboardInput : private CThread {
   /**
    * Onko säie käynnissä?
    */
-  bool m_intIsRunning;
+  //bool m_boolRunning;
 
 };
 

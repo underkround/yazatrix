@@ -10,15 +10,11 @@
 #include "../KeyboardInput.h"
 
 int main() {
-  TKeyboardInput::create("ajastin");
+  TKeyboardInput::create("keyb");
   char ch=0;
-  printf("Timer testi, paina ESC lopettaaksesi\n");
-  while(ch != 27) {
-    if(kbhit()) {
-      ch = getch();
-      printf(" %d ", ch);
-      printf(" ajastin on käynnissä, paina ESC lopettaaksesi\n");
-    }
+  printf("Keyboard testi, paina ctrl+c lopettaaksesi!\n");
+  while(1) {
+    sleep(10000);
   }
   return 0;
 

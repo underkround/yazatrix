@@ -10,18 +10,19 @@
  *
  */
 
-#include "Thread.h"
+#include "../KeyboardInput.h"
+#include "../Thread.h"
 #include <string>
 #include <process.h>
 #include <windows.h>
 
 void TKeyboardInput::create(const char* inputName)
 {
-  m_intIsRunning = true;
+  //m_boolRunning = true;
   (new TKeyboardInput(inputName))->run(); //säie ajoon
 }
 
 void TKeyboardInput::code() {
-  while(m_intIsRunning) {
+  while(1) {
   }
 }
