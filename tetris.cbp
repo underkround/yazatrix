@@ -175,6 +175,11 @@
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
 		</Unit>
+		<Unit filename="KeyboardInput.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="vs2008" />
+		</Unit>
 		<Unit filename="TetrisBoard.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -298,6 +303,11 @@
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
+		</Unit>
+		<Unit filename="windows\KeyboardInput.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="windows\TetrisTimer.cpp">
 			<Option target="Debug" />
