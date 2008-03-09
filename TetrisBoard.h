@@ -1,5 +1,6 @@
 #ifndef __TETRISBOARD_H__
 #define __TETRISBOARD_H__
+
 /**
  * TetrisBoard.h
  *

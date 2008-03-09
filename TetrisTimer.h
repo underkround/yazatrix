@@ -1,13 +1,6 @@
 #ifndef __TETRISTIMER_H__
 #define __TETRISTIMER_H__
 
-#define DEBUG
-
-#include "Thread.h"
-#include <string>
-#include <process.h>
-#include <windows.h>
-
 /**
  * TetrisTimer.h
  *
@@ -22,6 +15,13 @@
  * TODO: tarkista oikeat viiveet tetrisconsept -wikistä
  *
  */
+
+#include "Thread.h"
+#include <string>
+#include <process.h>
+#include <windows.h>
+
+#define DEBUG
 
 class CTetrisTimer : private CThread {
 

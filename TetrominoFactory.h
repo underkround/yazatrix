@@ -1,9 +1,6 @@
 #ifndef __TETROMINOFACTORY_H__
 #define __TETROMINOFACTORY_H__
 
-#include "Tetromino.h"
-#include "TetrisCommon.h"
-
 /**
  * TetrominoFactory
  *
@@ -15,6 +12,9 @@
  *
  * TODO: älykäs logiikka palikan arpomiselle
  */
+
+#include "Tetromino.h"
+#include "TetrisCommon.h"
 
 class CTetrominoFactory {
 

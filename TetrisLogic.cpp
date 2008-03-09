@@ -40,11 +40,29 @@ CTetrisLogic::~CTetrisLogic() {
   delete m_previewBoard;
 }
 
+void CTetrisBoard::run(void) {
+}
+
 void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
   switch(cmd) {
     default:
       break;
   }
+}
+
+void CTetrisLogic::tick() {
+  // testataan onko nykyinen palikka jos laskeutunut
+  if(m_currentTetromino->hasLanded()) {
+    // käsketään lautaa tyhjäämään täydet rivit
+    m_gameBoard->clearFullLines();
+    // pyöräytetään palikoita
+    rotateTetrominoes();
+  } else {
+    // tiputetaan nykyistä palikkaa
+    m_currentTetromino->moveDown();
+  }
+  // mikäli uusi palikka on otettu käyttöön, lisätään se (block->attach()) (nimenomaan vasta täysien rivien tyhjennyksen jälkeen??)
+  // säädetään tickin timeria laudan räjäytettyjen rivien perusteella tai pelissä olleiden palikoiden mukaan
 }
 
 void CTetrisLogic::rotateTetrominoes() {

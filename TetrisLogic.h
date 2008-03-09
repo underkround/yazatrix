@@ -1,13 +1,6 @@
 #ifndef __TETRISLOGIC_H__
 #define __TETRISLOGIC_H__
 
-#include "CommandListener.h"
-#include "TetrisBoard.h"
-#include "Tetromino.h"
-#include "TetrisTimer.h"
-#include "TetrisCommon.h"
-#include "TetrominoFactory.h"
-
 /**
  * TetrisLogic.h
  *
@@ -21,6 +14,13 @@
  *  - Timer -> logiikka rekisteröityy timerille tick-kuuntelijaksi
  *  -
  */
+
+#include "CommandListener.h"
+#include "TetrisBoard.h"
+#include "Tetromino.h"
+#include "TetrisTimer.h"
+#include "TetrisCommon.h"
+#include "TetrominoFactory.h"
 
 #define PREVIEW_TETROMINOES 3
 #define GAMEBOARD_WIDTH 12
@@ -39,16 +39,11 @@ public:
   /**
    * reset()
    *
-   * Alustaa uuden pelin:
-   *  - Luo uuden tetrominoFactoryn
-   *  - Asettaa timerille asianmukaisen viiveen (luo uuden timerin?
-   *    ainakin jos timerin constructorissa annetaan timerille
-   *    maksiminopeus ja alkunopeus)
-   *  - Luo uudet gameBoardin ja previewBoardin
-   *  - Luo uudet previewTetrominot ja currentTetrominon
-   *  - nollaa laskurit (tetrominoCounter jne)
+   * @deprecated  revision 72 jälkeen logiikkaa ei enää voi resetoida, luonnit
+   *              hoidetaan konstruktorissa ja tuhoamiset destruktorissa.
+   *              Uuden pelin aloittamiseksi luodaan kokonaan uusi TetrisLogic.
    */
-  void reset(void);
+//  void reset(void);
 
   /**
    * run()
@@ -80,20 +75,15 @@ public:
   /**
    * getCurrentTetromino()
    *
-   * Palauttaa nykyisen palikan, jos sellaista on. Jos nykyistä palikkaa
-   * ei ole, palauttaa NULL/0 !!
-   *
-   * @return    gameBoardissa kiinni oleva palikka, jota pelaaja ohjaa
+   * @deprecated  Kukaan ei itseasiassa tarvitse nykyistä palikkaa, koska
+   *              sen ohjaaminen tapahtuu CommandListener -interfacen kautta.
    */
-// DEPRICATED -> eihän tätä tarvitakaan, koska palikkaa ohjataan CommandListenerin kautta
-//  inline CTetromino   getCurrentTetromino(void) {
-//    return *m_currentTetromino;
-//  }
+//  inline CTetromino   getCurrentTetromino(void) { return *m_currentTetromino; }
 
   /**
    * handleKeyCommand()
    *
-   *
+   * @see CommandListener.h
    */
   virtual void handleCommand(VCommandListener::COMMAND cmd);
 

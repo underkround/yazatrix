@@ -1,8 +1,6 @@
 #ifndef __BOARDCHANGELISTENER_H__
 #define __BOARDCHANGELISTENER_H__
 
-#include "TetrisCommon.h"
-
 /**
  * BoardChangeListener.h
  *
@@ -23,6 +21,8 @@
  * haluamallaan tavalla. Luultavasti se haluaa kysyä muuttuneet
  * asiat boardin metodeilla: getMatrix() ja getSlot(x, y);
  */
+
+#include "TetrisCommon.h"
 
 class VBoardChangeListener {
 

@@ -1,5 +1,6 @@
 #ifndef __TETRISCOMMON_H__
 #define __TETRISCOMMON_H__
+
 /**
  * TetrisCommon.h
  *
