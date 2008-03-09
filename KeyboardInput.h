@@ -39,6 +39,7 @@ class TKeyboardInput : private CThread {
    */
   //bool m_boolRunning;
 
+  TKeyboardInput(const char* inputName) : name(inputName) {}
 };
 
 #endif //__KEYBOARDINPUT_H__

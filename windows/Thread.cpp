@@ -13,16 +13,16 @@
 #include <windows.h>
 #include "../Thread.h"
 
-CThread::CThread() : running(0) , m_pid(0L) {}
+CThread::CThread() : m_boolRunning(false) , m_pid(0L) {}
 
 void CThread::run()
 {
     // Don't start two threads on the same object
-    if (running) return;
+    if (m_boolRunning) return;
 
     // Create an OS thread, using the static callback
     m_pid = _beginthread(CThread::dispatch, 0, this);
-    running = 1;
+    m_boolRunning = true;
 }
 
 void CThread::dispatch(void* thread_obj)
