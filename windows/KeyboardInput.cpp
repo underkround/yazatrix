@@ -28,7 +28,7 @@ void TKeyboardInput::code() {
     if(kbhit()) {
       ch = getch();
       printf("%d\n", ch);
-
     }
+    Sleep(10);
   }
 }
