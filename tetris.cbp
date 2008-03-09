@@ -114,6 +114,20 @@
 					<Add directory="C:\Program Files\codeblocks\devpaks\lib" />
 				</Linker>
 			</Target>
+			<Target title="testlogic">
+				<Option output="bin\tests\testlogic" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\tests\testlogic" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio.a" />
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio_unicode.a" />
+				</Linker>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -125,6 +139,7 @@
 			<Option target="testboard" />
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="BoardGraphics.cpp">
 			<Option target="Debug" />
@@ -132,6 +147,7 @@
 			<Option target="testboard" />
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="BoardGraphics.h">
 			<Option target="Debug" />
@@ -139,6 +155,7 @@
 			<Option target="testboard" />
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="CommandListener.h">
 			<Option target="Debug" />
@@ -147,6 +164,7 @@
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
 			<Option target="testtimer" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="Graphics.h">
 			<Option target="Debug" />
@@ -155,6 +173,7 @@
 			<Option target="testdraw" />
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="TetrisBoard.cpp">
 			<Option target="Debug" />
@@ -162,6 +181,7 @@
 			<Option target="testboard" />
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="TetrisBoard.h">
 			<Option target="Debug" />
@@ -169,6 +189,7 @@
 			<Option target="testboard" />
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="TetrisCommon.h">
 			<Option target="Debug" />
@@ -177,12 +198,14 @@
 			<Option target="testdraw" />
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="TetrisLogic.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testboard" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="TetrisLogic.h">
 			<Option target="Debug" />
@@ -190,6 +213,7 @@
 			<Option target="vs2008" />
 			<Option target="testboard" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="TetrisTimer.h">
 			<Option target="Debug" />
@@ -197,6 +221,7 @@
 			<Option target="vs2008" />
 			<Option target="testtimer" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="Tetromino.cpp">
 			<Option target="Debug" />
@@ -204,6 +229,7 @@
 			<Option target="vs2008" />
 			<Option target="testboard" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="Tetromino.h">
 			<Option target="Debug" />
@@ -211,6 +237,7 @@
 			<Option target="vs2008" />
 			<Option target="testboard" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="TetrominoFactory.cpp">
 			<Option target="Debug" />
@@ -218,6 +245,7 @@
 			<Option target="vs2008" />
 			<Option target="testboard" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="TetrominoFactory.h">
 			<Option target="Debug" />
@@ -225,6 +253,7 @@
 			<Option target="vs2008" />
 			<Option target="testboard" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="Thread.h">
 			<Option target="Debug" />
@@ -232,6 +261,7 @@
 			<Option target="vs2008" />
 			<Option target="testtimer" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="linux\Graphics.cpp">
 			<Option target="Debug" />
@@ -250,6 +280,9 @@
 			<Option target="Release" />
 			<Option target="testgameloop" />
 		</Unit>
+		<Unit filename="test\testlogic.cpp">
+			<Option target="testlogic" />
+		</Unit>
 		<Unit filename="test\testtimer.cpp">
 			<Option target="testtimer" />
 		</Unit>
@@ -264,6 +297,7 @@
 			<Option target="testdraw" />
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="windows\TetrisTimer.cpp">
 			<Option target="Debug" />
@@ -271,6 +305,7 @@
 			<Option target="vs2008" />
 			<Option target="testtimer" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="windows\Thread.cpp">
 			<Option target="Debug" />
@@ -278,6 +313,7 @@
 			<Option target="vs2008" />
 			<Option target="testtimer" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
 		</Unit>
 		<Extensions>
 			<code_completion />

@@ -59,8 +59,8 @@ public:
    *
    * @return    TetrisBoard, jossa peli tapahtuu
    */
-  inline CTetrisBoard getGameBoard(void) {
-    return *m_gameBoard;
+  inline CTetrisBoard* getGameBoard(void) {
+    return m_gameBoard;
   }
 
   /**
@@ -68,8 +68,8 @@ public:
    *
    * @return    TetrisBoard, jossa preview-palikat ovat kiinni
    */
-  inline CTetrisBoard getPreviewBoard(void) {
-    return *m_previewBoard;
+  inline CTetrisBoard* getPreviewBoard(void) {
+    return m_previewBoard;
   }
 
   /**

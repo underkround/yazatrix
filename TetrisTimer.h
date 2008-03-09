@@ -45,6 +45,20 @@ public:
 
   inline bool isRunning() { return m_intIsRunning; }
 
+  /**
+   * adjust(int tetrominoCount, int level, int removedLines)
+   *
+   * K‰sket‰‰n timeria tarkistamaan viiveens‰ annettujen
+   * parametrien perusteella.
+   * Timerin asia on pit‰‰ algoritmi jolla viive lasketaan,
+   * ja p‰‰tt‰‰ mink‰ perusteella se lasketaan..
+   *
+   * @param tetrominoCount  pelilaudalla olleiden palikoiden m‰‰r‰
+   * @param level           pelin level
+   * @param removedLines    r‰j‰ytettyjen rivien m‰‰r‰
+   */
+  void adjust(int tetrominoCount, int level, int removedLines);
+
 // ==================== PRIVATE =========================
 
 //private:

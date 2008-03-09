@@ -9,6 +9,7 @@
  */
 
 #include "TetrisLogic.h"
+#include <cstdlib> // TODO: TEMPORARY
 
 CTetrisLogic::CTetrisLogic() {
   // luodaan gameboard ja previewboard
@@ -41,7 +42,10 @@ CTetrisLogic::~CTetrisLogic() {
 }
 
 void CTetrisLogic::run(void) {
-
+  while(!m_gameOver) {
+    Sleep(100);
+    tick();
+  }
 }
 
 void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
@@ -62,8 +66,8 @@ void CTetrisLogic::tick() {
     // tiputetaan nykyistä palikkaa
     m_currentTetromino->moveDown();
   }
-  // mikäli uusi palikka on otettu käyttöön, lisätään se (block->attach()) (nimenomaan vasta täysien rivien tyhjennyksen jälkeen??)
   // säädetään tickin timeria laudan räjäytettyjen rivien perusteella tai pelissä olleiden palikoiden mukaan
+
 }
 
 void CTetrisLogic::rotateTetrominoes() {
@@ -83,7 +87,7 @@ void CTetrisLogic::rotateTetrominoes() {
     // Luo preview-taulun loppuun uuden palikan.
     m_previewTetrominoes[PREVIEW_TETROMINOES-1] = m_factory->createRandom();
     // Kiinnittää preview-taulun loppuun luodun palikan previewBoardiin omalle paikalleen
-    m_previewTetrominoes[PREVIEW_TETROMINOES-1]->attach(m_previewBoard, m_previewSpacingY * PREVIEW_TETROMINOES);
+    m_previewTetrominoes[PREVIEW_TETROMINOES-1]->attach(m_previewBoard, m_previewSpacingY * PREVIEW_TETROMINOES * -1 + m_previewSpacingY/2);
     // Yrittää kiinnittää uuden nykyisen palikan gameBoardiin. Jos ei onnistu, peli loppuu
     if(!m_currentTetromino->attach(m_gameBoard)) {
       m_gameOver = true;
