@@ -61,14 +61,18 @@ public:
    *
    * @return    TetrisBoard, jossa peli tapahtuu
    */
-  CTetrisBoard getGameBoard(void);
+  inline CTetrisBoard getGameBoard(void) {
+    return *m_gameBoard;
+  }
 
   /**
    * getPreviewBoard()
    *
    * @return    TetrisBoard, jossa preview-palikat ovat kiinni
    */
-  CTetrisBoard getPreviewBoard(void);
+  inline CTetrisBoard getPreviewBoard(void) {
+    return *m_previewBoard;
+  }
 
   /**
    * getCurrentTetromino()
@@ -78,7 +82,10 @@ public:
    *
    * @return    gameBoardissa kiinni oleva palikka, jota pelaaja ohjaa
    */
-  CTetromino   getCurrentTetromino(void);
+// DEPRICATED -> eih‰n t‰t‰ tarvitakaan, koska palikkaa ohjataan CommandListenerin kautta
+//  inline CTetromino   getCurrentTetromino(void) {
+//    return *m_currentTetromino;
+//  }
 
   /**
    * handleKeyCommand()
@@ -93,7 +100,8 @@ public:
 private:
 
   // r‰j‰ytetyt rivit saadaan boardilta kysym‰ll‰
-  bool            m_firstInit;
+  bool            m_gameOver;
+  bool            m_moveLock;         // true = nykyist‰ palikkaa ei voida liikuttaa
   int             m_tetrominoCounter; // gameBoardissa olleiden palikoiden m‰‰r‰
   CTetrisBoard    *m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
   CTetrisBoard    *m_previewBoard;     // previewBoard, jossa n‰kyy seuraavat palikat
