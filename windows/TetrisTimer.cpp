@@ -46,7 +46,7 @@ void CTetrisTimer::resetTick() {
 void CTetrisTimer::code() {
   setPause();
   laskuri = 1;
-  while(isRunning()) {
+  while(m_intIsRunning) {
     Sleep(1000);
     //EnterCriticalSection(&sync);
     tick();

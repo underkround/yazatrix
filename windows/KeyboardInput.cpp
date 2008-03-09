@@ -15,7 +15,13 @@
 #include <process.h>
 #include <windows.h>
 
-void KeyboardInput::create(const char* inputName)
+void TKeyboardInput::create(const char* inputName)
 {
-  (new CTetrisTimer(timerName))->run();
+  m_intIsRunning = true;
+  (new TKeyboardInput(inputName))->run(); //säie ajoon
+}
+
+void TKeyboardInput::code() {
+  while(m_intIsRunning) {
+  }
 }

@@ -16,11 +16,24 @@
 #include <process.h>
 #include <windows.h>
 
-class CTetrisTimer : private CThread {
+class TKeyboardInput : private CThread {
+
   public:
+  /**
+   * Varsinainen koodi joka suoritettaan säiettä ajaessa
+   */
   void code();
+
   private:
+  /**
+   * Säikeen yksilöivä nimi
+   */
   std::string name;
+  /**
+   * Onko säie käynnissä?
+   */
+  bool m_intIsRunning;
+
 };
 
 #endif //__KEYBOARDINPUT_H__
