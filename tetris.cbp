@@ -128,6 +128,24 @@
 					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio_unicode.a" />
 				</Linker>
 			</Target>
+			<Target title="testkeyboard">
+				<Option output="bin\tests\testkeyboard" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\tests\keyboard" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\include" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\lib" />
+				</Compiler>
+				<Linker>
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio.a" />
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio_unicode.a" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\include" />
+					<Add directory="C:\Program Files\codeblocks\devpaks\lib" />
+				</Linker>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -165,6 +183,7 @@
 			<Option target="testgameloop" />
 			<Option target="testtimer" />
 			<Option target="testlogic" />
+			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="Graphics.h">
 			<Option target="Debug" />
@@ -174,16 +193,13 @@
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
+			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="KeyboardInput.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="vs2008" />
-		</Unit>
-		<Unit filename="Sleeper.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="testlogic" />
+			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="TetrisBoard.cpp">
 			<Option target="Debug" />
@@ -209,6 +225,7 @@
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
+			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="TetrisLogic.cpp">
 			<Option target="Debug" />
@@ -272,11 +289,7 @@
 			<Option target="testtimer" />
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
-		</Unit>
-		<Unit filename="TickListener.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="testlogic" />
+			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="linux\Graphics.cpp">
 			<Option target="Debug" />
@@ -294,6 +307,12 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testgameloop" />
+		</Unit>
+		<Unit filename="test\testkeyboard(win).cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="vs2008" />
+			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="test\testlogic.cpp">
 			<Option target="testlogic" />
@@ -318,6 +337,7 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="vs2008" />
+			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="windows\TetrisTimer.cpp">
 			<Option target="Debug" />
@@ -334,6 +354,7 @@
 			<Option target="testtimer" />
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
+			<Option target="testkeyboard" />
 		</Unit>
 		<Extensions>
 			<code_completion />
