@@ -167,7 +167,7 @@ void CTetrisBoard::update() {
 
 void CTetrisBoard::notifyFreshBoard(void) {
   // foreach listeners
-	for(int i=0; i<changeListeners.size(); i++) {
+	for(unsigned int i=0; i<changeListeners.size(); i++) {
 		VBoardChangeListener* listener = changeListeners[i];
 		listener->handleFreshBoard();
 	}

@@ -61,13 +61,13 @@ void CBoardGraphics::drawCell(int x, int y, CELL_TYPE ct) {
 CGraphics::GCOLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
   switch(ct) {
     case OFFGRID: return CGraphics::GCOLOR_WHITE;
-    case BLOCK_Z: return CGraphics::GCOLOR_RED;
-    case BLOCK_S: return CGraphics::GCOLOR_GREEN;
-    case BLOCK_I: return CGraphics::GCOLOR_CYAN;
+    case BLOCK_Z: return CGraphics::GCOLOR_LIGHTRED;
+    case BLOCK_S: return CGraphics::GCOLOR_LIGHTGREEN;
+    case BLOCK_I: return CGraphics::GCOLOR_LIGHTCYAN;
     case BLOCK_O: return CGraphics::GCOLOR_YELLOW;
     case BLOCK_L: return CGraphics::GCOLOR_BROWN;
-    case BLOCK_J: return CGraphics::GCOLOR_BLUE;
-    case BLOCK_T: return CGraphics::GCOLOR_MAGENTA;
+    case BLOCK_J: return CGraphics::GCOLOR_LIGHTBLUE;
+    case BLOCK_T: return CGraphics::GCOLOR_LIGHTMAGENTA;
     default:
     case EMPTY: return CGraphics::GCOLOR_BLACK;
   }

@@ -1,12 +1,19 @@
 #ifndef __TETRISLOGIC_H__
 #define __TETRISLOGIC_H__
 
+#include "CommandListener.h"
 #include "TetrisBoard.h"
 #include "Tetromino.h"
 #include "TetrisTimer.h"
 #include "TetrisCommon.h"
+#include "TetrominoFactory.h"
+//#include <deque>
 
 #define PREVIEW_TETROMINOES 3
+#define GAMEBOARD_WIDTH 12
+#define GAMEBOARD_HEIGHT 20
+#define PREVIEWBOARD_WIDTH 4
+#define PREVIEWBOARD_HEIGHT 20
 
 /**
  * TetrisLogic
@@ -18,17 +25,19 @@
  *  - Timer -> logiikka rekisterˆityy timerille tick-kuuntelijaksi
  *  -
  */
-class CTetrisLogic {
+class CTetrisLogic : public VCommandListener {
 
 public:
 
   CTetrisLogic();
-  ~CTetrisLogic();
+
+  virtual ~CTetrisLogic();
 
   /**
    * reset()
    *
    * Alustaa uuden pelin:
+   *  - Luo uuden tetrominoFactoryn
    *  - Asettaa timerille asianmukaisen viiveen (luo uuden timerin?
    *    ainakin jos timerin constructorissa annetaan timerille
    *    maksiminopeus ja alkunopeus)
@@ -71,18 +80,29 @@ public:
    */
   CTetromino   getCurrentTetromino(void);
 
+  /**
+   * handleKeyCommand()
+   *
+   *
+   */
+  virtual void handleCommand(VCommandListener::COMMAND cmd);
+
+
 // ==================== PRIVATE ====================
 
 private:
 
   // r‰j‰ytetyt rivit saadaan boardilta kysym‰ll‰
-  int           m_tetrominoCounter; // gameBoardissa olleiden palikoiden m‰‰r‰
-  CTetrisBoard  m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
-  CTetrisBoard  m_previewBoard;     // previewBoard, jossa n‰kyy seuraavat palikat
-  CTetromino    m_currentTetromino; // nykyinen palikka, kiinnitetty pelilautaan
-  CTetromino    m_previewTetrominoes[PREVIEW_TETROMINOES];
-  int           m_previwCount;
-  CTetrisTimer  m_timer; // timer, joka osaa kutsua t‰m‰n luokan tick():‰ ja jota voi s‰‰t‰‰
+  bool            m_firstInit;
+  int             m_tetrominoCounter; // gameBoardissa olleiden palikoiden m‰‰r‰
+  CTetrisBoard    *m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
+  CTetrisBoard    *m_previewBoard;     // previewBoard, jossa n‰kyy seuraavat palikat
+  CTetromino      *m_currentTetromino; // nykyinen palikka, kiinnitetty pelilautaan
+  CTetromino      *m_previewTetrominoes[PREVIEW_TETROMINOES];
+  CTetrominoFactory *m_factory;
+  int             m_previewSpacingY;
+  int             m_previewCount;
+//  CTetrisTimer  m_timer; // timer, joka osaa kutsua t‰m‰n luokan tick():‰ ja jota voi s‰‰t‰‰
 
   /**
    * tick()
@@ -111,6 +131,8 @@ private:
    * Pyˆr‰ytt‰‰ palikkajonoa yhdell‰ eteenp‰in:
    * - Tuhoaa nykyisen pelipalikan (currentTetromino), ja ottaa
    *   previewTetromino-taulukosta seuraavaksi vuorossa olevan nykyiseksi.
+   * - Irrottaa seuraavaksi vuorossa olevan preview-palikan previewBoardista
+   * - Kiinnitt‰‰ uuden nykyisen gameBoardiin
    * - Nostaa j‰ljelle j‰‰neiden preview-palikoiden vuoronumeroa yhdell‰.
    * - Nostaa j‰ljelle j‰‰neiden preview-palikoiden sijaintia previewBoardissa
    * - Luo preview-taulun loppuun uuden palikan.

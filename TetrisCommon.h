@@ -43,15 +43,5 @@ enum CELL_TYPE {
   BLOCK_T = 7,
 };
 
-enum COMMAND {
-  GAME_COMMAND_LEFT,        // liikuttaa palikkaa vasemmalle
-  GAME_COMMAND_RIGHT,       // liikuttaa palikkaa oikealle
-  GAME_COMMAND_ROTATE_CW,   // k‰‰nt‰‰ palikkaa myˆt‰p‰iv‰‰n
-  GAME_COMMAND_ROTATE_CCW,  // k‰‰nt‰‰ palikkaa vastap‰iv‰‰n
-  GAME_COMMAND_SOFTDROP,    // tiputtaa yhdell‰ rivill‰, resetoi tickin
-  GAME_COMMAND_HARDDROP,    // tiputtaa palikan alas, resetoi tickin
-//  GAME_COMMAND_SWAP,        // vaihtaa nykyisen ja seuraavan palikan kesken‰‰n (vain kerran)
-  GAME_COMMAND_QUIT         // lopettaa nykyisen pelin
-};
 
 #endif // __TETRISCOMMON_H__

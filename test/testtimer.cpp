@@ -12,7 +12,8 @@ int main(void) {
   while(ch != 27) {
     if(kbhit()) {
       ch = getch();
-      printf("ajastin on käynnissä, paina ESC lopettaaksesi\n");
+      printf(" %d ", ch);
+      printf(" ajastin on käynnissä, paina ESC lopettaaksesi\n");
     }
   }
   return 0;
