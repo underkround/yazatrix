@@ -180,6 +180,11 @@
 			<Option target="Release" />
 			<Option target="vs2008" />
 		</Unit>
+		<Unit filename="Sleeper.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testlogic" />
+		</Unit>
 		<Unit filename="TetrisBoard.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -266,6 +271,11 @@
 			<Option target="vs2008" />
 			<Option target="testtimer" />
 			<Option target="testgameloop" />
+			<Option target="testlogic" />
+		</Unit>
+		<Unit filename="TickListener.h">
+			<Option target="Debug" />
+			<Option target="Release" />
 			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="linux\Graphics.cpp">

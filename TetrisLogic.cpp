@@ -50,6 +50,33 @@ void CTetrisLogic::run(void) {
 
 void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
   switch(cmd) {
+    case GAME_COMMAND_LEFT:
+      m_currentTetromino->moveLeft();
+      break;
+    case GAME_COMMAND_RIGHT:
+      m_currentTetromino->moveRight();
+      break;
+    case GAME_COMMAND_ROTATE_CW:
+      m_currentTetromino->rotateRight();
+      break;
+    case GAME_COMMAND_ROTATE_CCW:
+      m_currentTetromino->rotateLeft();
+      break;
+    case GAME_COMMAND_SOFTDROP:
+      m_currentTetromino->moveDown();
+      // TODO: reset tick
+      break;
+    case GAME_COMMAND_HARDDROP:
+      m_currentTetromino->drop();
+      // TODO: reset tick
+      break;
+    case GAME_COMMAND_PAUSE:
+      // TODO: toggle pause
+      break;
+    case GAME_COMMAND_QUIT:
+      // TODO: pysäytä timer
+      m_gameOver = true;
+      break;
     default:
       break;
   }
@@ -62,12 +89,12 @@ void CTetrisLogic::tick() {
     m_gameBoard->clearFullLines();
     // pyöräytetään palikoita
     rotateTetrominoes();
+    // säädetään tickin timeria laudan räjäytettyjen rivien perusteella tai pelissä olleiden palikoiden mukaan
+    // TODO: timer->adjust(...)
   } else {
     // tiputetaan nykyistä palikkaa
     m_currentTetromino->moveDown();
   }
-  // säädetään tickin timeria laudan räjäytettyjen rivien perusteella tai pelissä olleiden palikoiden mukaan
-
 }
 
 void CTetrisLogic::rotateTetrominoes() {
