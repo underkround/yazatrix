@@ -9,9 +9,12 @@
  */
 
 #include "TetrisLogic.h"
-#include <cstdlib> // TODO: TEMPORARY
+#include "KeyboardInput.h"
+#include <cstdlib> // TODO: TEMPORARY, timerille
 
 CTetrisLogic::CTetrisLogic() {
+  // rekisteröidytään komentokuuntelijaksi
+//  TKeyboardInput::registerCommandListener( dynamic_cast<VCommandListener*>(this) );
   // luodaan gameboard ja previewboard
   m_gameBoard = new CTetrisBoard(GAMEBOARD_WIDTH, GAMEBOARD_HEIGHT);
   m_previewBoard = new CTetrisBoard(PREVIEWBOARD_WIDTH, PREVIEWBOARD_HEIGHT);
@@ -43,7 +46,7 @@ CTetrisLogic::~CTetrisLogic() {
 
 void CTetrisLogic::run(void) {
   while(!m_gameOver) {
-    Sleep(100);
+    Sleep(1000);
     tick();
   }
 }

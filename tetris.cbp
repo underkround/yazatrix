@@ -200,6 +200,7 @@
 			<Option target="Release" />
 			<Option target="vs2008" />
 			<Option target="testkeyboard" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="TetrisBoard.cpp">
 			<Option target="Debug" />
@@ -338,6 +339,7 @@
 			<Option target="Release" />
 			<Option target="vs2008" />
 			<Option target="testkeyboard" />
+			<Option target="testlogic" />
 		</Unit>
 		<Unit filename="windows\TetrisTimer.cpp">
 			<Option target="Debug" />

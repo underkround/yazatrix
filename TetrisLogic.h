@@ -88,23 +88,6 @@ public:
   virtual void handleCommand(VCommandListener::COMMAND cmd);
 
 
-// ==================== PRIVATE ====================
-
-private:
-
-  // r‰j‰ytetyt rivit saadaan boardilta kysym‰ll‰
-  bool            m_gameOver;
-  bool            m_moveLock;         // true = nykyist‰ palikkaa ei voida liikuttaa
-  int             m_tetrominoCounter; // gameBoardissa olleiden palikoiden m‰‰r‰
-  CTetrisBoard    *m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
-  CTetrisBoard    *m_previewBoard;     // previewBoard, jossa n‰kyy seuraavat palikat
-  CTetromino      *m_currentTetromino; // nykyinen palikka, kiinnitetty pelilautaan
-  CTetromino      *m_previewTetrominoes[PREVIEW_TETROMINOES];
-  CTetrominoFactory *m_factory;
-  int             m_previewSpacingY;
-  int             m_previewCount;
-//  CTetrisTimer  m_timer; // timer, joka osaa kutsua t‰m‰n luokan tick():‰ ja jota voi s‰‰t‰‰
-
   /**
    * tick()
    *
@@ -125,6 +108,23 @@ private:
    *    tai peliss‰ olleiden palikoiden mukaan
    */
   void tick(void);
+
+// ==================== PRIVATE ====================
+
+private:
+
+  // r‰j‰ytetyt rivit saadaan boardilta kysym‰ll‰
+  bool            m_gameOver;
+  bool            m_moveLock;         // true = nykyist‰ palikkaa ei voida liikuttaa
+  int             m_tetrominoCounter; // gameBoardissa olleiden palikoiden m‰‰r‰
+  CTetrisBoard    *m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
+  CTetrisBoard    *m_previewBoard;     // previewBoard, jossa n‰kyy seuraavat palikat
+  CTetromino      *m_currentTetromino; // nykyinen palikka, kiinnitetty pelilautaan
+  CTetromino      *m_previewTetrominoes[PREVIEW_TETROMINOES];
+  CTetrominoFactory *m_factory;
+  int             m_previewSpacingY;
+  int             m_previewCount;
+//  CTetrisTimer  m_timer; // timer, joka osaa kutsua t‰m‰n luokan tick():‰ ja jota voi s‰‰t‰‰
 
   /**
    * rotateTetrominoes()
