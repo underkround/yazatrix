@@ -23,7 +23,7 @@
 #include "TetrisBoard.h"
 #include "Graphics.h"
 
-class CBoardGraphics : VBoardChangeListener {
+class CBoardGraphics : public VBoardChangeListener {
 
 public:
   /**
@@ -43,12 +43,28 @@ public:
 
   void setLocation(int x, int y); // mihin kohtaan ruutua piirt‰‰ itsens‰
 
-  inline int getWidth() {
+  inline virtual int getX(void) {
+    return m_x;
+  }
+
+  inline virtual int getY(void) {
+    return m_y;
+  }
+
+  inline virtual void setX(int newX) {
+    m_x = newX;
+  }
+
+  inline virtual void setY(int newY) {
+    m_y = newY;
+  }
+
+  inline virtual int getWidth(void) {
     if(m_width) return m_width + 2;
     else return m_width;
   };
 
-  inline int getHeight() {
+  inline virtual int getHeight(void) {
     if(m_borders) return m_height + 2;
     else return m_height;
   };

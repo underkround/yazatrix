@@ -1,12 +1,10 @@
-#include "../TetrisTimer.h"
 #include <conio.h>
 #include <stdio.h>
-#include "../Thread.h"
-#include "../TetrisTimer.h"
+#include "../Sleeper.h"
 
 int main(void) {
   //CTetrisTimer * ajastin;
-  CTetrisTimer::create("ajastin");
+  CSleeper sleeper;
   char ch=0;
   printf("Timer testi, paina ESC lopettaaksesi\n");
   while(ch != 27) {

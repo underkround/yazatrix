@@ -195,13 +195,6 @@
 			<Option target="testlogic" />
 			<Option target="testkeyboard" />
 		</Unit>
-		<Unit filename="KeyboardInput.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="vs2008" />
-			<Option target="testkeyboard" />
-			<Option target="testlogic" />
-		</Unit>
 		<Unit filename="TetrisBoard.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -243,14 +236,6 @@
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
 		</Unit>
-		<Unit filename="TetrisTimer.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="vs2008" />
-			<Option target="testtimer" />
-			<Option target="testgameloop" />
-			<Option target="testlogic" />
-		</Unit>
 		<Unit filename="Tetromino.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -283,14 +268,11 @@
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
 		</Unit>
-		<Unit filename="Thread.h">
+		<Unit filename="TickListener.h">
 			<Option target="Debug" />
 			<Option target="Release" />
-			<Option target="vs2008" />
 			<Option target="testtimer" />
-			<Option target="testgameloop" />
 			<Option target="testlogic" />
-			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="linux\Graphics.cpp">
 			<Option target="Debug" />
@@ -321,10 +303,6 @@
 		<Unit filename="test\testtimer.cpp">
 			<Option target="testtimer" />
 		</Unit>
-		<Unit filename="tetris.plan">
-			<Option target="Debug" />
-			<Option target="vs2008" />
-		</Unit>
 		<Unit filename="windows\Graphics.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -333,30 +311,6 @@
 			<Option target="vs2008" />
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
-		</Unit>
-		<Unit filename="windows\KeyboardInput.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="vs2008" />
-			<Option target="testkeyboard" />
-			<Option target="testlogic" />
-		</Unit>
-		<Unit filename="windows\TetrisTimer.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="vs2008" />
-			<Option target="testtimer" />
-			<Option target="testgameloop" />
-			<Option target="testlogic" />
-		</Unit>
-		<Unit filename="windows\Thread.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="vs2008" />
-			<Option target="testtimer" />
-			<Option target="testgameloop" />
-			<Option target="testlogic" />
-			<Option target="testkeyboard" />
 		</Unit>
 		<Extensions>
 			<code_completion />

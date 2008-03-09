@@ -9,8 +9,10 @@
  */
 
 #include "TetrisLogic.h"
-#include "KeyboardInput.h"
+//#include "KeyboardInput.h"
 #include <cstdlib> // TODO: TEMPORARY, timerille
+#include <process.h>
+#include <windows.h>
 
 CTetrisLogic::CTetrisLogic() {
   // rekisteröidytään komentokuuntelijaksi

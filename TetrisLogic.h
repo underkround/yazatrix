@@ -18,7 +18,6 @@
 #include "CommandListener.h"
 #include "TetrisBoard.h"
 #include "Tetromino.h"
-#include "TetrisTimer.h"
 #include "TetrisCommon.h"
 #include "TetrominoFactory.h"
 
