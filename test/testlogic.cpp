@@ -11,6 +11,7 @@ void pause() {
 }
 
 int main(void) {
+  system("mode con:lines=25"); //windowskomento, pistää grafiikkatilan 80x25:ksi (mulla oletuksena 80x50)
   TKeyboardInput::create("keyb");
 
   CGraphics *g = new CGraphics();
