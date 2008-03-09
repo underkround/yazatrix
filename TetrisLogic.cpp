@@ -40,7 +40,8 @@ CTetrisLogic::~CTetrisLogic() {
   delete m_previewBoard;
 }
 
-void CTetrisBoard::run(void) {
+void CTetrisLogic::run(void) {
+
 }
 
 void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
