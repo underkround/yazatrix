@@ -15,7 +15,7 @@
 #include <windows.h>
 
 #define TICKER_DEFAULT_SLEEP 10
-#define TICKER_MAX_TASKS 6
+#define TICKER_MAX_TASKS 10
 
 STicker::STicker() {
   m_taskCount = 0;
@@ -24,13 +24,17 @@ STicker::STicker() {
     m_tasks[i] = 0;
 }
 
-bool STicker::registerListener(VTickListener *listener, int tickDelay) {
+CTickTask* STicker::registerListener(VTickListener *listener, int tickDelay) {
   if(m_taskCount < TICKER_MAX_TASKS) {
     m_tasks[m_taskCount] = new CTickTask(listener, tickDelay);
     m_taskCount++;
-    return true;
+    //return true;
+    printf("Palautetaan task\n");
+    return m_tasks[m_taskCount-1];
   }
-  return false;
+  printf("Palautetaan 0\n");
+  //return false;
+  return 0;
 }
 
 void STicker::stop() {
@@ -42,20 +46,23 @@ void STicker::start() {
   while(m_running) {
     Sleep(TICKER_DEFAULT_SLEEP);
     // check if listeners need tick
-#ifdef __TESTTIMER__
-    printf(".");
-#endif
+//#ifdef __TESTTIMER__
+//    printf(".");
+//#endif
     for(int i=0; i<m_taskCount; i++) {
       if(m_tasks[i] != 0) {
         if(!m_tasks[i]->tick(TICKER_DEFAULT_SLEEP)) {
-#ifdef __TESTTIMER__
+//#ifdef __TESTTIMER__
           printf("POISTETAAN!!\n");
-#endif
+//#endif
           removeTask(i);
         }
       }
     }
-    if(m_taskCount <= 0) m_running = false;
+    if(m_taskCount <= 0) {
+      printf("Ei yhtään tickattavaa :(\n");
+      m_running = false;
+    }
   }
 }
 

@@ -21,21 +21,22 @@ int main(void) {
   CTetrisBoard *gameBoard = logic->getGameBoard();
   CTetrisBoard *previewBoard = logic->getPreviewBoard();
   SKeyboardInput *input = &SKeyboardInput::getInstance();
-  STicker *ticker = &STicker::getInstance();
+//  STicker *ticker = &STicker::getInstance();
 
-  ticker->registerListener(dynamic_cast<VTickListener*>(input), 20);
-  ticker->registerListener(dynamic_cast<VTickListener*>(logic), 500);
+//  ticker->registerListener(dynamic_cast<VTickListener*>(input), 20);
+//  ticker->registerListener(dynamic_cast<VTickListener*>(logic), 500);
   input->registerCommandListener( dynamic_cast<VCommandListener*>(logic) );
-  CBoardGraphics *gbg = new CBoardGraphics(gameBoard, g, 2, 1);
+  CBoardGraphics *gbg = new CBoardGraphics(gameBoard, g, 2, 2);
   CBoardGraphics *pbg = new CBoardGraphics(previewBoard, g, 20, 8);
   pbg->setBorderStyle(CGraphics::BORDER_SINGLE);
 
 //  pause();
 //  input->handleTick();
-  if(ticker->registerListener( dynamic_cast<VTickListener*>(input) , 100 )) {
-    ticker->start();
+//  if(ticker->registerListener( dynamic_cast<VTickListener*>(input) , 100 )) {
     STicker::getInstance().start();
-  }
+    logic->start();
+//    STicker::getInstance().start();
+//  }
 
 //  logic->run();
 

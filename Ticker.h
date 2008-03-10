@@ -17,7 +17,7 @@
 #include "Singleton.h"
 #include "TickTask.h"
 
-//#define TICKER_MAX_TASKS 6;
+//#define TICKER_MAX_TASKS 10;
 
 class STicker : public Singleton<STicker> {
 
@@ -28,7 +28,7 @@ public:
   /**
    * Rekisteröi ticklistenerin, joka haluaa tickin
    */
-  bool registerListener(VTickListener *listener, int tickDelay);
+  CTickTask* registerListener(VTickListener *listener, int tickDelay);
 
   /**
    * Pyydetään poistumaan pääloopista
@@ -44,7 +44,7 @@ private:
 
 //  std::map<VTickListener*,int> listeners; // value: int[ms_to_next_tick][last_delay]
 //  std::vector<*TickTask> tasks;
-  CTickTask * m_tasks[6];
+  CTickTask * m_tasks[10]; // TODO: kiintee arvo tilapäisesti
   int m_taskCount;
 
   bool m_running; // flag jonka ollessa true, mainloop pyörii

@@ -61,6 +61,10 @@ void CBoardGraphics::drawCell(int x, int y, CELL_TYPE ct) {
   int ax = (m_borders) ? x+m_x+1 : x+m_x;
   int ay = (m_borders) ? m_height+m_y-y : m_height+m_y-y-1;
   g->drawSquare(ax,ay,getCellTypeColor(ct));
+  char chr = getCellTypeChar(ct);
+  if(chr > 0) {
+    g->drawChar(ax,ay,CGraphics::GCOLOR_DARKGRAY,getCellTypeColor(ct),chr);
+  }
 }
 
 CGraphics::GCOLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
@@ -75,6 +79,13 @@ CGraphics::GCOLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
     case BLOCK_T: return CGraphics::GCOLOR_LIGHTMAGENTA;
     default:
     case EMPTY: return CGraphics::GCOLOR_BLACK;
+  }
+}
+
+char CBoardGraphics::getCellTypeChar(CELL_TYPE ct) {
+  switch(ct) {
+    case EMPTY: return '.';
+    default: return 0;
   }
 }
 

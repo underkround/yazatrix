@@ -18,23 +18,14 @@
 #define KEYBOARDINPUT_TICKDELAY 20
 
 SKeyboardInput::SKeyboardInput() {
-//  STicker::instance().
+//  STicker::instance().<
+  printf("                                       rekisteröidytään tickerille\n");
+  CTickTask *myTask = STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), 20);
+  if(myTask == 0)
+    printf("                                       NOOOOO :(\n");
 }
 
 int SKeyboardInput::handleTick() {
-#ifdef __TESTTIMER__
-  printf(",");
-  char ch = 0;
-  if(kbhit()) {
-    ch = getch();
-    printf("\n %d ", ch);
-    printf(" paina ESC lopettaaksesi\n");
-  }
-  if(ch == 27) return -1;
-  return KEYBOARDINPUT_TICKDELAY;
-#endif // __TESTTIMER__
-
-#ifndef __TESTTIMER__
   char ch=0;
   if(kbhit()) {
     ch = getch();
@@ -42,50 +33,53 @@ int SKeyboardInput::handleTick() {
   }
   if(ch == 27) return -1;
   return KEYBOARDINPUT_TICKDELAY;
-#endif // __TESTTIMER__
 }
 
 SKeyboardInput::~SKeyboardInput() {
 }
 
 void SKeyboardInput::handleKeyPress(char key) {
-  switch(key) {
+//  if(listeners.size() > 0) {
+    switch(key) {
 
-    // left
-    case 75:
-      notifyCommand(VCommandListener::GAME_COMMAND_LEFT);
-      break;
+      // left
+      case 75:
+        notifyCommand(VCommandListener::GAME_COMMAND_LEFT);
+        break;
 
-    // right
-    case 77:
-      notifyCommand(VCommandListener::GAME_COMMAND_RIGHT);
-      break;
+      // right
+      case 77:
+        notifyCommand(VCommandListener::GAME_COMMAND_RIGHT);
+        break;
 
-    // up
-    case 72:
-//      notifyCommand(VCommandListener::GAME_COMMAND_ROTATE_CW);
-      notifyCommand(VCommandListener::GAME_COMMAND_ROTATE_CCW);
-      break;
+      // up
+      case 72:
+  //      notifyCommand(VCommandListener::GAME_COMMAND_ROTATE_CW);
+        notifyCommand(VCommandListener::GAME_COMMAND_ROTATE_CCW);
+        break;
 
-    // down
-    case 80:
-      notifyCommand(VCommandListener::GAME_COMMAND_SOFTDROP);
-      break;
+      // down
+      case 80:
+        notifyCommand(VCommandListener::GAME_COMMAND_SOFTDROP);
+        break;
 
-    // avaruusnäppäin
-    case 32:
-      notifyCommand(VCommandListener::GAME_COMMAND_HARDDROP);
-      break;
+      // avaruusnäppäin
+      case 32:
+        notifyCommand(VCommandListener::GAME_COMMAND_HARDDROP);
+        break;
 
-    // pakonäppäin
-    case 27:
-      notifyCommand(VCommandListener::GAME_COMMAND_QUIT);
-      break;
+      // pakonäppäin
+      case 27:
+        notifyCommand(VCommandListener::GAME_COMMAND_QUIT);
+        break;
 
-    // random-näppäin
-    default:
-      break;
-  }
+      // random-näppäin
+      default:
+        break;
+    }
+//  } else {
+//    printf("(%d) ", key);
+//  }
 }
 
 void SKeyboardInput::registerCommandListener(VCommandListener *listener) {

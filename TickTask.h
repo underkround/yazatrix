@@ -16,6 +16,11 @@ class CTickTask {
 
 public:
 
+  enum TICK_RETURN_VALUE {
+    TICK_REMOVE = -1,
+    TICK_KEEPDELAY = 0,
+  };
+
   inline CTickTask(VTickListener *listener, int delay) {
     subject = listener;
     m_lastDelay = delay;
@@ -41,21 +46,32 @@ public:
       m_skips--;
     } else {
       int ret = subject->handleTick();
-      if(ret > 0) {
-        // jos kohde palauttaa lukuarvon suurempi kuin yksi, käytetään sitä seuraavana delaynä
-        m_lastDelay = ret;
-        m_delayToNext = ret;
-      } else if(ret == 0) {
-        // jos kohde palauttaa 0, käytetään edellistä delayn arvoa
+      if(ret == TICK_REMOVE) {
+        // poistetaan ajastustehtävä
+        return false;
+      } else if(ret == TICK_KEEPDELAY) {
+        // käytetään edellistä delayn arvoa
         m_delayToNext = m_lastDelay;
       } else {
-        // jos kohde palauttaa jotain muuta (negatiivisen lukuarvon), pyydetään tickien lopettamista
-        m_skips = 100;
-        m_delayToNext = 10000;
-        return false; // pyydetään Tickeriä poistamaan tämä Task
+        if(ret > 0) {
+          // seuraava delay on palautuksen arvo
+          m_lastDelay = ret;
+          m_delayToNext = ret;
+        } else {
+          // tuntematon vastaus: poistetaan ajastustehtävä
+          return false;
+        }
       }
     }
     return true;
+  }
+
+  inline void resetTick(void) {
+    m_delayToNext = m_lastDelay;
+  }
+
+  inline void skip(unsigned int count) {
+    m_skips = count;
   }
 
 private:

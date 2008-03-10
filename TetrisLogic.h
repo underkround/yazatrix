@@ -17,6 +17,7 @@
 
 #include "CommandListener.h"
 #include "TickListener.h"
+#include "TickTask.h"
 #include "TetrisBoard.h"
 #include "Tetromino.h"
 #include "TetrisCommon.h"
@@ -46,13 +47,11 @@ public:
 //  void reset(void);
 
   /**
-   * run()
+   * start()
    *
-   * Pelisilmukka, jossa itse pelaaminen tapahtuu. Logiikka hoitaa
-   * pelisilmukassa palikoiden luomisen ja tuhoamisen
-   * ...
+   * Asettaa pelin ajotilaan.
    */
-  void run(void);
+  bool start(void);
 
   /**
    * getGameBoard()
@@ -115,6 +114,7 @@ private:
 
   // r‰j‰ytetyt rivit saadaan boardilta kysym‰ll‰
   bool            m_gameOver;
+  bool            m_running;
   bool            m_moveLock;         // true = nykyist‰ palikkaa ei voida liikuttaa
   int             m_tetrominoCounter; // gameBoardissa olleiden palikoiden m‰‰r‰
   CTetrisBoard    *m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
@@ -122,8 +122,10 @@ private:
   CTetromino      *m_currentTetromino; // nykyinen palikka, kiinnitetty pelilautaan
   CTetromino      *m_previewTetrominoes[PREVIEW_TETROMINOES];
   CTetrominoFactory *m_factory;
+  CTickTask       *myTickTask; // ei vastaa t‰m‰n tuhoamisesta
   int             m_previewSpacingY;
   int             m_previewCount;
+  int             m_delay;
 //  CTetrisTimer  m_timer; // timer, joka osaa kutsua t‰m‰n luokan tick():‰ ja jota voi s‰‰t‰‰
 
   /**
@@ -141,6 +143,13 @@ private:
    *   omalle paikalleen
    */
   void rotateTetrominoes(void);
+
+  /**
+   * adjustDelay()
+   *
+   * S‰‰t‰‰ palikan tippumisnopeuden.
+   */
+  void adjustDelay(void);
 
 };
 

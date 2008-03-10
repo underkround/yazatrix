@@ -9,6 +9,7 @@
  */
 
 #include "TetrisLogic.h"
+#include "Ticker.h"
 //#include "KeyboardInput.h"
 #include <cstdlib> // TODO: TEMPORARY, timerille
 #include <process.h>
@@ -35,6 +36,12 @@ CTetrisLogic::CTetrisLogic() {
   m_tetrominoCounter = 0;
   m_gameOver = false;
   m_moveLock = false;
+  m_running = false;
+  m_delay = 500;
+  myTickTask = 0;
+
+  STicker *ticker = &STicker::getInstance();
+  myTickTask = ticker->registerListener(dynamic_cast<VTickListener*>(this), m_delay);
 }
 
 CTetrisLogic::~CTetrisLogic() {
@@ -46,45 +53,51 @@ CTetrisLogic::~CTetrisLogic() {
   delete m_previewBoard;
 }
 
-void CTetrisLogic::run(void) {
-//  while(!m_gameOver) {
-//    Sleep(1000);
-//    tick();
-//  }
+bool CTetrisLogic::start(void) {
+  if(!m_gameOver) {
+    printf("Logic starting..\n");
+//    if(myTickTask != 0) {
+      m_running = true;
+      return true;
+//    }
+  }
+  return false;
 }
 
 void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
-  switch(cmd) {
-    case GAME_COMMAND_LEFT:
-      m_currentTetromino->moveLeft();
-      break;
-    case GAME_COMMAND_RIGHT:
-      m_currentTetromino->moveRight();
-      break;
-    case GAME_COMMAND_ROTATE_CW:
-      m_currentTetromino->rotateRight();
-      break;
-    case GAME_COMMAND_ROTATE_CCW:
-      m_currentTetromino->rotateLeft();
-      break;
-    case GAME_COMMAND_SOFTDROP:
-      m_currentTetromino->moveDown();
-      // TODO: reset tick
-      break;
-    case GAME_COMMAND_HARDDROP:
-      m_currentTetromino->drop();
-      // TODO: reset tick
-      break;
-    case GAME_COMMAND_PAUSE:
-      // TODO: toggle pause
-      break;
-    case GAME_COMMAND_QUIT:
-      // TODO: pysäytä timer
-      m_gameOver = true;
-      break;
-    default:
-      break;
-  }
+//  if(m_running && !m_gameOver) {
+    switch(cmd) {
+      case GAME_COMMAND_LEFT:
+        m_currentTetromino->moveLeft();
+        break;
+      case GAME_COMMAND_RIGHT:
+        m_currentTetromino->moveRight();
+        break;
+      case GAME_COMMAND_ROTATE_CW:
+        m_currentTetromino->rotateRight();
+        break;
+      case GAME_COMMAND_ROTATE_CCW:
+        m_currentTetromino->rotateLeft();
+        break;
+      case GAME_COMMAND_SOFTDROP:
+        m_currentTetromino->moveDown();
+        // TODO: reset tick
+        break;
+      case GAME_COMMAND_HARDDROP:
+        m_currentTetromino->drop();
+        // TODO: reset tick
+        break;
+      case GAME_COMMAND_PAUSE:
+        // TODO: toggle pause
+        break;
+      case GAME_COMMAND_QUIT:
+        // TODO: pysäytä timer
+        m_gameOver = true;
+        break;
+      default:
+        break;
+    }
+//  }
 }
 
 int CTetrisLogic::handleTick() {
@@ -95,14 +108,16 @@ int CTetrisLogic::handleTick() {
     // pyöräytetään palikoita
     rotateTetrominoes();
     // säädetään tickin timeria laudan räjäytettyjen rivien perusteella tai pelissä olleiden palikoiden mukaan
-    // TODO: timer->adjust(...)
+    adjustDelay();
   } else {
     // tiputetaan nykyistä palikkaa
     m_currentTetromino->moveDown();
   }
-  if(m_gameOver)
+  if(m_gameOver) {
+    myTickTask = 0;
     return -1;
-  return 500;
+  }
+  return m_delay;
 }
 
 void CTetrisLogic::rotateTetrominoes() {
@@ -127,5 +142,11 @@ void CTetrisLogic::rotateTetrominoes() {
     if(!m_currentTetromino->attach(m_gameBoard)) {
       m_gameOver = true;
     }
+  }
+}
+
+void CTetrisLogic::adjustDelay() {
+  if(m_delay >= 50) {
+    m_delay -= 50;
   }
 }

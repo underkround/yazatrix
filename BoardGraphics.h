@@ -102,6 +102,8 @@ private:
 
   CGraphics::GCOLOR getCellTypeColor(CELL_TYPE ct);
 
+  char getCellTypeChar(CELL_TYPE ct);
+
 };
 
 #endif // __BOARDGRAPHICS_H__
