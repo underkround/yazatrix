@@ -82,14 +82,10 @@ void CGraphics::drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR
  * @param y       y-koordinaatti
  * @param color   väri
  */
-void CGraphics::drawSquare(const int x, const int y, const int color) {
-  setColors(0, color);
-  putchxy(x, y, ' '); //'█'
-}
-// DEPRICATED
 void CGraphics::drawSquare(const int x, const int y, const GCOLOR color) {
   setColors(0, getBackgroundColor(color));
   putchxy(x, y, ' '); //'█'
+  _setcursortype(0);
 }
 
 /**
@@ -120,12 +116,6 @@ void CGraphics::drawString(const int x, const int y, const char* str) {
 void CGraphics::drawString(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char* str) {
   moveCursor(y, x);
   setColors(getForegroundColor(fg), getBackgroundColor(bg));
-  cout << str;
-}
-//DEPRICATED
-void CGraphics::drawString(const int x, const int y, const int fg, const int bg, const char* str) {
-  moveCursor(y, x);
-  setColors(fg, bg);
   cout << str;
 }
 
@@ -169,8 +159,8 @@ void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, cons
       s  = 196;
       w  = 179;
       e  = 179;
-      nw = 191;
-      ne = 218;
+      nw = 218;
+      ne = 191;
       sw = 192;
       se = 217;
       break;
@@ -194,6 +184,26 @@ void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, cons
       ne = '.';
       sw = ':';
       se = ':';
+      break;
+    case BORDER_SQUARE:
+      n  = 254;
+      s  = 254;
+      w  = 254;
+      e  = 254;
+      nw = 254;
+      ne = 254;
+      sw = 254;
+      se = 254;
+      break;
+    case BORDER_BLOCK:
+      n  = 220;
+      s  = 223;
+      w  = 219;
+      e  = 219;
+      nw = 220;
+      ne = 220;
+      sw = 223;
+      se = 223;
       break;
   }
   int i=0;

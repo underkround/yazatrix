@@ -18,9 +18,11 @@ CBoardGraphics::CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int o
   g = graphics;
   m_x = offsetX;
   m_y = offsetY;
+  m_squareWidth = 1;
+  m_squareHeight = 1;
   // jos ei borderia tms , niin mitat = boardin mitat
-  m_width = board->getWidth();
-  m_height = board->getHeight();
+  m_width = board->getWidth() * m_squareWidth;
+  m_height = board->getHeight() * m_squareHeight;
   m_borders = true;
   setBorderStyle(CGraphics::BORDER_GROOVE);
   handleFreshBoard();
@@ -47,7 +49,7 @@ void CBoardGraphics::setBorderStyle(CGraphics::BORDER_STYLE bs) {
 void CBoardGraphics::drawBorder() {
   g->setColors(CGraphics::GCOLOR_WHITE, CGraphics::GCOLOR_BLACK);
   if(m_borders)
-    g->drawBox(m_x, m_y, m_x+m_width+1, m_y+m_height+1, m_borderStyle);
+    g->drawBox(m_x, m_y, m_x+m_width*m_squareWidth+1, m_y+m_height*m_squareWidth+1, m_borderStyle);
 }
 
 void CBoardGraphics::setLocation(int x, int y) {
@@ -58,8 +60,8 @@ void CBoardGraphics::setLocation(int x, int y) {
 
 // tätä käyttäen piirretään solut
 void CBoardGraphics::drawCell(int x, int y, CELL_TYPE ct) {
-  int ax = (m_borders) ? x+m_x+1 : x+m_x;
-  int ay = (m_borders) ? m_height+m_y-y : m_height+m_y-y-1;
+  int ax = (m_borders) ? x*m_squareWidth+m_x+1 : x*m_squareWidth+m_x;
+  int ay = (m_borders) ? m_height+m_y-y*m_squareHeight : m_height+m_y-y*m_squareHeight-1;
   g->drawSquare(ax,ay,getCellTypeColor(ct));
   char chr = getCellTypeChar(ct);
   if(chr > 0) {

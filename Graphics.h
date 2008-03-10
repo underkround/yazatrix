@@ -25,7 +25,9 @@ class CGraphics {
     BORDER_SIMPLE,
     BORDER_SINGLE,
     BORDER_GROOVE,
-    BORDER_DOTTED
+    BORDER_DOTTED,
+    BORDER_SQUARE,
+    BORDER_BLOCK
   };
 
   // tuetut värit

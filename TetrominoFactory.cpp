@@ -46,7 +46,7 @@ CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
      */
     case BLOCK_O: {
       int x[4] = { -1, -1,  0,  0 };
-      int y[4] = {  0, -1,  0, -1 };
+      int y[4] = {  0,  1,  0,  1 };
       return new CTetromino(x, y, 0, BLOCK_O);
       break;
     }

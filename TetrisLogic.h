@@ -86,7 +86,6 @@ public:
    */
   virtual void handleCommand(VCommandListener::COMMAND cmd);
 
-
   /**
    * tick()
    *

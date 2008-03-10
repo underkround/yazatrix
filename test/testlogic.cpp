@@ -29,7 +29,8 @@ pause();
   input->registerCommandListener( dynamic_cast<VCommandListener*>(logic) );
   CBoardGraphics *gbg = new CBoardGraphics(gameBoard, g, 2, 2);
   CBoardGraphics *pbg = new CBoardGraphics(previewBoard, g, 20, 8);
-  pbg->setBorderStyle(CGraphics::BORDER_SINGLE);
+  gbg->setBorderStyle(CGraphics::BORDER_BLOCK);
+  pbg->setBorderStyle(CGraphics::BORDER_SQUARE);
 
 //  pause();
 //  input->handleTick();
