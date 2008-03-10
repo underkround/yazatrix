@@ -1,6 +1,18 @@
 #include "../menu.h"
+#include "../Graphics.h"
+#include "../KeyboardInput.h"
+#include "../TickListener.h"
+#include "../Ticker.h"
 
 int main(int argc, char** argv) {
-  CTetrisMenu * menuetti = new CTetrisMenu();
+  CGraphics * grafiikka = new CGraphics();
+  SKeyboardInput *input = &SKeyboardInput::getInstance();
+
+  CTetrisMenu * menuetti = new CTetrisMenu(grafiikka);
+
+  //input->registerCommandListener( dynamic_cast<VCommandListener*>(menuetti) );
+
+  delete menuetti;
+  delete grafiikka;
   return 0;
 }
