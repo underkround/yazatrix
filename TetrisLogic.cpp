@@ -19,10 +19,10 @@ CTetrisLogic::CTetrisLogic() {
 //  TKeyboardInput::registerCommandListener( dynamic_cast<VCommandListener*>(this) );
   // luodaan gameboard ja previewboard
   m_gameBoard = new CTetrisBoard(GAMEBOARD_WIDTH, GAMEBOARD_HEIGHT);
-  m_previewBoard = new CTetrisBoard(PREVIEWBOARD_WIDTH, PREVIEWBOARD_HEIGHT);
   // luodaan factory
   m_factory = new CTetrominoFactory();
   m_previewSpacingY = 4;
+  m_previewBoard = new CTetrisBoard(PREVIEWBOARD_WIDTH, m_previewSpacingY*PREVIEW_TETROMINOES);
   // luodaan nykyinen tetrominoe ja liitetään se gameBoardiin
   m_currentTetromino = m_factory->createRandom();
   m_currentTetromino->attach(m_gameBoard);
@@ -47,10 +47,10 @@ CTetrisLogic::~CTetrisLogic() {
 }
 
 void CTetrisLogic::run(void) {
-  while(!m_gameOver) {
-    Sleep(1000);
-    tick();
-  }
+//  while(!m_gameOver) {
+//    Sleep(1000);
+//    tick();
+//  }
 }
 
 void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
@@ -87,7 +87,7 @@ void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
   }
 }
 
-void CTetrisLogic::tick() {
+int CTetrisLogic::handleTick() {
   // testataan onko nykyinen palikka jos laskeutunut
   if(m_currentTetromino->hasLanded()) {
     // käsketään lautaa tyhjäämään täydet rivit
@@ -100,6 +100,9 @@ void CTetrisLogic::tick() {
     // tiputetaan nykyistä palikkaa
     m_currentTetromino->moveDown();
   }
+  if(m_gameOver)
+    return -1;
+  return 500;
 }
 
 void CTetrisLogic::rotateTetrominoes() {

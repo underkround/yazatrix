@@ -16,6 +16,7 @@
  */
 
 #include "CommandListener.h"
+#include "TickListener.h"
 #include "TetrisBoard.h"
 #include "Tetromino.h"
 #include "TetrisCommon.h"
@@ -27,7 +28,7 @@
 #define PREVIEWBOARD_WIDTH 4
 #define PREVIEWBOARD_HEIGHT 20
 
-class CTetrisLogic : public VCommandListener {
+class CTetrisLogic : public VCommandListener, public VTickListener {
 
 public:
 
@@ -106,7 +107,7 @@ public:
    *  - s‰‰det‰‰n tickin timeria laudan r‰j‰ytettyjen rivien perusteella
    *    tai peliss‰ olleiden palikoiden mukaan
    */
-  void tick(void);
+  int handleTick(void);
 
 // ==================== PRIVATE ====================
 

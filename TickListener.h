@@ -20,8 +20,11 @@ public:
    *
    * Kutsutaan timerin/sleeperin viiveen mukaan.
    * Implementoija tekee ajastetun toimintansa tässä metodissa.
+   *
+   * @return  pyydetty aika seuraavaan tickiin. <1 säilyttää edellisen
+   *          viiveen.
    */
-  virtual void handleTick() = 0;
+  virtual int handleTick() = 0;
 
 };
 
