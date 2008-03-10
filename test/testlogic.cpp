@@ -13,7 +13,7 @@ void pause() {
 }
 
 int main(void) {
-  system("mode con:lines=25"); //windowskomento, pistää grafiikkatilan 80x25:ksi (mulla oletuksena 80x50)
+  system("mode con:lines=50"); //windowskomento, pistää grafiikkatilan 80x25:ksi (mulla oletuksena 80x50)
 //  TKeyboardInput::create("keyb");
 
   CGraphics *g = new CGraphics();
@@ -23,6 +23,7 @@ int main(void) {
   SKeyboardInput *input = &SKeyboardInput::getInstance();
 //  STicker *ticker = &STicker::getInstance();
 
+pause();
 //  ticker->registerListener(dynamic_cast<VTickListener*>(input), 20);
 //  ticker->registerListener(dynamic_cast<VTickListener*>(logic), 500);
   input->registerCommandListener( dynamic_cast<VCommandListener*>(logic) );

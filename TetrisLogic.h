@@ -23,7 +23,7 @@
 #include "TetrisCommon.h"
 #include "TetrominoFactory.h"
 
-#define PREVIEW_TETROMINOES 3
+#define PREVIEW_TETROMINOES 6
 #define GAMEBOARD_WIDTH 12
 #define GAMEBOARD_HEIGHT 20
 #define PREVIEWBOARD_WIDTH 4

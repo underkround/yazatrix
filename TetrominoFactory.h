@@ -11,6 +11,7 @@
  * esim: http://www.tetrisconcept.com/wiki/index.php?title=TGM_randomizer
  *
  * TODO: ‰lyk‰s logiikka palikan arpomiselle
+ * TODO: siivoa
  */
 
 #include "Tetromino.h"
@@ -36,6 +37,7 @@ class CTetrominoFactory {
 
     // count luoduista palikoista
     int m_creationCount;
+    bool m_xiitBlocks;
 
     // tilastoa luoduista palikoista
     // todo: indeksitaulukko jossa totals[TETROMINOE] = m‰‰r‰

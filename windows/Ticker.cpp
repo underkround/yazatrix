@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#define TICKER_DEFAULT_SLEEP 10
+#define TICKER_DEFAULT_SLEEP 1
 #define TICKER_MAX_TASKS 10
 
 STicker::STicker() {

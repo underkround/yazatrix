@@ -43,6 +43,11 @@ enum CELL_TYPE {
    * TTT
    */
   BLOCK_T = 7,
+
+  BLOCK_XIIT1,
+  BLOCK_XIIT2,
+  BLOCK_XIIT3,
+  BLOCK_XIIT4,
 };
 
 

@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#define KEYBOARDINPUT_TICKDELAY 20
+#define KEYBOARDINPUT_TICKDELAY 2
 
 SKeyboardInput::SKeyboardInput() {
 //  STicker::instance().<

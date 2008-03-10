@@ -85,6 +85,7 @@ void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
         break;
       case GAME_COMMAND_HARDDROP:
         m_currentTetromino->drop();
+        myTickTask->resetTick();
         // TODO: reset tick
         break;
       case GAME_COMMAND_PAUSE:
@@ -146,7 +147,6 @@ void CTetrisLogic::rotateTetrominoes() {
 }
 
 void CTetrisLogic::adjustDelay() {
-  if(m_delay >= 50) {
-    m_delay -= 50;
-  }
+  if(m_delay >= 50)
+    m_delay = m_delay/1.2;
 }

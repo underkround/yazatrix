@@ -20,10 +20,11 @@
  */
 
 #include "BoardChangeListener.h"
+#include "Panel.h"
 #include "TetrisBoard.h"
 #include "Graphics.h"
 
-class CBoardGraphics : public VBoardChangeListener {
+class CBoardGraphics : public VBoardChangeListener, public VPanel {
 
 public:
   /**
@@ -95,6 +96,7 @@ private:
   int m_y;                // koordinaatit joista t‰m‰ alkaa piirt‰‰ itse‰‰n
   int m_width;            // montako merkki‰ vied‰‰n tilaa
   int m_height;           // (voi olla eri kun laudankoko esim jos on borderit)
+
 
   void drawCell(int x, int y, CELL_TYPE ct); // x ja y ovat boardin koordinaatteja, eiv‰t ruudun
 
