@@ -331,13 +331,9 @@
 			<Option target="testdraw" />
 		</Unit>
 		<Unit filename="test\testgameloop.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
 			<Option target="testgameloop" />
 		</Unit>
 		<Unit filename="test\testkeyboard(win).cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
 			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="test\testlogic.cpp">
