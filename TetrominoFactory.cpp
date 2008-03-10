@@ -15,7 +15,8 @@ CTetrominoFactory::CTetrominoFactory() {
   // todo: alusta lastlog jne
   m_creationCount = 0;
   srand((unsigned)time(0));
-  m_xiitBlocks = false;
+  m_xiitBlocks = true;
+  m_normBlocks = true;
 }
 
 CTetrominoFactory::~CTetrominoFactory() {
@@ -142,25 +143,27 @@ CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
  */
 CTetromino* CTetrominoFactory::createRandom() {
   // arvotaan uusi palikka
-  if(m_xiitBlocks) {
-    int next = rand() % 4;
-    switch(next) {
-      case 0: return create(BLOCK_XIIT1);
-      case 1: return create(BLOCK_XIIT2);
-      case 2: return create(BLOCK_XIIT3);
-      case 3: return create(BLOCK_XIIT4);
-    }
-  } else {
-    int next = rand() % 7;
-    switch(next) {
-      case 0: return create(BLOCK_I);
-      case 1: return create(BLOCK_O);
-      case 2: return create(BLOCK_T);
-      case 3: return create(BLOCK_S);
-      case 4: return create(BLOCK_Z);
-      case 5: return create(BLOCK_J);
-      case 6: return create(BLOCK_L);
-    }
+  int next = -1;
+  if(m_xiitBlocks && !m_normBlocks)
+    next = rand() % 4;
+  else if(m_normBlocks && m_xiitBlocks)
+    next = rand() % 11;
+  else
+    next = rand() % 7;
+
+  switch(next) {
+    case 0: return create(BLOCK_I);
+    case 1: return create(BLOCK_O);
+    case 2: return create(BLOCK_T);
+    case 3: return create(BLOCK_S);
+    case 4: return create(BLOCK_Z);
+    case 5: return create(BLOCK_J);
+    case 6: return create(BLOCK_L);
+
+    case 7: return create(BLOCK_XIIT1);
+    case 8: return create(BLOCK_XIIT2);
+    case 9: return create(BLOCK_XIIT3);
+    case 10: return create(BLOCK_XIIT4);
   }
   return create(BLOCK_I); // ei pitäisi tapahtua, vältetään vaan käännövaroitukset
 }

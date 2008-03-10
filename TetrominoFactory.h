@@ -38,6 +38,7 @@ class CTetrominoFactory {
     // count luoduista palikoista
     int m_creationCount;
     bool m_xiitBlocks;
+    bool m_normBlocks;
 
     // tilastoa luoduista palikoista
     // todo: indeksitaulukko jossa totals[TETROMINOE] = m‰‰r‰
