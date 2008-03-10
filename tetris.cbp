@@ -120,8 +120,8 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-Os" />
 					<Add option="-Wall" />
-					<Add option="-g" />
 				</Compiler>
 				<Linker>
 					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio.a" />
@@ -202,13 +202,16 @@
 			<Option target="testtimer" />
 			<Option target="testlogic" />
 			<Option target="testkeyboard" />
+			<Option target="vs2008" />
 		</Unit>
+		<Unit filename="Panel.h" />
 		<Unit filename="Singleton.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testtimer" />
 			<Option target="testlogic" />
 			<Option target="testkeyboard" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="TetrisBoard.cpp">
 			<Option target="Debug" />
@@ -242,6 +245,7 @@
 			<Option target="testboard" />
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="TetrisLogic.h">
 			<Option target="Debug" />
@@ -288,6 +292,7 @@
 			<Option target="Release" />
 			<Option target="testtimer" />
 			<Option target="testlogic" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="TickTask.h">
 			<Option target="Debug" />
@@ -296,6 +301,7 @@
 			<Option target="testtimer" />
 			<Option target="testlogic" />
 			<Option target="testkeyboard" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="Ticker.h">
 			<Option target="Debug" />
@@ -304,18 +310,18 @@
 			<Option target="testtimer" />
 			<Option target="testlogic" />
 			<Option target="testkeyboard" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="linux\Graphics.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="test\testboard.cpp">
 			<Option target="testboard" />
-			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="test\testdraw(win).cpp">
 			<Option target="testdraw" />
-			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="test\testgameloop.cpp">
 			<Option target="Debug" />
@@ -325,11 +331,11 @@
 		<Unit filename="test\testkeyboard(win).cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
-			<Option target="vs2008" />
 			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="test\testlogic.cpp">
 			<Option target="testlogic" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="test\testtimer.cpp">
 			<Option target="testtimer" />
@@ -349,12 +355,14 @@
 			<Option target="testtimer" />
 			<Option target="testlogic" />
 			<Option target="testkeyboard" />
+			<Option target="vs2008" />
 		</Unit>
 		<Unit filename="windows\Ticker.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testtimer" />
 			<Option target="testlogic" />
+			<Option target="vs2008" />
 		</Unit>
 		<Extensions>
 			<code_completion />
