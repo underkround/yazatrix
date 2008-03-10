@@ -11,6 +11,8 @@
 #include "TetrisBoard.h"
 #include "TetrisCommon.h"
 
+#include <stdio.h> // TODO: POISTA
+
 #define TETRIS_GUIDELINE_WIDTH 10
 #define TETRIS_GUIDELINE_HEIGHT 22
 
@@ -129,8 +131,10 @@ int CTetrisBoard::clearFullLines(void) {
       m_removedLinesLast++;
     }
   }
-  if(m_removedLinesLast > 0)
+  if(m_removedLinesLast > 0) {
     notifyFreshBoard(); // TODO: ilmoita vain muuttuneet rivit
+    printf("                           rajaytetty: %d", m_removedLines); // TODO: POISTA
+  }
   return m_removedLinesLast; //??
 }
 

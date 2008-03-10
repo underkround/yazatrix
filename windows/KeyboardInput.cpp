@@ -18,11 +18,7 @@
 #define KEYBOARDINPUT_TICKDELAY 2
 
 SKeyboardInput::SKeyboardInput() {
-//  STicker::instance().<
-  printf("                                       rekisteröidytään tickerille\n");
   CTickTask *myTask = STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), 20);
-  if(myTask == 0)
-    printf("                                       NOOOOO :(\n");
 }
 
 int SKeyboardInput::handleTick() {
@@ -84,6 +80,9 @@ void SKeyboardInput::handleKeyPress(char key) {
 
 void SKeyboardInput::registerCommandListener(VCommandListener *listener) {
   listeners.push_back(listener);
+}
+
+void SKeyboardInput::unregisterCommandListener(VCommandListener *listener) {
 }
 
 void SKeyboardInput::notifyCommand(VCommandListener::COMMAND cmd) {

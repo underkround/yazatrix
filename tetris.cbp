@@ -322,7 +322,6 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="testtimer" />
-			<Option target="testlogic" />
 			<Option target="testkeyboard" />
 		</Unit>
 		<Unit filename="test\testboard.cpp">

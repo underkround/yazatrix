@@ -30,6 +30,7 @@ CTetrisLogic::CTetrisLogic() {
   }
   m_previewCount = 0;
   m_tetrominoCounter = 0;
+  m_score = 0;
   m_gameOver = false;
   m_moveLock = false;
   m_running = false;
@@ -100,12 +101,21 @@ void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
 int CTetrisLogic::handleTick() {
   // testataan onko nykyinen palikka jos laskeutunut
   if(m_currentTetromino->hasLanded()) {
+    m_score += 1;
     // käsketään lautaa tyhjäämään täydet rivit
-    m_gameBoard->clearFullLines();
+    int lines = m_gameBoard->clearFullLines();
+    switch(lines) {
+      case 1: m_score += 10;
+      case 2: m_score += 30;
+      case 3: m_score += 60;
+      case 4: m_score += 100;
+      default: break;
+    }
     // pyöräytetään palikoita
     rotateTetrominoes();
     // säädetään tickin timeria laudan räjäytettyjen rivien perusteella tai pelissä olleiden palikoiden mukaan
     adjustDelay();
+    printf("                                                 score: %d", m_score);
   } else {
     // tiputetaan nykyistä palikkaa
     m_currentTetromino->moveDown();
@@ -143,6 +153,6 @@ void CTetrisLogic::rotateTetrominoes() {
 }
 
 void CTetrisLogic::adjustDelay() {
-  if(m_delay >= 50)
-    m_delay = (int)(m_delay / 1.2);
+  if(m_delay >= 60)
+    m_delay = (int)(m_delay / 1.1);
 }

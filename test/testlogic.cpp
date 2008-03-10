@@ -14,33 +14,26 @@ void pause() {
 
 int main(void) {
   system("mode con:lines=50"); //windowskomento, pistää grafiikkatilan 80x25:ksi (mulla oletuksena 80x50)
-//  TKeyboardInput::create("keyb");
 
   CGraphics *g = new CGraphics();
   CTetrisLogic *logic = new CTetrisLogic();
   CTetrisBoard *gameBoard = logic->getGameBoard();
   CTetrisBoard *previewBoard = logic->getPreviewBoard();
   SKeyboardInput *input = &SKeyboardInput::getInstance();
-//  STicker *ticker = &STicker::getInstance();
 
-pause();
-//  ticker->registerListener(dynamic_cast<VTickListener*>(input), 20);
-//  ticker->registerListener(dynamic_cast<VTickListener*>(logic), 500);
+  //pause();
+
   input->registerCommandListener( dynamic_cast<VCommandListener*>(logic) );
   CBoardGraphics *gbg = new CBoardGraphics(gameBoard, g, 2, 2);
-  CBoardGraphics *pbg = new CBoardGraphics(previewBoard, g, 20, 8);
+  CBoardGraphics *pbg = new CBoardGraphics(previewBoard, g, 20, 2);
   gbg->setBorderStyle(CGraphics::BORDER_BLOCK);
   pbg->setBorderStyle(CGraphics::BORDER_SQUARE);
 
-//  pause();
-//  input->handleTick();
 //  if(ticker->registerListener( dynamic_cast<VTickListener*>(input) , 100 )) {
-    STicker::getInstance().start();
-    logic->start();
+  STicker::getInstance().start();
+  logic->start();
 //    STicker::getInstance().start();
 //  }
-
-//  logic->run();
 
   delete gbg;
   delete pbg;

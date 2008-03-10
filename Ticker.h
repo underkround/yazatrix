@@ -33,25 +33,19 @@ public:
   /**
    * Pyydet‰‰n poistumaan p‰‰loopista
    */
-  void stop();
+  void stop(void);
 
   /**
    * P‰‰looppi jossa sleepataan ja kutsutaan kuuntelijoita
    */
-  void start();
+  void start(void);
 
 private:
 
-//  std::map<VTickListener*,int> listeners; // value: int[ms_to_next_tick][last_delay]
-//  std::vector<*TickTask> tasks;
   CTickTask * m_tasks[TICKER_MAX_TASKS]; // TODO: kiintee arvo tilap‰isesti
   int m_taskCount;
-
   bool m_running; // flag jonka ollessa true, mainloop pyˆrii
-
   void removeTask(int index);
-
-//  std::vector<VTickListener*> listeners; // ticker ei ole vastuussa listenereiden tuhoamisesta
 
 protected:
 

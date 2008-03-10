@@ -116,6 +116,7 @@ private:
   bool            m_running;
   bool            m_moveLock;         // true = nykyist‰ palikkaa ei voida liikuttaa
   int             m_tetrominoCounter; // gameBoardissa olleiden palikoiden m‰‰r‰
+  int             m_score;
   CTetrisBoard    *m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
   CTetrisBoard    *m_previewBoard;     // previewBoard, jossa n‰kyy seuraavat palikat
   CTetromino      *m_currentTetromino; // nykyinen palikka, kiinnitetty pelilautaan

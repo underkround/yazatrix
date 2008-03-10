@@ -11,7 +11,6 @@
  */
 
 #include "../Ticker.h"
-#include <stdio.h>
 #include <windows.h>
 
 #define TICKER_DEFAULT_SLEEP 1
@@ -27,10 +26,8 @@ CTickTask* STicker::registerListener(VTickListener *listener, int tickDelay) {
   if(m_taskCount < TICKER_MAX_TASKS) {
     m_tasks[m_taskCount] = new CTickTask(listener, tickDelay);
     m_taskCount++;
-    //return true;
     return m_tasks[m_taskCount-1];
   }
-  //return false;
   return 0;
 }
 
@@ -50,7 +47,6 @@ void STicker::start() {
       }
     }
     if(m_taskCount <= 0) {
-      printf("Ei yhtään tickattavaa :(\n");
       m_running = false;
     }
   }
