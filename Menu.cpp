@@ -1,14 +1,16 @@
 #include "Menu.h"
 #include "Graphics.h"
 #include "Ticker.h"
+#include "KeyboardInput.h"
 #include <queue>
 
 #define MENU_TICKDELAY 10
 
 CTetrisMenu::CTetrisMenu(CGraphics *graphics){
   //rekisteröidytään tickerille
-  STicker *ticker = &STicker::getInstance();
-  ticker->registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
+  STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
+  //rekisteröidytään näppäimistölle
+  SKeyboardInput::getInstance().registerCommandListener( dynamic_cast<VCommandListener*>(this) );
   m_x = 0;
   m_y = 0;
   //TODO: causes wtf
@@ -31,6 +33,9 @@ CTetrisMenu::CTetrisMenu(CGraphics *graphics, int x_position, int y_position, in
 }
 
 CTetrisMenu::~CTetrisMenu(void) {
+}
+
+void CTetrisMenu::Show() {
 
 }
 
@@ -50,8 +55,8 @@ void CTetrisMenu::handleCommand(VCommandListener::COMMAND cmd) {
     }
 }
 
-int CTetrisMenu::handleTick(void) {
-}
+//int CTetrisMenu::handleTick(void) {
+//}
 
 void CTetrisMenu::createItems(void) {
   m_menuItems.push("Game start");

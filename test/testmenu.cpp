@@ -14,11 +14,12 @@
  */
 
 int main(int argc, char** argv) {
+  STicker::getInstance().start();
   CGraphics * grafiikka = new CGraphics();
-  SKeyboardInput *input = &SKeyboardInput::getInstance();
+  //SKeyboardInput *input = &SKeyboardInput::getInstance();
 
   CTetrisMenu * menuetti = new CTetrisMenu(grafiikka);
-  input->registerCommandListener( dynamic_cast<VCommandListener*>(menuetti) );
+  //input->registerCommandListener( dynamic_cast<VCommandListener*>(menuetti) );
 
   delete menuetti;
   delete grafiikka;

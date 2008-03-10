@@ -22,6 +22,13 @@ class CTetrisMenu : VPanel, VCommandListener {
   CTetrisMenu(CGraphics *graphics, int x_position, int y_position, int width, int height);
   virtual ~CTetrisMenu(void);
 
+  /**
+   * Show
+   *
+   * Näyttää menun
+   */
+  void Show();
+
   //Paneelista perityt
   inline virtual int getX(void) { return m_x; }
   inline virtual int getY(void) { return m_y; }
@@ -34,17 +41,20 @@ class CTetrisMenu : VPanel, VCommandListener {
    * Commandlisteneriltä peritty
    *
    * @see CommandListener.h
+   *
+   * Eli mitä tehdään kun saadaan näppäimistökomentoja
+   *
    */
   virtual void handleCommand(VCommandListener::COMMAND cmd);
 
-  /**
+
+  /*
    * Tickiltä peritty
    *
    * @see TickListener.h
    */
-  virtual int handleTick();
-
-  //int handleTick(void);
+/*  virtual int handleTick();
+  int handleTick(void);*/
 
   private:
   int m_menuLength;
