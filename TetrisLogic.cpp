@@ -144,5 +144,5 @@ void CTetrisLogic::rotateTetrominoes() {
 
 void CTetrisLogic::adjustDelay() {
   if(m_delay >= 50)
-    m_delay = m_delay/1.2;
+    m_delay = (int)(m_delay / 1.2);
 }
