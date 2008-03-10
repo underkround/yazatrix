@@ -1,6 +1,16 @@
 #ifndef __MENU_H__
 #define __MENU_H__
 
+/**
+ * Menu.h
+ *
+ * $Id$
+ * $Revision$
+ *
+ * Huolehtii valikoista
+ *
+ */
+
 #include "Panel.h"
 #include "Graphics.h"
 #include "CommandListener.h"
@@ -20,16 +30,28 @@ class CTetrisMenu : VPanel, VCommandListener {
   inline virtual void setX(int newX) { m_x = newX; }
   inline virtual void setY(int newY) { m_y = newY; }
 
-  //Commandlisteneristä perityt
+  /**
+   * Commandlisteneriltä peritty
+   *
+   * @see CommandListener.h
+   */
   virtual void handleCommand(VCommandListener::COMMAND cmd);
 
-  //Tickiltä perityt
-  int handleTick(void);
+  /**
+   * Tickiltä peritty
+   *
+   * @see TickListener.h
+   */
+  virtual int handleTick();
+
+  //int handleTick(void);
 
   private:
   int m_menuLength;
   std::queue<char*> m_menuItems;
   int m_x, m_y, m_width, m_height;
+
+  void createItems();
 
 };
 
