@@ -51,18 +51,17 @@ CTetrisLogic::~CTetrisLogic() {
 }
 
 bool CTetrisLogic::start(void) {
-  if(!m_gameOver) {
-    printf("Logic starting..\n");
-//    if(myTickTask != 0) {
-      m_running = true;
-      return true;
-//    }
+  if(!m_gameOver && myTickTask != 0) {
+    m_running = true;
+    return true;
   }
   return false;
 }
 
 void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
-//  if(m_running && !m_gameOver) {
+  if(!m_running)
+    start();
+  if(m_running && !m_gameOver) {
     switch(cmd) {
       case GAME_COMMAND_LEFT:
         m_currentTetromino->moveLeft();
@@ -86,7 +85,7 @@ void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
         // TODO: reset tick
         break;
       case GAME_COMMAND_PAUSE:
-        // TODO: toggle pause
+        m_running = false; // TODO: parempi pause. tämä on vaan tilapäinen
         break;
       case GAME_COMMAND_QUIT:
         // TODO: pysäytä timer
@@ -95,11 +94,13 @@ void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
       default:
         break;
     }
-//  }
+  }
 }
 
 int CTetrisLogic::handleTick() {
   // testataan onko nykyinen palikka jos laskeutunut
+  if(!m_running)
+    return 10;
   if(m_currentTetromino->hasLanded()) {
     m_score += 1;
     // käsketään lautaa tyhjäämään täydet rivit

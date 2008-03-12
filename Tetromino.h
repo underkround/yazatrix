@@ -43,11 +43,6 @@ public:
 
   // ================= METODIT =============================================
 
-#ifdef __DEBUG
-  inline int getX() { return m_x; }
-  inline int getY() { return m_y; }
-#endif // __DEBUG
-
   /**
    * Kääntää palikkaa myötäpäivään
    */

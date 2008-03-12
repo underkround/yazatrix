@@ -10,7 +10,7 @@
  * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
  */
 
-#include <vector>
+//#include <vector>
 #include <stack>
 #include "TetrisCommon.h"
 #include "BoardChangeListener.h"
@@ -150,13 +150,13 @@ public:
    *
    * @param bcl   rekisteröityvä kuuntelija, jolle muutostiedot lähetetään
    */
-  bool registerBoardChangeListener(VBoardChangeListener* bcl);
+  bool registerBoardChangeListener(VBoardChangeListener* listener);
 
   /**
    * Poistaa laudan tapahtumakuuntelijan kuuntelijavektorista
    * Ei tuhoa kuuntelijaa.
    */
-  bool unregisterBoardChangeListener(VBoardChangeListener* bcl);
+  bool unregisterBoardChangeListener(VBoardChangeListener* listener);
 
   /**
    * update()
@@ -172,13 +172,19 @@ public:
 
 private:
 
+  static const int TETRIS_GUIDELINE_WIDTH = 10;
+  static const int TETRIS_GUIDELINE_HEIGHT = 22;
+
   int m_width;  // solujen määrä vaakasuunnassa
   int m_height; // solujen määrä pystysuunnassa
   CELL_TYPE **m_matrix;   // kentän sisältö CELL_TYPE vakioina
   int m_removedLines;     // räjähtäneet rivit yhteensä
   int m_removedLinesLast; // viimeksi räjähtäneet rivit
   bool m_firstReset;
-  std::vector<VBoardChangeListener*> changeListeners; // laudan muutostapahtumakuuntelijat
+//  std::vector<VBoardChangeListener*> changeListeners; // laudan muutostapahtumakuuntelijat
+  static const int LISTENERS_MAX = 10;
+  int m_listenerCount;
+  VBoardChangeListener * listeners[LISTENERS_MAX];
 /*  int m_changeBufferMax;        // suurin koko changebufferille, jos ylittyy, käsketään päivittämään koko board
   int m_changeBufferChanges;    // koordinaatit changebufferissa
   int *m_changeBufferX[];       // taulukot, joissa on laudan solujen muutokset.

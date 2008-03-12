@@ -15,10 +15,13 @@
 #include <stdio.h>
 #include <windows.h>
 
-#define KEYBOARDINPUT_TICKDELAY 2
+//#define KEYBOARDINPUT_TICKDELAY 2
 
 SKeyboardInput::SKeyboardInput() {
-  CTickTask *myTask = STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), 20);
+  m_tickDelay = 2;
+//  CTickTask *myTask = STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), m_tickDelay);
+  STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), m_tickDelay);
+  m_listenerCount = 0;
 }
 
 int SKeyboardInput::handleTick() {
@@ -28,7 +31,9 @@ int SKeyboardInput::handleTick() {
     handleKeyPress(ch);
   }
   if(ch == 27) return -1;
-  return KEYBOARDINPUT_TICKDELAY;
+//  if(m_listenerCount == 0 && ch == 27)
+//    return -1;
+  return m_tickDelay;
 }
 
 SKeyboardInput::~SKeyboardInput() {
@@ -78,16 +83,37 @@ void SKeyboardInput::handleKeyPress(char key) {
 //  }
 }
 
-void SKeyboardInput::registerCommandListener(VCommandListener *listener) {
-  listeners.push_back(listener);
+bool SKeyboardInput::registerCommandListener(VCommandListener *listener) {
+  if(m_listenerCount >= LISTENERS_MAX)
+    return false;
+  listeners[m_listenerCount] = listener;
+  m_listenerCount++;
+  return true;
 }
 
-void SKeyboardInput::unregisterCommandListener(VCommandListener *listener) {
+bool SKeyboardInput::unregisterCommandListener(VCommandListener *listener) {
+  int index = -1;
+  for(int i=0; i<m_listenerCount; i++) {
+    if(listeners[i] == listener) {
+      index = i;
+      i = m_listenerCount;
+      break;
+    }
+  }
+  if(index >= 0) {
+    // poistettava löytyi
+    listeners[index] = 0;
+    m_listenerCount--;
+    for(int i=index; index<m_listenerCount; i++) {
+      listeners[i] = listeners[i+1]; // siirretään poistetusta seuraavia yhdellä alaspäin
+    }
+    listeners[m_listenerCount] = 0; // tyhjätään viimeinen alkio, joka olisi nyt kaksi kertaa listassa
+    return true;
+  }
+  return false;
 }
 
 void SKeyboardInput::notifyCommand(VCommandListener::COMMAND cmd) {
-	for(unsigned int i=0; i<listeners.size(); i++) {
-		VCommandListener* listener = listeners[i];
-		listener->handleCommand(cmd);
-  }
+  for(int i=0; i<m_listenerCount; i++)
+    listeners[i]->handleCommand(cmd);
 }

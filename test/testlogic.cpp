@@ -29,11 +29,8 @@ int main(void) {
   gbg->setBorderStyle(CGraphics::BORDER_BLOCK);
   pbg->setBorderStyle(CGraphics::BORDER_SQUARE);
 
-//  if(ticker->registerListener( dynamic_cast<VTickListener*>(input) , 100 )) {
   STicker::getInstance().start();
   logic->start();
-//    STicker::getInstance().start();
-//  }
 
   delete gbg;
   delete pbg;

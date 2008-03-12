@@ -35,38 +35,6 @@ public:
   virtual void handleFreshBoard() = 0;
 
   /**
-   * handleChangeInCoords(int *changedCoordsX[], int *changedCoordsY[],
-   *                      CELL_TYPE *cts[], int numChanges)
-   *
-   * !! DEPRICATED !!
-   *
-   * Vastaanottaa listan boarissa muuttuneista koordinaateista.
-   * Kaksi listaa pit‰v‰t sis‰ll‰‰n koordinaattiparit, eli
-   * x-koordinaatit toisessa ja y- toisessa.
-   * Apumuuttuja numCoords kertoo helpottaa kertomalla montako
-   * koordinaattia on muuttunut.
-   * Kuuntelija voi hakea boardilta muuttuneet koordinaatit, tai
-   * j‰tt‰‰ hakematta.
-   *
-   * Ilmoituksen l‰hett‰j‰ vastaa taulun tuhoamisesta.
-   *
-   * @param   changedCoordsX[]  taulukko muuttuneiden solujen
-   *                            x-koordinaateista
-   * @param   changedCoordsY[]  taulukko muuttuneiden solujen
-   *                            y-koordinaateista
-   * @param   cts[]             taulukko muuttuneiden solujen
-   *                            uusista arvoista
-   * @param   numChanges        apumuuttuja joka kertoo muutosten
-   *                            lukum‰‰r‰n
-   */
-//  virtual void handleChangeInCoords(
-//      const int *changedCoordsX[],
-//      const int *changedCoordsY[],
-//      const CELL_TYPE *cts[],
-//      const int numChanges
-//  ) = 0;
-
-  /**
    * handleChangeInLines(int *changedLines[], int numLines)
    *
    * Vastaanottaa tiedon, boardin muuttuneista riveist‰.

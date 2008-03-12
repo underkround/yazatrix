@@ -13,15 +13,12 @@
 
 #include <stdio.h> // TODO: POISTA
 
-#define TETRIS_GUIDELINE_WIDTH 10
-#define TETRIS_GUIDELINE_HEIGHT 22
-
-
 CTetrisBoard::CTetrisBoard(void) {
   m_firstReset = true;
   m_width = TETRIS_GUIDELINE_WIDTH;
   m_height = TETRIS_GUIDELINE_HEIGHT;
   m_matrix = new CELL_TYPE*[TETRIS_GUIDELINE_HEIGHT];
+  m_listenerCount = 0;
   for(int iy=0; iy<TETRIS_GUIDELINE_HEIGHT; iy++)
     m_matrix[iy] = new CELL_TYPE[TETRIS_GUIDELINE_WIDTH];
   reset();
@@ -32,9 +29,8 @@ CTetrisBoard::CTetrisBoard(const int cols, const int rows) {
   m_firstReset = true;
   m_width = cols;
   m_height = rows;
-  // luo vaaditun kokoinen matrix-taulukko
-  // TODO: lolapua miten alustan taulukon
   m_matrix = new CELL_TYPE*[rows];
+  m_listenerCount = 0;
   for(int iy=0; iy<rows; iy++)
     m_matrix[iy] = new CELL_TYPE[cols];
   // alusta matrix nollilla
@@ -135,23 +131,19 @@ int CTetrisBoard::clearFullLines(void) {
     notifyFreshBoard(); // TODO: ilmoita vain muuttuneet rivit
     printf("                           rajaytetty: %d", m_removedLines); // TODO: POISTA
   }
-  return m_removedLinesLast; //??
+  return m_removedLinesLast;
 }
 
 bool CTetrisBoard::removeLine(const int y) {
   if(y >= m_height || y < 0)
     return false;
-  // tuhotaan rivi
-  delete [] m_matrix[y];
-  // aseta ylempien rivien indeksit yhdellä alaspäin
+  delete [] m_matrix[y]; // tuhotaan rivi
   for(int iy=y+1; iy<m_height; iy++) {
-    // TODO, voiko taulukkoa kopioida valmiilla funkkarilla? matrix[iy-1] = matrix[iy]
+    // aseta ylempien rivien indeksit yhdellä alaspäin
     m_matrix[iy-1] = m_matrix[iy];
   }
-  // luodaan uusi rivi päällimmäiseksi
-  m_matrix[m_height-1] = new CELL_TYPE[m_width];
-  // alusta uusi rivi matriksiin (ylimmäiseksi)
-  resetLine(m_height-1);
+  m_matrix[m_height-1] = new CELL_TYPE[m_width]; // luodaan uusi rivi päällimmäiseksi
+  resetLine(m_height-1); // alusta uusi rivi matriksiin (ylimmäiseksi)
   m_removedLines++;
   return true;
 }
@@ -170,33 +162,46 @@ void CTetrisBoard::update() {
 // ==================== METODIT LISTENEREILLE ====================
 
 void CTetrisBoard::notifyFreshBoard(void) {
-  // foreach listeners
-	for(unsigned int i=0; i<changeListeners.size(); i++) {
-		VBoardChangeListener* listener = changeListeners[i];
-		listener->handleFreshBoard();
-	}
+//  printf("???????????????????????????????????????????????");
+  for(int i=0; i<m_listenerCount; i++)
+    listeners[i]->handleFreshBoard();
+//    printf("??????????????????????????????????????????????? %d", i);
 }
 
 void CTetrisBoard::notifyChangeInCoord(const int x, const int y, const CELL_TYPE ct) {
-	for(unsigned int i=0; i<changeListeners.size(); i++) {
-		VBoardChangeListener* listener = changeListeners[i];
-		listener->handleChangeInCoord(x, y, ct);
-  }
+//  printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+  for(int i=0; i<m_listenerCount; i++)
+    listeners[i]->handleChangeInCoord(x, y, ct);
+//    printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %d", i);
 }
 
-bool CTetrisBoard::registerBoardChangeListener(VBoardChangeListener* bcl) {
-  changeListeners.push_back(bcl);
-  //notifyFreshBoard();
+bool CTetrisBoard::registerBoardChangeListener(VBoardChangeListener* listener) {
+  if(m_listenerCount >= LISTENERS_MAX)
+    return false;
+  listeners[m_listenerCount] = listener;
+  m_listenerCount++;
+//  listener->handleFreshBoard();
   return true;
 }
 
-bool CTetrisBoard::unregisterBoardChangeListener(VBoardChangeListener* bcl) {
-  // TODO: poista kuuntelija changeListeners -vektroista
+bool CTetrisBoard::unregisterBoardChangeListener(VBoardChangeListener* listener) {
+  int index = -1;
+  for(int i=0; i<m_listenerCount; i++) {
+    if(listeners[i] == listener) {
+      index = i;
+      i = m_listenerCount;
+      break;
+    }
+  }
+  if(index >= 0) {
+    // poistettava löytyi
+    listeners[index] = 0;
+    m_listenerCount--;
+    for(int i=index; index<m_listenerCount; i++) {
+      listeners[i] = listeners[i+1]; // siirretään poistetusta seuraavia yhdellä alaspäin
+    }
+    listeners[m_listenerCount] = 0; // tyhjätään viimeinen alkio, joka olisi nyt kaksi kertaa listassa
+    return true;
+  }
   return false;
 }
-
-// DEPRICATED
-//void CTetrisBoard::notifyChangeInCoords() {
-  // käytetään changebufferia
-  // tyhjennetään changebuffer
-//}

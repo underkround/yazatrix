@@ -13,11 +13,10 @@
 #include "../Ticker.h"
 #include <windows.h>
 
-#define TICKER_DEFAULT_SLEEP 1
-
 STicker::STicker() {
   m_taskCount = 0;
   m_running = false;
+  m_sleepTime = 5;
   for(int i=0; i<TICKER_MAX_TASKS; i++)
     m_tasks[i] = 0;
 }
@@ -38,17 +37,15 @@ void STicker::stop() {
 void STicker::start() {
   m_running = true;
   while(m_running) {
-    Sleep(TICKER_DEFAULT_SLEEP);
+    Sleep(m_sleepTime);
     for(int i=0; i<m_taskCount; i++) {
       if(m_tasks[i] != 0) {
-        if(!m_tasks[i]->tick(TICKER_DEFAULT_SLEEP)) {
+        if(!m_tasks[i]->tick(m_sleepTime))
           removeTask(i);
-        }
       }
     }
-    if(m_taskCount <= 0) {
+    if(m_taskCount <= 0)
       m_running = false;
-    }
   }
 }
 

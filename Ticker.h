@@ -17,8 +17,6 @@
 #include "Singleton.h"
 #include "TickTask.h"
 
-#define TICKER_MAX_TASKS 10
-
 class STicker : public Singleton<STicker> {
 
 friend class Singleton<STicker>;
@@ -41,6 +39,9 @@ public:
   void start(void);
 
 private:
+
+  static const int TICKER_MAX_TASKS = 10;
+  int m_sleepTime;
 
   CTickTask * m_tasks[TICKER_MAX_TASKS]; // TODO: kiintee arvo tilapäisesti
   int m_taskCount;
