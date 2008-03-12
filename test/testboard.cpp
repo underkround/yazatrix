@@ -40,7 +40,7 @@ int main(void) {
   blockB->attach(board); blockB->rotateLeft(); blockB->drop(); blockB->detach();
 
 #ifdef TEST2_GRAFIIKALLA
-  CGraphics *graphics = new CGraphics();
+  SGraphics *graphics = new SGraphics();
   CBoardGraphics *boardGraphics = new CBoardGraphics(board, graphics, 16, 6);
 #endif // TEST2_GRAFIIKALLA
 

@@ -11,18 +11,18 @@
 //#define INTSTYLE
 
 int main() {
-  CGraphics *konsoli = new CGraphics();
+  SGraphics *konsoli = new SGraphics();
 
 #ifdef ENUMSTYLE
-  konsoli->drawBox(2,2,12,12, CGraphics::BORDER_SIMPLE);
+  konsoli->drawBox(2,2,12,12, SGraphics::BORDER_SIMPLE);
   konsoli->drawChar(10,4, 'x');
   konsoli->drawChar(4,10, 'y');
-  konsoli->drawSquare(5,4,CGraphics::GCOLOR_LIGHTCYAN);
-  konsoli->drawSquare(5,5,CGraphics::GCOLOR_LIGHTCYAN);
-  konsoli->drawSquare(6,5,CGraphics::GCOLOR_LIGHTCYAN);
-  konsoli->drawSquare(6,6,CGraphics::GCOLOR_LIGHTCYAN);
-  konsoli->drawString(2, 14, CGraphics::GCOLOR_LIGHTMAGENTA, CGraphics::GCOLOR_BLACK, "hello jussi <3");
-  konsoli->setColors(CGraphics::GCOLOR_GREEN, CGraphics::GCOLOR_WHITE);
+  konsoli->drawSquare(5,4,SGraphics::GCOLOR_LIGHTCYAN);
+  konsoli->drawSquare(5,5,SGraphics::GCOLOR_LIGHTCYAN);
+  konsoli->drawSquare(6,5,SGraphics::GCOLOR_LIGHTCYAN);
+  konsoli->drawSquare(6,6,SGraphics::GCOLOR_LIGHTCYAN);
+  konsoli->drawString(2, 14, SGraphics::GCOLOR_LIGHTMAGENTA, SGraphics::GCOLOR_BLACK, "hello jussi <3");
+  konsoli->setColors(SGraphics::GCOLOR_GREEN, SGraphics::GCOLOR_WHITE);
   printf("\nkorkeus: %d\nleveys: %d", konsoli->getHeight(), konsoli->getWidth());
   char ch[2];
   for(int i=0;i<16;i++) {
@@ -32,12 +32,12 @@ int main() {
       konsoli->drawString(20+3*j, i+4, i, j, ch);
     }
   }
-  konsoli->setColors(CGraphics::GCOLOR_WHITE,CGraphics::GCOLOR_BLACK);
-  konsoli->drawBox(18, 2, 69, 21, CGraphics::BORDER_GROOVE);
+  konsoli->setColors(SGraphics::GCOLOR_WHITE,SGraphics::GCOLOR_BLACK);
+  konsoli->drawBox(18, 2, 69, 21, SGraphics::BORDER_GROOVE);
 #endif //ENUMSTYLE
 
 #ifdef INTSTYLE
-  konsoli->drawBox(2,2,12,12, CGraphics::BORDER_SIMPLE);
+  konsoli->drawBox(2,2,12,12, SGraphics::BORDER_SIMPLE);
   konsoli->drawChar(10,4, 'x');
   konsoli->drawChar(4,10, 'y');
   konsoli->drawSquare(5,4,4);
@@ -55,8 +55,8 @@ int main() {
       konsoli->drawString(20+3*j, i+4, i, j, ch);
     }
   }
-  konsoli->setColors(CGraphics::GCOLOR_WHITE,CGraphics::GCOLOR_BLACK);
-  konsoli->drawBox(18, 2, 69, 21, CGraphics::BORDER_GROOVE);
+  konsoli->setColors(SGraphics::GCOLOR_WHITE,SGraphics::GCOLOR_BLACK);
+  konsoli->drawBox(18, 2, 69, 21, SGraphics::BORDER_GROOVE);
 #endif //INTSTYLE
 
   delete konsoli;

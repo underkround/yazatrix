@@ -15,7 +15,8 @@ void pause() {
 int main(void) {
   system("mode con:lines=50"); //windowskomento, pistää grafiikkatilan 80x25:ksi (mulla oletuksena 80x50)
 
-  CGraphics *g = new CGraphics();
+//  SGraphics *g = &SGraphics::getInstance();
+
   CTetrisLogic *logic = new CTetrisLogic();
   CTetrisBoard *gameBoard = logic->getGameBoard();
   CTetrisBoard *previewBoard = logic->getPreviewBoard();
@@ -24,17 +25,16 @@ int main(void) {
   //pause();
 
   input->registerCommandListener( dynamic_cast<VCommandListener*>(logic) );
-  CBoardGraphics *gbg = new CBoardGraphics(gameBoard, g, 2, 2);
-  CBoardGraphics *pbg = new CBoardGraphics(previewBoard, g, 20, 2);
-  gbg->setBorderStyle(CGraphics::BORDER_BLOCK);
-  pbg->setBorderStyle(CGraphics::BORDER_SQUARE);
+  CBoardGraphics *gbg = new CBoardGraphics(gameBoard, 2, 2);
+  CBoardGraphics *pbg = new CBoardGraphics(previewBoard, 20, 2);
+  gbg->setBorderStyle(SGraphics::BORDER_BLOCK);
+  pbg->setBorderStyle(SGraphics::BORDER_SQUARE);
 
   STicker::getInstance().start();
   logic->start();
 
-  delete gbg;
-  delete pbg;
-  delete g;
+//  delete gbg;
+//  delete pbg;
   delete logic;
   return 0;
 }

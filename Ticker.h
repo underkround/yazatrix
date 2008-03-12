@@ -17,11 +17,16 @@
 #include "Singleton.h"
 #include "TickTask.h"
 
-class STicker : public Singleton<STicker> {
-
-friend class Singleton<STicker>;
+//class STicker : public Singleton<STicker> {
+class STicker {
+//friend class Singleton<STicker>;
 
 public:
+
+static STicker& getInstance() {
+  static STicker theSingleInstance;  // assumes T has a protected default constructor
+  return theSingleInstance;
+}
 
   /**
    * Rekisteröi ticklistenerin, joka haluaa tickin
@@ -55,6 +60,7 @@ protected:
    * pakotetaan käyttämään Instance() -metodia
    */
   STicker();
+  ~STicker();
 
 };
 

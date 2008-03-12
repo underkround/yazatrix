@@ -11,12 +11,11 @@
 int main(void) {
 //  SKeyboardInput::getInstance().handleTick();
   SKeyboardInput *input = &SKeyboardInput::getInstance();
-  STicker *ticker = &STicker::getInstance();
 //  input->handleTick();
   CTickTask *task = ticker->registerListener( dynamic_cast<VTickListener*>(input) , 100 );
 //  if(task != 0) {
     printf("Näppiskuuntelija rekisteroitiin =)\n");
-    ticker->start();
+    STicker::getInstance().start();
 //    STicker::getInstance().start();
 //  } else {
     printf("Rekisterointi epaonnistui :<\n");

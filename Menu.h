@@ -18,8 +18,8 @@
 
 class CTetrisMenu : VPanel, VCommandListener {
   public:
-  CTetrisMenu(CGraphics *graphics);
-  CTetrisMenu(CGraphics *graphics, int x_position, int y_position, int width, int height);
+  CTetrisMenu(SGraphics *graphics);
+  CTetrisMenu(SGraphics *graphics, int x_position, int y_position, int width, int height);
   virtual ~CTetrisMenu(void);
 
   /**

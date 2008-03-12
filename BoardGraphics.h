@@ -34,15 +34,16 @@ public:
    * offsetY = --||--
    *
    */
-  CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int offsetX, int offsetY);
+//  CBoardGraphics(CTetrisBoard *myBoard, SGraphics *graphics, int offsetX, int offsetY);
+  CBoardGraphics(CTetrisBoard *myBoard, int offsetX, int offsetY);
 
   virtual ~CBoardGraphics();
 
   void setBorder(bool visible); // borderit p‰‰ll‰? jos moisia jaksaa tehd‰. lis‰‰ tietty leveytt‰ ja korkeutta +2
 
-  void setBorderStyle(CGraphics::BORDER_STYLE bs);
+  void setBorderStyle(SGraphics::BORDER_STYLE bs);
 
-  void setLocation(int x, int y); // mihin kohtaan ruutua piirt‰‰ itsens‰
+  void setLocation(const int x, const int y); // mihin kohtaan ruutua piirt‰‰ itsens‰
 
   inline virtual int getX(void) {
     return m_x;
@@ -73,15 +74,6 @@ public:
   /** Tarkemmat selitykset @ BoardChangeListener.h */
   virtual void handleFreshBoard();
 
-/*
- * !! DEPRICATED !!
-  virtual void handleChangeInCoords(
-      const int *changedCoordsX[],
-      const int *changedCoordsY[],
-      const CELL_TYPE *cts[],
-      const int numChanges
-  );*/
-
   virtual void handleChangeInLines(const int *changedLines[], const int numLines);
 
   virtual void handleChangeInCoord(const int x, const int y, const CELL_TYPE ct);
@@ -89,9 +81,9 @@ public:
 private:
 
   CTetrisBoard *board;    // t‰m‰ ei ole vastuussa boardin tuhoamisesta!
-  CGraphics *g;           // eik‰ myˆsk‰‰n grafiikan tuhoamisesta!
+  SGraphics *g;           // eik‰ myˆsk‰‰n grafiikan tuhoamisesta!
   bool m_borders;         // n‰ytet‰‰nkˆ borderit
-  CGraphics::BORDER_STYLE m_borderStyle; // borderin tyyli
+  SGraphics::BORDER_STYLE m_borderStyle; // borderin tyyli
   int m_x;                //
   int m_y;                // koordinaatit joista t‰m‰ alkaa piirt‰‰ itse‰‰n
   int m_width;            // montako merkki‰ vied‰‰n tilaa
@@ -99,11 +91,11 @@ private:
   int m_squareWidth;
   int m_squareHeight;
 
-  void drawCell(int x, int y, CELL_TYPE ct); // x ja y ovat boardin koordinaatteja, eiv‰t ruudun
+  void drawCell(const int x, const int y, CELL_TYPE ct); // x ja y ovat boardin koordinaatteja, eiv‰t ruudun
 
   void drawBorder();
 
-  CGraphics::GCOLOR getCellTypeColor(CELL_TYPE ct);
+  SGraphics::GCOLOR getCellTypeColor(CELL_TYPE ct);
 
   char getCellTypeChar(CELL_TYPE ct);
 

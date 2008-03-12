@@ -10,12 +10,12 @@
 
 #include "BoardGraphics.h"
 
-CBoardGraphics::CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int offsetX, int offsetY) {
+CBoardGraphics::CBoardGraphics(CTetrisBoard *myBoard, int offsetX, int offsetY) {
   board = myBoard;
+  g = &SGraphics::getInstance();
   // rekisteröidy boardille kuuntelijaksi
   VBoardChangeListener *bcl = dynamic_cast<VBoardChangeListener*>(this);
   board->registerBoardChangeListener( bcl );
-  g = graphics;
   m_x = offsetX;
   m_y = offsetY;
   m_squareWidth = 1;
@@ -24,7 +24,7 @@ CBoardGraphics::CBoardGraphics(CTetrisBoard *myBoard, CGraphics *graphics, int o
   m_width = board->getWidth() * m_squareWidth;
   m_height = board->getHeight() * m_squareHeight;
   m_borders = true;
-  setBorderStyle(CGraphics::BORDER_GROOVE);
+  setBorderStyle(SGraphics::BORDER_GROOVE);
   handleFreshBoard();
 }
 
@@ -41,46 +41,46 @@ void CBoardGraphics::setBorder(bool visible) {
   handleFreshBoard(); // koko lauta muuttuu jos borderit muuttuu päälle / pois
 }
 
-void CBoardGraphics::setBorderStyle(CGraphics::BORDER_STYLE bs) {
+void CBoardGraphics::setBorderStyle(SGraphics::BORDER_STYLE bs) {
   m_borderStyle = bs;
   drawBorder();
 }
 
 void CBoardGraphics::drawBorder() {
-  g->setColors(CGraphics::GCOLOR_WHITE, CGraphics::GCOLOR_BLACK);
+  g->setColors(SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK);
   if(m_borders)
     g->drawBox(m_x, m_y, m_x+m_width*m_squareWidth+1, m_y+m_height*m_squareWidth+1, m_borderStyle);
 }
 
-void CBoardGraphics::setLocation(int x, int y) {
+void CBoardGraphics::setLocation(const int x, const int y) {
   // mistä ruudun koordinaatista tämä aloittaa piirtämään itseään (ylävasen koord)
   m_x = x;
   m_y = y;
 }
 
 // tätä käyttäen piirretään solut
-void CBoardGraphics::drawCell(int x, int y, CELL_TYPE ct) {
+void CBoardGraphics::drawCell(const int x, const int y, CELL_TYPE ct) {
   int ax = (m_borders) ? x*m_squareWidth+m_x+1 : x*m_squareWidth+m_x;
   int ay = (m_borders) ? m_height+m_y-y*m_squareHeight : m_height+m_y-y*m_squareHeight-1;
   g->drawSquare(ax,ay,getCellTypeColor(ct));
   char chr = getCellTypeChar(ct);
   if(chr > 0) {
-    g->drawChar(ax,ay,CGraphics::GCOLOR_DARKGRAY,getCellTypeColor(ct),chr);
+    g->drawChar(ax,ay,SGraphics::GCOLOR_DARKGRAY,getCellTypeColor(ct),chr);
   }
 }
 
-CGraphics::GCOLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
+SGraphics::GCOLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
   switch(ct) {
-    case OFFGRID: return CGraphics::GCOLOR_WHITE;
-    case BLOCK_Z: return CGraphics::GCOLOR_LIGHTRED;
-    case BLOCK_S: return CGraphics::GCOLOR_LIGHTGREEN;
-    case BLOCK_I: return CGraphics::GCOLOR_LIGHTCYAN;
-    case BLOCK_O: return CGraphics::GCOLOR_YELLOW;
-    case BLOCK_L: return CGraphics::GCOLOR_BROWN;
-    case BLOCK_J: return CGraphics::GCOLOR_LIGHTBLUE;
-    case BLOCK_T: return CGraphics::GCOLOR_LIGHTMAGENTA;
-    default:
-    case EMPTY: return CGraphics::GCOLOR_BLACK;
+    case OFFGRID: return SGraphics::GCOLOR_WHITE;
+    case BLOCK_Z: return SGraphics::GCOLOR_LIGHTRED;
+    case BLOCK_S: return SGraphics::GCOLOR_LIGHTGREEN;
+    case BLOCK_I: return SGraphics::GCOLOR_LIGHTCYAN;
+    case BLOCK_O: return SGraphics::GCOLOR_YELLOW;
+    case BLOCK_L: return SGraphics::GCOLOR_BROWN;
+    case BLOCK_J: return SGraphics::GCOLOR_LIGHTBLUE;
+    case BLOCK_T: return SGraphics::GCOLOR_LIGHTMAGENTA;
+    case EMPTY: return SGraphics::GCOLOR_BLACK;
+    default: return SGraphics::GCOLOR_WHITE;
   }
 }
 

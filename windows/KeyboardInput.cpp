@@ -12,9 +12,9 @@
 #include "../KeyboardInput.h"
 #include "../Ticker.h"
 #include <conio.h>
-#include <stdio.h>
 #include <windows.h>
-
+#include <stdio.h>
+#include <iostream>
 //#define KEYBOARDINPUT_TICKDELAY 2
 
 SKeyboardInput::SKeyboardInput() {

@@ -12,6 +12,7 @@
 
 #include "../Ticker.h"
 #include <windows.h>
+#include <stdio.h>
 
 STicker::STicker() {
   m_taskCount = 0;
@@ -19,6 +20,14 @@ STicker::STicker() {
   m_sleepTime = 5;
   for(int i=0; i<TICKER_MAX_TASKS; i++)
     m_tasks[i] = 0;
+}
+
+STicker::~STicker() {
+  if(m_taskCount > 0) {
+    for(int i=0; i<m_taskCount; i++) {
+      delete m_tasks[i];
+    }
+  }
 }
 
 CTickTask* STicker::registerListener(VTickListener *listener, int tickDelay) {
@@ -36,6 +45,7 @@ void STicker::stop() {
 
 void STicker::start() {
   m_running = true;
+  int counter = 0;
   while(m_running) {
     Sleep(m_sleepTime);
     for(int i=0; i<m_taskCount; i++) {
@@ -46,6 +56,9 @@ void STicker::start() {
     }
     if(m_taskCount <= 0)
       m_running = false;
+//    if(counter > 50)
+//      m_running = false;
+//    counter++;
   }
 }
 

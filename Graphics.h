@@ -14,40 +14,26 @@
  * lisää build asetuksien linker asetuksiiin link libraries listaan libconio.a
  */
 
-class CGraphics {
-  public:
-  CGraphics(void);
-  ~CGraphics(void);
+#include "Singleton.h"
+
+class SGraphics : public Singleton<SGraphics> {
+
+friend class Singleton<SGraphics>;
+
+public:
 
   // tuetut borderit
   enum BORDER_STYLE {
-    BORDER_NONE,
-    BORDER_SIMPLE,
-    BORDER_SINGLE,
-    BORDER_GROOVE,
-    BORDER_DOTTED,
-    BORDER_SQUARE,
-    BORDER_BLOCK
+    BORDER_NONE,        BORDER_SIMPLE,    BORDER_SINGLE,    BORDER_GROOVE,
+    BORDER_DOTTED,      BORDER_SQUARE,    BORDER_BLOCK
   };
 
   // tuetut värit
   enum GCOLOR {
-    GCOLOR_BLACK,
-    GCOLOR_BLUE,
-    GCOLOR_GREEN,
-    GCOLOR_CYAN,
-    GCOLOR_RED,
-    GCOLOR_MAGENTA,
-    GCOLOR_BROWN,
-    GCOLOR_YELLOW,
-    GCOLOR_WHITE,
-    GCOLOR_LIGHTGRAY,
-    GCOLOR_DARKGRAY,
-    GCOLOR_LIGHTBLUE,
-    GCOLOR_LIGHTGREEN,
-    GCOLOR_LIGHTCYAN,
-    GCOLOR_LIGHTRED,
-    GCOLOR_LIGHTMAGENTA
+    GCOLOR_BLACK,       GCOLOR_BLUE,      GCOLOR_GREEN,     GCOLOR_CYAN,
+    GCOLOR_RED,         GCOLOR_MAGENTA,   GCOLOR_BROWN,     GCOLOR_YELLOW,
+    GCOLOR_WHITE,       GCOLOR_LIGHTGRAY, GCOLOR_DARKGRAY,  GCOLOR_LIGHTBLUE,
+    GCOLOR_LIGHTGREEN,  GCOLOR_LIGHTCYAN, GCOLOR_LIGHTRED,  GCOLOR_LIGHTMAGENTA
   };
 
   //peruspiirtotyökalut
@@ -72,7 +58,7 @@ class CGraphics {
   void setColors(const GCOLOR fg, const GCOLOR bg);
   void setColors(const int fg, const int bg);
 
-  private:
+private:
   void moveCursor(const int x, const int y);
   void resetColors(void);
   void setForegroundColor(const GCOLOR fg);
@@ -83,6 +69,12 @@ class CGraphics {
   //muistetaan nykyiset käytössä olevat värit
   GCOLOR currentForegroundColor;
   GCOLOR currentBackgroundColor;
+
+protected:
+
+  SGraphics(void);
+  ~SGraphics(void);
+
 };
 
  #endif //__GRAPHICS_H__

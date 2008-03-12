@@ -13,7 +13,7 @@
 
 CTetrisLogic::CTetrisLogic() {
   // rekisteröidytään komentokuuntelijaksi
-//  TKeyboardInput::registerCommandListener( dynamic_cast<VCommandListener*>(this) );
+//  SKeyboardInput::registerCommandListener( dynamic_cast<VCommandListener*>(this) );
   // luodaan gameboard ja previewboard
   m_gameBoard = new CTetrisBoard(GAMEBOARD_WIDTH, GAMEBOARD_HEIGHT);
   // luodaan factory
@@ -37,8 +37,7 @@ CTetrisLogic::CTetrisLogic() {
   m_delay = 500;
   myTickTask = 0;
 
-  STicker *ticker = &STicker::getInstance();
-  myTickTask = ticker->registerListener(dynamic_cast<VTickListener*>(this), m_delay);
+  myTickTask = STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), m_delay);
 }
 
 CTetrisLogic::~CTetrisLogic() {
@@ -51,7 +50,7 @@ CTetrisLogic::~CTetrisLogic() {
 }
 
 bool CTetrisLogic::start(void) {
-  if(!m_gameOver && myTickTask != 0) {
+  if(!m_gameOver) {
     m_running = true;
     return true;
   }
@@ -90,6 +89,7 @@ void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
       case GAME_COMMAND_QUIT:
         // TODO: pysäytä timer
         m_gameOver = true;
+
         break;
       default:
         break;

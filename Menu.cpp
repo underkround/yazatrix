@@ -6,7 +6,7 @@
 
 #define MENU_TICKDELAY 10
 
-CTetrisMenu::CTetrisMenu(CGraphics *graphics){
+CTetrisMenu::CTetrisMenu(SGraphics *graphics){
   //rekisteröidytään tickerille
   STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
@@ -21,10 +21,9 @@ CTetrisMenu::CTetrisMenu(CGraphics *graphics){
   createItems();
 }
 
-CTetrisMenu::CTetrisMenu(CGraphics *graphics, int x_position, int y_position, int width, int height) {
+CTetrisMenu::CTetrisMenu(SGraphics *graphics, int x_position, int y_position, int width, int height) {
   //rekisteröidytään tickerille
-  STicker *ticker = &STicker::getInstance();
-  ticker->registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
+  STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   m_x = x_position;
   m_y = y_position;
   m_width = width;

@@ -13,12 +13,12 @@ void pause() {
 
 int main(void) {
 //  CTetrisLogic *logic = new CTetrisLogic;
-  CGraphics *g = new CGraphics();
+  SGraphics *g = new SGraphics();
   CTetrisBoard *gameBoard = new CTetrisBoard(GAMEBOARD_WIDTH, GAMEBOARD_HEIGHT);
   CTetrisBoard *previewBoard = new CTetrisBoard(PREVIEWBOARD_WIDTH, PREVIEWBOARD_HEIGHT);
   CBoardGraphics *gbg = new CBoardGraphics(gameBoard, g, 2, 1);
   CBoardGraphics *pbg = new CBoardGraphics(previewBoard, g, 20, 1);
-  pbg->setBorderStyle(CGraphics::BORDER_SINGLE);
+  pbg->setBorderStyle(SGraphics::BORDER_SINGLE);
   CTetrominoFactory *factory = new CTetrominoFactory();
   CTetromino *current = factory->createRandom();
   current->attach(gameBoard);

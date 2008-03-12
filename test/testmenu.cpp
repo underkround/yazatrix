@@ -15,7 +15,7 @@
 
 int main(int argc, char** argv) {
   STicker::getInstance().start();
-  CGraphics * grafiikka = new CGraphics();
+  SGraphics * grafiikka = new SGraphics();
   //SKeyboardInput *input = &SKeyboardInput::getInstance();
 
   CTetrisMenu * menuetti = new CTetrisMenu(grafiikka);

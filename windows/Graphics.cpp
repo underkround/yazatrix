@@ -22,7 +22,7 @@ using namespace std;
 /**
  * Piirtotilan initialisoinnit
  */
-CGraphics::CGraphics(void) {
+SGraphics::SGraphics(void) {
   //piilotetaan kursori (asettamalla sen korkeudeksi 0%)
   _setcursortype(0);
   //tyhjennetään ruutu
@@ -32,7 +32,7 @@ CGraphics::CGraphics(void) {
 /**
  * Piirtotilan sulkeminen
  */
-CGraphics::~CGraphics(void) {
+SGraphics::~SGraphics(void) {
   //varmistetaan että käyttäjä palaa konsoliin perusväreissä
   //resetColors();
   normvideo();
@@ -48,7 +48,7 @@ CGraphics::~CGraphics(void) {
  * @param y   y-koordinaatti
  * @param c   merkki
  */
-void CGraphics::drawChar(const int x, const int y, const char c) {
+void SGraphics::drawChar(const int x, const int y, const char c) {
   putchxy(x, y, c);
 }
 
@@ -63,12 +63,12 @@ void CGraphics::drawChar(const int x, const int y, const char c) {
  * @param bg    taustan väri
  * @param c     merkki
  */
-void CGraphics::drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char c) {
+void SGraphics::drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char c) {
   setColors(fg, bg);
   putchxy(x, y, c);
 }
 // DEPRICATED
-/*void CGraphics::drawChar(const int x, const int y, const int fg, const int bg, const char c) {
+/*void SGraphics::drawChar(const int x, const int y, const int fg, const int bg, const char c) {
   setColors(fg, bg);
   putchxy(x, y, c);
 }*/
@@ -82,7 +82,7 @@ void CGraphics::drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR
  * @param y       y-koordinaatti
  * @param color   väri
  */
-void CGraphics::drawSquare(const int x, const int y, const GCOLOR color) {
+void SGraphics::drawSquare(const int x, const int y, const GCOLOR color) {
   setColors(0, getBackgroundColor(color));
   putchxy(x, y, ' '); //'█'
   _setcursortype(0);
@@ -97,7 +97,7 @@ void CGraphics::drawSquare(const int x, const int y, const GCOLOR color) {
  * @param y     y-koordinaatti
  * @param str   merkkijono
  */
-void CGraphics::drawString(const int x, const int y, const char* str) {
+void SGraphics::drawString(const int x, const int y, const char* str) {
   moveCursor(y, x);
   cout << str;
 }
@@ -113,7 +113,7 @@ void CGraphics::drawString(const int x, const int y, const char* str) {
  * @param bg    taustan väri
  * @param str   merkkijono
  */
-void CGraphics::drawString(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char* str) {
+void SGraphics::drawString(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char* str) {
   moveCursor(y, x);
   setColors(getForegroundColor(fg), getBackgroundColor(bg));
   cout << str;
@@ -130,8 +130,8 @@ void CGraphics::drawString(const int x, const int y, const GCOLOR fg, const GCOL
  * @param to_y          oikean alakulman y-koordinaatti
  * @param borderstyle   reunuksen tyyli
  */
-//void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle) {
-void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const BORDER_STYLE borderstyle) {
+//void SGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle) {
+void SGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const BORDER_STYLE borderstyle) {
   char n,e,w,s,se,nw,ne,sw;
   switch(borderstyle) {
     case BORDER_NONE:
@@ -232,7 +232,7 @@ void CGraphics::drawBox(const int from_x, const int from_y, const int to_x, cons
  *
  * @return kursorin sijainti ruudulla x-akselin suhteen
  */
-int CGraphics::getX() {
+int SGraphics::getX() {
   return wherex();
 }
 
@@ -241,7 +241,7 @@ int CGraphics::getX() {
  *
  * @return kursorin sijainti ruudulla y-akselin suhteen
  */
-int CGraphics::getY() {
+int SGraphics::getY() {
   return wherey();
 }
 
@@ -250,7 +250,7 @@ int CGraphics::getY() {
  *
  * @return käytössä olevan ruudun korkeus
  */
-int CGraphics::getHeight() {
+int SGraphics::getHeight() {
   text_info *x = new text_info;
   gettextinfo(x);
   int out = 0;
@@ -264,7 +264,7 @@ int CGraphics::getHeight() {
  *
  * @return käytössä olevan ruudun leveys
  */
-int CGraphics::getWidth() {
+int SGraphics::getWidth() {
   text_info *x = new text_info;
   gettextinfo(x);
   int out = 0;
@@ -282,7 +282,7 @@ int CGraphics::getWidth() {
  * @param x     x-koordinaatti
  * @param y     y-koordinaatti
  */
-void CGraphics::moveCursor(const int x, const int y) {
+void SGraphics::moveCursor(const int x, const int y) {
   gotoxy(y, x);
 }
 
@@ -291,7 +291,7 @@ void CGraphics::moveCursor(const int x, const int y) {
  *
  * @deprecated tämä olikin ihan turha, käytä => conio.h::normvideo();
  */
-void CGraphics::resetColors(void) {
+void SGraphics::resetColors(void) {
   textcolor(DEFAULT_FOREGROUND_GCOLOR);
   textbackground(DEFAULT_BACKGROUND_GCOLOR);
 }
@@ -303,7 +303,7 @@ void CGraphics::resetColors(void) {
  *
  * @param fg    väri
  */
-void CGraphics::setForegroundColor(const GCOLOR fg) {
+void SGraphics::setForegroundColor(const GCOLOR fg) {
   textcolor(getForegroundColor(fg));
   currentForegroundColor = fg;
 }
@@ -315,7 +315,7 @@ void CGraphics::setForegroundColor(const GCOLOR fg) {
  *
  * @param bg    väri
  */
-void CGraphics::setBackgroundColor(const GCOLOR bg) {
+void SGraphics::setBackgroundColor(const GCOLOR bg) {
   textbackground(getBackgroundColor(bg));
   currentBackgroundColor = bg;
 }
@@ -328,7 +328,7 @@ void CGraphics::setBackgroundColor(const GCOLOR bg) {
  * @param fg    tekstin väri
  * @param bg    taustan väri
  */
-void CGraphics::setColors(const GCOLOR fg, const GCOLOR bg) {
+void SGraphics::setColors(const GCOLOR fg, const GCOLOR bg) {
   textcolor(getForegroundColor(fg));
   currentForegroundColor = fg;
   textbackground(getBackgroundColor(bg));
@@ -343,7 +343,7 @@ void CGraphics::setColors(const GCOLOR fg, const GCOLOR bg) {
  * @param fg    tekstin väri
  * @param bg    taustan väri
  */
-void CGraphics::setColors(const int fg, const int bg) {
+void SGraphics::setColors(const int fg, const int bg) {
   textcolor(fg);
   currentForegroundColor = (GCOLOR)fg;
   textbackground(bg);
@@ -361,7 +361,7 @@ void CGraphics::setColors(const int fg, const int bg) {
  * @param col   värin nimi
  * @return      värin numeroarvo tässä implementaatiossa
  */
-int CGraphics::getForegroundColor(GCOLOR col) {
+int SGraphics::getForegroundColor(GCOLOR col) {
   switch(col) {
     case GCOLOR_BLACK:     return 0;
     case GCOLOR_BLUE:      return 1;
@@ -391,6 +391,6 @@ int CGraphics::getForegroundColor(GCOLOR col) {
  * @param col   värin nimi
  * @return      värin numeroarvo tässä implementaatiossa
  */
-int CGraphics::getBackgroundColor(GCOLOR col) {
+int SGraphics::getBackgroundColor(GCOLOR col) {
   return getForegroundColor(col); // ainakin coniossa background on sama kuin foreground
 }
