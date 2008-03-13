@@ -13,17 +13,30 @@ class VPanel {
 
 public:
 
-  virtual void setX(int newX) = 0;
+  virtual void setLocation(const int x, const int y) = 0;
 
-  virtual void setY(int newY) = 0;
+  virtual void setX(const int newX) = 0;
 
-  virtual int getX() = 0;
+  virtual void setY(const int newY) = 0;
 
-  virtual int getY() = 0;
+  virtual inline int getX() {
+    return m_x;
+  }
 
-  virtual int getWidth() = 0;
+  virtual inline int getY() {
+    return m_y;
+  }
 
-  virtual int getHeight() = 0;
+  virtual inline int getWidth() = 0;
+
+  virtual inline int getHeight() = 0;
+
+protected:
+
+  int m_x;
+  int m_y;
+  int m_width;
+  int m_height;
 
 private:
 

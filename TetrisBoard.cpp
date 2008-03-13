@@ -52,9 +52,6 @@ void CTetrisBoard::reset(void) {
   while(!m_changeBufferX.empty())   m_changeBufferX.pop();
   while(!m_changeBufferY.empty())   m_changeBufferY.pop();
   while(!m_changeBufferCT.empty())  m_changeBufferCT.pop();
-  // nollataan linecountit
-  m_removedLines = 0;
-  m_removedLinesLast = 0;
   // foreach matrix.. = 0
   for(int iy=0; iy<m_height; iy++) {
     resetLine(iy);
@@ -118,20 +115,19 @@ bool CTetrisBoard::isFull(const int y){
 }
 
 int CTetrisBoard::clearFullLines(void) {
-  m_removedLinesLast = 0;
+  int removedLines = 0;
   // rivit pitää käydä ylhäältä alaspäin läpi, koska ne poistetaan
   // samantien, ja korkeat indeksit muuttuvat
   for(int i=m_height-1; i>=0; i--) {
     if(isFull(i)) {
       removeLine(i);
-      m_removedLinesLast++;
+      removedLines++;
     }
   }
-  if(m_removedLinesLast > 0) {
+  if(removedLines > 0) {
     notifyFreshBoard(); // TODO: ilmoita vain muuttuneet rivit
-    printf("                           rajaytetty: %d", m_removedLines); // TODO: POISTA
   }
-  return m_removedLinesLast;
+  return removedLines;
 }
 
 bool CTetrisBoard::removeLine(const int y) {
@@ -144,7 +140,7 @@ bool CTetrisBoard::removeLine(const int y) {
   }
   m_matrix[m_height-1] = new CELL_TYPE[m_width]; // luodaan uusi rivi päällimmäiseksi
   resetLine(m_height-1); // alusta uusi rivi matriksiin (ylimmäiseksi)
-  m_removedLines++;
+//  m_removedLines++;
   return true;
 }
 
@@ -162,17 +158,13 @@ void CTetrisBoard::update() {
 // ==================== METODIT LISTENEREILLE ====================
 
 void CTetrisBoard::notifyFreshBoard(void) {
-//  printf("???????????????????????????????????????????????");
   for(int i=0; i<m_listenerCount; i++)
     listeners[i]->handleFreshBoard();
-//    printf("??????????????????????????????????????????????? %d", i);
 }
 
 void CTetrisBoard::notifyChangeInCoord(const int x, const int y, const CELL_TYPE ct) {
-//  printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   for(int i=0; i<m_listenerCount; i++)
     listeners[i]->handleChangeInCoord(x, y, ct);
-//    printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %d", i);
 }
 
 bool CTetrisBoard::registerBoardChangeListener(VBoardChangeListener* listener) {
@@ -180,7 +172,6 @@ bool CTetrisBoard::registerBoardChangeListener(VBoardChangeListener* listener) {
     return false;
   listeners[m_listenerCount] = listener;
   m_listenerCount++;
-//  listener->handleFreshBoard();
   return true;
 }
 

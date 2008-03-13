@@ -33,13 +33,12 @@ public:
     return m_height;
   }
 
-  inline int getRemovedLines(void) {
+/*  inline int getRemovedLines(void) {
     return m_removedLines;
   }
-
   inline int getRemovedLinesLast(void) {
     return m_removedLinesLast;
-  }
+  }*/
 
   /**
    * GetSlot(int x, int y)
@@ -175,21 +174,17 @@ private:
   static const int TETRIS_GUIDELINE_WIDTH = 10;
   static const int TETRIS_GUIDELINE_HEIGHT = 22;
 
+//  int m_score;
+//  int m_level;
+//  int m_removedLines;     // räjähtäneet rivit yhteensä
+//  int m_removedLinesLast; // viimeksi räjähtäneet rivit
   int m_width;  // solujen määrä vaakasuunnassa
   int m_height; // solujen määrä pystysuunnassa
   CELL_TYPE **m_matrix;   // kentän sisältö CELL_TYPE vakioina
-  int m_removedLines;     // räjähtäneet rivit yhteensä
-  int m_removedLinesLast; // viimeksi räjähtäneet rivit
   bool m_firstReset;
-//  std::vector<VBoardChangeListener*> changeListeners; // laudan muutostapahtumakuuntelijat
   static const int LISTENERS_MAX = 10;
   int m_listenerCount;
   VBoardChangeListener * listeners[LISTENERS_MAX];
-/*  int m_changeBufferMax;        // suurin koko changebufferille, jos ylittyy, käsketään päivittämään koko board
-  int m_changeBufferChanges;    // koordinaatit changebufferissa
-  int *m_changeBufferX[];       // taulukot, joissa on laudan solujen muutokset.
-  int *m_changeBufferY[];       // muutokset ilmoitetaan notify-metodeissa kuuntelijoille
-  CELL_TYPE *changeBufferCT[];  // ja bufferit tyhjennetään */
   std::stack<int> m_changeBufferX;
   std::stack<int> m_changeBufferY;
   std::stack<CELL_TYPE> m_changeBufferCT;
@@ -222,17 +217,6 @@ private:
    * toimenpide kuuntelijoille on hakea koko matrixin tila uudestaan.
    */
   void notifyFreshBoard(void);
-
-  /**
-   * notifyChangeInCoords()
-   *
-   * !! DEPRICATED !!
-   *
-   * Ilmoittaa boardin kuuntelijoille muutoksista tietyissä
-   * koordinaateissa. Käytetään muutosbuffereita, jotka tyhjätään
-   * mainostamisen jälkeen.
-   */
-//  void notifyChangeInCoords();
 
   /**
    * notifyChangeInCoord(int x, int y, CELL_TYPE ct)

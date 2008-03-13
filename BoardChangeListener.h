@@ -63,6 +63,19 @@ public:
    */
   virtual void handleChangeInCoord(const int x, const int y, const CELL_TYPE ct) = 0;
 
+  /**
+   * handleChangeInStats(int points, int removedLines, int removedTotal, int level)
+   *
+   * Vastaanottaa tiedon muuttuneista statseista. Ilmoitetaan yleens‰
+   * kun pelikentt‰ on poistanut tyhj‰t rivit.
+   *
+   * @param   score   pistem‰‰r‰ yhteens‰
+   * @param   reml    poistetut rivit yhteens‰
+   * @param   remll   viimeksi r‰j‰ht‰neet rivit
+   * @param   level   pelitaso
+   */
+  virtual void handleChangeInStats(const int score, const int reml, const int remll, const int level) = 0;
+
 };
 
 #endif // __BOARDCHANGELISTENER_H__

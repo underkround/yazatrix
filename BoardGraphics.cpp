@@ -62,14 +62,14 @@ void CBoardGraphics::setLocation(const int x, const int y) {
 void CBoardGraphics::drawCell(const int x, const int y, CELL_TYPE ct) {
   int ax = (m_borders) ? x*m_squareWidth+m_x+1 : x*m_squareWidth+m_x;
   int ay = (m_borders) ? m_height+m_y-y*m_squareHeight : m_height+m_y-y*m_squareHeight-1;
-  g->drawSquare(ax,ay,getCellTypeColor(ct));
-  char chr = getCellTypeChar(ct);
+  g->drawSquare(ax,ay,getCellTypeColor(x, y, ct));
+  char chr = getCellTypeChar(x, y, ct);
   if(chr > 0) {
-    g->drawChar(ax,ay,SGraphics::GCOLOR_DARKGRAY,getCellTypeColor(ct),chr);
+    g->drawChar(ax,ay,SGraphics::GCOLOR_DARKGRAY,getCellTypeColor(x, y, ct),chr);
   }
 }
 
-SGraphics::GCOLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
+SGraphics::GCOLOR CBoardGraphics::getCellTypeColor(const int x, const int y, const CELL_TYPE ct) {
   switch(ct) {
     case OFFGRID: return SGraphics::GCOLOR_WHITE;
     case BLOCK_Z: return SGraphics::GCOLOR_LIGHTRED;
@@ -84,9 +84,9 @@ SGraphics::GCOLOR CBoardGraphics::getCellTypeColor(CELL_TYPE ct) {
   }
 }
 
-char CBoardGraphics::getCellTypeChar(CELL_TYPE ct) {
+char CBoardGraphics::getCellTypeChar(const int x, const int y, const CELL_TYPE ct) {
   switch(ct) {
-    case EMPTY: return '.';
+    case EMPTY: return (x%2) ? '.' : ',';
     default: return 0;
   }
 }
@@ -118,21 +118,9 @@ void CBoardGraphics::handleChangeInLines(const int *changedLines[], const int nu
 }
 
 void CBoardGraphics::handleChangeInCoord(const int x, const int y, const CELL_TYPE ct) {
-//  printf("%d:%d\n", x, y);
   drawCell(x, y, ct);
 }
 
-/*
- * !! DEPRICATED !!
- *
-void CBoardGraphics::handleChangeInCoords(
-    const int *changedCoordsX[],
-    const int *changedCoordsY[],
-    const CELL_TYPE *cts[],
-    const int numChanges
-) {
-  for(int i=0; i<numChanges; i++) {
-    drawCell(*changedCoordsX[i], *changedCoordsY[i], *cts[i]);
-  }
+void CBoardGraphics::handleChangeInStats(int score, int reml, int remll, int level) {
+  // atm ei tehdä mitään muutosilmoituksilla
 }
- */

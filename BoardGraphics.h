@@ -45,19 +45,11 @@ public:
 
   void setLocation(const int x, const int y); // mihin kohtaan ruutua piirt‰‰ itsens‰
 
-  inline virtual int getX(void) {
-    return m_x;
-  }
-
-  inline virtual int getY(void) {
-    return m_y;
-  }
-
-  inline virtual void setX(int newX) {
+  inline virtual void setX(const int newX) {
     m_x = newX;
   }
 
-  inline virtual void setY(int newY) {
+  inline virtual void setY(const int newY) {
     m_y = newY;
   }
 
@@ -73,10 +65,9 @@ public:
 
   /** Tarkemmat selitykset @ BoardChangeListener.h */
   virtual void handleFreshBoard();
-
   virtual void handleChangeInLines(const int *changedLines[], const int numLines);
-
   virtual void handleChangeInCoord(const int x, const int y, const CELL_TYPE ct);
+  virtual void handleChangeInStats(const int score, const int reml, const int remll, const int level);
 
 private:
 
@@ -84,10 +75,6 @@ private:
   SGraphics *g;           // eik‰ myˆsk‰‰n grafiikan tuhoamisesta!
   bool m_borders;         // n‰ytet‰‰nkˆ borderit
   SGraphics::BORDER_STYLE m_borderStyle; // borderin tyyli
-  int m_x;                //
-  int m_y;                // koordinaatit joista t‰m‰ alkaa piirt‰‰ itse‰‰n
-  int m_width;            // montako merkki‰ vied‰‰n tilaa
-  int m_height;           // (voi olla eri kun laudankoko esim jos on borderit)
   int m_squareWidth;
   int m_squareHeight;
 
@@ -95,9 +82,9 @@ private:
 
   void drawBorder();
 
-  SGraphics::GCOLOR getCellTypeColor(CELL_TYPE ct);
+  SGraphics::GCOLOR getCellTypeColor(const int x, const int y, const CELL_TYPE ct);
 
-  char getCellTypeChar(CELL_TYPE ct);
+  char getCellTypeChar(const int x, const int y, const CELL_TYPE ct);
 
 };
 

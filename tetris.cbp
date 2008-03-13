@@ -239,6 +239,18 @@
 			<Option target="testmenu" />
 		</Unit>
 		<Unit filename="Panel.h" />
+		<Unit filename="Screen.cpp">
+			<Option target="testgameloop" />
+			<Option target="testtimer" />
+			<Option target="testlogic" />
+			<Option target="testkeyboard" />
+			<Option target="testmenu" />
+		</Unit>
+		<Unit filename="Screen.h">
+			<Option target="testgameloop" />
+			<Option target="testlogic" />
+			<Option target="testkeyboard" />
+		</Unit>
 		<Unit filename="Singleton.h">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -246,6 +258,33 @@
 			<Option target="testlogic" />
 			<Option target="testkeyboard" />
 			<Option target="vs2008" />
+			<Option target="testmenu" />
+		</Unit>
+		<Unit filename="StatsListener.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testgameloop" />
+			<Option target="testtimer" />
+			<Option target="testlogic" />
+			<Option target="testkeyboard" />
+			<Option target="testmenu" />
+		</Unit>
+		<Unit filename="StatsPanel.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testgameloop" />
+			<Option target="testtimer" />
+			<Option target="testlogic" />
+			<Option target="testkeyboard" />
+			<Option target="testmenu" />
+		</Unit>
+		<Unit filename="StatsPanel.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testgameloop" />
+			<Option target="testtimer" />
+			<Option target="testlogic" />
+			<Option target="testkeyboard" />
 			<Option target="testmenu" />
 		</Unit>
 		<Unit filename="TetrisBoard.cpp">
@@ -290,6 +329,23 @@
 			<Option target="testboard" />
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
+		</Unit>
+		<Unit filename="TetrisStats.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testtimer" />
+			<Option target="testlogic" />
+			<Option target="testkeyboard" />
+			<Option target="testmenu" />
+		</Unit>
+		<Unit filename="TetrisStats.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testgameloop" />
+			<Option target="testtimer" />
+			<Option target="testlogic" />
+			<Option target="testkeyboard" />
+			<Option target="testmenu" />
 		</Unit>
 		<Unit filename="Tetromino.cpp">
 			<Option target="Debug" />
