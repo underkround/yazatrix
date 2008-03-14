@@ -119,6 +119,12 @@ void SGraphics::drawString(const int x, const int y, const GCOLOR fg, const GCOL
   cout << str;
 }
 
+void SGraphics::drawString(const int x, const int y, const GCOLOR bg, const GCOLOR fg, const string str) {
+  moveCursor(y, x);
+  setColors(getForegroundColor(fg), getBackgroundColor(bg));
+  cout << str;
+}
+
 /**
  * drawBox
  *

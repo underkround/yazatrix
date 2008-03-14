@@ -23,6 +23,7 @@ CTetrisLogic::CTetrisLogic() {
   // luodaan nykyinen tetrominoe ja liitetään se gameBoardiin
   m_currentTetromino = m_factory->createRandom();
   m_currentTetromino->attach(m_gameBoard);
+  m_stats = new CTetrisStats();
   // luodaan previewTetrominoet ja liitetään ne previewBoardiin
   for(int i=0; i<PREVIEW_TETROMINOES; i++) {
     m_previewTetrominoes[i] = m_factory->createRandom();
@@ -45,6 +46,7 @@ CTetrisLogic::~CTetrisLogic() {
     delete m_previewTetrominoes[i];
   delete m_currentTetromino;
   delete m_factory;
+  delete m_stats;
   delete m_gameBoard;
   delete m_previewBoard;
 }

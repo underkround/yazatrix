@@ -4,6 +4,7 @@
 #include "../KeyboardInput.h"
 #include "../TickListener.h"
 #include "../Ticker.h"
+#include "../StatsPanel.h"
 #include <stdio.h>
 
 
@@ -21,6 +22,9 @@ int main(void) {
   CTetrisBoard *gameBoard = logic->getGameBoard();
   CTetrisBoard *previewBoard = logic->getPreviewBoard();
   SKeyboardInput *input = &SKeyboardInput::getInstance();
+  CStatsPanel *stats = new CStatsPanel();
+  stats->handleChangeInStats(1, 2, 3, 4);
+
 
   //pause();
 

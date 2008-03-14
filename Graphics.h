@@ -15,6 +15,7 @@
  */
 
 #include "Singleton.h"
+#include <sstream>
 
 class SGraphics : public Singleton<SGraphics> {
 
@@ -38,13 +39,14 @@ public:
 
   //peruspiirtotyökalut
   void drawChar(const int x, const int y, const char c);
-  void drawChar(const int x, const int y, const int fg, const int bg, const char c); // DEPRICATED
+//  void drawChar(const int x, const int y, const int fg, const int bg, const char c); // DEPRICATED
   void drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char c);
-  void drawSquare(const int x, const int y, const int color); // DEPRICATED
+//  void drawSquare(const int x, const int y, const int color); // DEPRICATED
   void drawSquare(const int x, const int y, const GCOLOR color);
   void drawString(const int x, const int y, const char* str);
-  void drawString(const int x, const int y, const int bg, const int fg, const char* str); // DEPRICATED
+//  void drawString(const int x, const int y, const int bg, const int fg, const char* str); // DEPRICATED
   void drawString(const int x, const int y, const GCOLOR bg, const GCOLOR fg, const char* str);
+  void drawString(const int x, const int y, const GCOLOR bg, const GCOLOR fg, const std::string str);
 
   //älykkäämmät piirtotyökalut
 //  void drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle); // DEPRICATED

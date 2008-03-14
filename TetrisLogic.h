@@ -18,6 +18,7 @@
 #include "CommandListener.h"
 #include "TickListener.h"
 #include "TickTask.h"
+#include "TetrisStats.h"
 #include "TetrisBoard.h"
 #include "Tetromino.h"
 #include "TetrisCommon.h"
@@ -72,12 +73,13 @@ public:
   }
 
   /**
-   * getCurrentTetromino()
+   * getStats()
    *
-   * @deprecated  Kukaan ei itseasiassa tarvitse nykyist‰ palikkaa, koska
-   *              sen ohjaaminen tapahtuu CommandListener -interfacen kautta.
+   * @return    TetrisStats -luokka, joka tiet‰‰ pelitilanteen (statsit)
    */
-//  inline CTetromino   getCurrentTetromino(void) { return *m_currentTetromino; }
+  inline CTetrisStats* getStats(void) {
+    return m_stats;
+  }
 
   /**
    * handleKeyCommand()
@@ -112,15 +114,16 @@ public:
 private:
 
   // r‰j‰ytetyt rivit saadaan boardilta kysym‰ll‰
+  CTetrisBoard    *m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
+  CTetrisBoard    *m_previewBoard;     // previewBoard, jossa n‰kyy seuraavat palikat
+  CTetromino      *m_currentTetromino; // nykyinen palikka, kiinnitetty pelilautaan
+  CTetromino      *m_previewTetrominoes[PREVIEW_TETROMINOES];
+  CTetrisStats    *m_stats;
   bool            m_gameOver;
   bool            m_running;
   bool            m_moveLock;         // true = nykyist‰ palikkaa ei voida liikuttaa
   int             m_tetrominoCounter; // gameBoardissa olleiden palikoiden m‰‰r‰
   int             m_score;
-  CTetrisBoard    *m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
-  CTetrisBoard    *m_previewBoard;     // previewBoard, jossa n‰kyy seuraavat palikat
-  CTetromino      *m_currentTetromino; // nykyinen palikka, kiinnitetty pelilautaan
-  CTetromino      *m_previewTetrominoes[PREVIEW_TETROMINOES];
   CTetrominoFactory *m_factory;
   CTickTask       *myTickTask; // ei vastaa t‰m‰n tuhoamisesta
   int             m_previewSpacingY;

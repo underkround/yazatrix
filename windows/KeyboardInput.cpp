@@ -30,9 +30,10 @@ int SKeyboardInput::handleTick() {
     ch = getch();
     handleKeyPress(ch);
   }
-  if(ch == 27) return -1;
-//  if(m_listenerCount == 0 && ch == 27)
+//  if(ch == 27) {
+//    STicker::getInstance().stop();
 //    return -1;
+//  }
   return m_tickDelay;
 }
 
@@ -72,6 +73,7 @@ void SKeyboardInput::handleKeyPress(char key) {
       // pakonäppäin
       case 27:
         notifyCommand(VCommandListener::GAME_COMMAND_QUIT);
+        STicker::getInstance().stop();
         break;
 
       // random-näppäin
