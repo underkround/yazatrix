@@ -58,16 +58,24 @@ void SKeyboardInput::handleKeyPress(char key) {
       case 72:
   //      notifyCommand(VCommandListener::GAME_COMMAND_ROTATE_CW);
         notifyCommand(VCommandListener::GAME_COMMAND_ROTATE_CCW);
+        notifyCommand(VCommandListener::MENU_COMMAND_UP);
         break;
 
       // down
       case 80:
         notifyCommand(VCommandListener::GAME_COMMAND_SOFTDROP);
+        notifyCommand(VCommandListener::MENU_COMMAND_DOWN);
         break;
 
       // avaruusnäppäin
       case 32:
         notifyCommand(VCommandListener::GAME_COMMAND_HARDDROP);
+        notifyCommand(VCommandListener::MENU_COMMAND_SELECT);
+        break;
+
+      // vuoronäppäin
+      case 13:
+        notifyCommand(VCommandListener::MENU_COMMAND_SELECT);
         break;
 
       // pakonäppäin

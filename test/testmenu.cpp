@@ -15,13 +15,14 @@
 
 int main(int argc, char** argv) {
   STicker::getInstance().start();
-  SGraphics * grafiikka = new SGraphics();
+  //SGraphics * grafiikka = new SGraphics();
   //SKeyboardInput *input = &SKeyboardInput::getInstance();
 
-  CTetrisMenu * menuetti = new CTetrisMenu(grafiikka);
+  CTetrisMenu * menuetti = new CTetrisMenu();
   //input->registerCommandListener( dynamic_cast<VCommandListener*>(menuetti) );
-
+  menuetti->show();
+  STicker::getInstance().start();
   delete menuetti;
-  delete grafiikka;
+  //delete grafiikka;
   return 0;
 }

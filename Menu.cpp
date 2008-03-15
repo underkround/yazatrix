@@ -6,13 +6,13 @@
 
 #define MENU_TICKDELAY 10
 
-CTetrisMenu::CTetrisMenu(SGraphics *graphics){
+CTetrisMenu::CTetrisMenu(){
   //rekisteröidytään tickerille
   STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
   SKeyboardInput::getInstance().registerCommandListener( dynamic_cast<VCommandListener*>(this) );
-  m_x = 0;
-  m_y = 0;
+  setX(0);
+  setY(0);
   //TODO: causes wtf
   //m_height = graphics->getHeight;
   //m_width = graphics->getWidth;
@@ -21,11 +21,11 @@ CTetrisMenu::CTetrisMenu(SGraphics *graphics){
   createItems();
 }
 
-CTetrisMenu::CTetrisMenu(SGraphics *graphics, int x_position, int y_position, int width, int height) {
+CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) {
   //rekisteröidytään tickerille
   STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
-  m_x = x_position;
-  m_y = y_position;
+  setX(x_position);
+  setY(y_position);
   m_width = width;
   m_height = height;
   createItems();
@@ -34,28 +34,33 @@ CTetrisMenu::CTetrisMenu(SGraphics *graphics, int x_position, int y_position, in
 CTetrisMenu::~CTetrisMenu(void) {
 }
 
-void CTetrisMenu::Show() {
-
+void CTetrisMenu::show() {
 }
 
 void CTetrisMenu::handleCommand(VCommandListener::COMMAND cmd) {
       switch(cmd) {
-      case GAME_COMMAND_LEFT:
-      case GAME_COMMAND_RIGHT:
-      case GAME_COMMAND_ROTATE_CW:
-      case GAME_COMMAND_ROTATE_CCW:
-      case GAME_COMMAND_SOFTDROP:
-      case GAME_COMMAND_HARDDROP:
+      case MENU_COMMAND_UP: {
+        printf("painoit ylös");
         break;
-      case GAME_COMMAND_QUIT:
+      }
+      case MENU_COMMAND_DOWN: {
+        printf("painoit alas");
         break;
+      }
+      case MENU_COMMAND_SELECT: {
+        break;
+      }
+      case MENU_COMMAND_BACK: {
+        break;
+      }
       default:
         break;
     }
 }
 
-//int CTetrisMenu::handleTick(void) {
-//}
+int CTetrisMenu::handleTick(void) {
+  return MENU_TICKDELAY;
+}
 
 void CTetrisMenu::createItems(void) {
   m_menuItems.push("Game start");
