@@ -17,9 +17,8 @@ CTetrisMenu::CTetrisMenu(){
   SKeyboardInput::getInstance().registerCommandListener( dynamic_cast<VCommandListener*>(this) );
   //käytetään grafiikkaa
   g = &SGraphics::getInstance();
-  setX(2);
-  setY(2);
-  //TODO: causes wtf, miksi nämä eivät toimi?
+  setX(1);
+  setY(1);
   m_height = g->getHeight();
   m_width = g->getWidth();
   m_height = 25;
