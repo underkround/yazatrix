@@ -19,9 +19,9 @@ CTetrisMenu::CTetrisMenu(){
   g = &SGraphics::getInstance();
   setX(2);
   setY(2);
-  //TODO: causes wtf
-  //m_height = graphics->getHeight;
-  //m_width = graphics->getWidth;
+  //TODO: causes wtf, miksi nämä eivät toimi?
+  m_height = g->getHeight();
+  m_width = g->getWidth();
   m_height = 25;
   m_width = 80;
   setColorSet(SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_WHITE);
@@ -35,10 +35,13 @@ CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) 
   SKeyboardInput::getInstance().registerCommandListener( dynamic_cast<VCommandListener*>(this) );
   //käytetään grafiikkaa
   g = &SGraphics::getInstance();
-  setX(x_position);
-  setY(y_position);
-  m_width = width;
-  m_height = height;
+  //paneelille:
+  {
+    setX(x_position);
+    setY(y_position);
+    m_width = width;
+    m_height = height;
+  }
   setColorSet(SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_WHITE);
   createItems();
 }
@@ -100,8 +103,9 @@ void CTetrisMenu::createItems(void) {
   m_intSelectedItem = 1;
   m_listMenuItems.push_back("Game start");
   m_listMenuItems.push_back("About");
+  m_listMenuItems.push_back("█▓▒░");
   m_listMenuItems.push_back("Quit");
-  m_intMenuLength = 3;
+  m_intMenuLength = 4;
 }
 
 void CTetrisMenu::selectionUp() {
