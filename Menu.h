@@ -15,7 +15,8 @@
 #include "Graphics.h"
 #include "CommandListener.h"
 #include "TickListener.h"
-#include <queue>
+#include <list>
+#include <string>
 
 class CTetrisMenu : VPanel, VCommandListener, VTickListener {
   public:
@@ -29,6 +30,23 @@ class CTetrisMenu : VPanel, VCommandListener, VTickListener {
    * Näyttää menun
    */
   void show();
+
+  /**
+   * setColorSet
+   *
+   * Asettaa menun käyttämät värit
+   *
+   * @param in_menu_fg      menun tekstin väri
+   * @param in_menu_bg      menun taustaväri
+   * @param in_selected_fg  valitun tekstin väri
+   * @param in_selected_bg  valitun taustan väri
+   */
+  void setColorSet(
+                    const SGraphics::GCOLOR in_menu_fg,
+                    const SGraphics::GCOLOR in_menu_bg,
+                    const SGraphics::GCOLOR in_selected_fg,
+                    const SGraphics::GCOLOR in_selected_bg
+                  );
 
   //Paneelista perityt
   inline virtual int getX(void) { return m_x; }
@@ -59,10 +77,13 @@ class CTetrisMenu : VPanel, VCommandListener, VTickListener {
   //int handleTick(void);
 
   private:
-  int m_menuLength;
-  int selectedItem;
-  std::queue<char*> m_menuItems;
+  //Luokan omat muuttujat
+  int m_intMenuLength;
+  int m_intSelectedItem;
+  std::list<std::string> m_listMenuItems;
   int m_x, m_y, m_width, m_height;
+  SGraphics::GCOLOR menu_fg, menu_bg, selected_fg, selected_bg;
+  SGraphics *g;
 
   /**
    * CreateItems
@@ -93,16 +114,23 @@ class CTetrisMenu : VPanel, VCommandListener, VTickListener {
   void moveToSelection(const int item_number);
 
   /**
+   * selectionSelect
    *
+   * Suorittaa nykyisen valitun menu itemin toiminnon.
    *
+   * @return palauttaa tiedon toiminnon onnistumisesta
    */
-   inline bool selectionSelect() { return selectionSelect(selectedItem); }
+   inline bool selectionSelect() { return selectionSelect(m_intSelectedItem); }
 
   /**
+   * selectionSelect
    *
+   * Suorittaa halutun menu itemin toiminnon
    *
+   * @param item_number haluttu menu item
+   * @return palauttaa tiedon toiminnon onnistumisesta
    */
-   bool selectionSelect(const int item);
+   bool selectionSelect(const int item_number);
 };
 
 #endif //__MENU_H__
