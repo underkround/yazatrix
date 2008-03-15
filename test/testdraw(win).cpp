@@ -11,7 +11,7 @@
 //#define INTSTYLE
 
 int main() {
-  SGraphics *konsoli = new SGraphics();
+  SGraphics *konsoli = &SGraphics::getInstance();
 
 #ifdef ENUMSTYLE
   konsoli->drawBox(2,2,12,12, SGraphics::BORDER_SIMPLE);
@@ -29,7 +29,8 @@ int main() {
     for(int j=0;j<16;j++) {
       //char *ch = itoa(i, ch, 10);
       sprintf(ch, "%d", i);
-      konsoli->drawString(20+3*j, i+4, i, j, ch);
+      konsoli->setColors(i, j);
+      konsoli->drawString(20+3*j, i+4, ch);
     }
   }
   konsoli->setColors(SGraphics::GCOLOR_WHITE,SGraphics::GCOLOR_BLACK);
@@ -59,6 +60,6 @@ int main() {
   konsoli->drawBox(18, 2, 69, 21, SGraphics::BORDER_GROOVE);
 #endif //INTSTYLE
 
-  delete konsoli;
+  //delete konsoli;
   return 0;
 }

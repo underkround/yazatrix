@@ -15,7 +15,7 @@
 #include "Graphics.h"
 #include "CommandListener.h"
 #include "TickListener.h"
-#include <list>
+#include <vector>
 #include <string>
 
 class CTetrisMenu : VPanel, VCommandListener, VTickListener {
@@ -30,6 +30,14 @@ class CTetrisMenu : VPanel, VCommandListener, VTickListener {
    * Näyttää menun
    */
   void show();
+
+  /**
+   * drawMenuItem
+   *
+   * Piirtää yhden rivin menua
+   */
+  void drawMenuItem(const int line, const std::string text);
+  void drawMenuItem(const int line, const std::string text, const bool isSelected);
 
   /**
    * setColorSet
@@ -80,7 +88,7 @@ class CTetrisMenu : VPanel, VCommandListener, VTickListener {
   //Luokan omat muuttujat
   int m_intMenuLength;
   int m_intSelectedItem;
-  std::list<std::string> m_listMenuItems;
+  std::vector<std::string> m_listMenuItems;
   int m_x, m_y, m_width, m_height;
   SGraphics::GCOLOR menu_fg, menu_bg, selected_fg, selected_bg;
   SGraphics *g;

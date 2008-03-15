@@ -39,7 +39,7 @@ void CStatsPanel::draw() {
   std::stringstream out;
   g->drawBox(m_x, m_y, m_x+m_width+2, m_y+m_width+2, m_borderStyle);
   out << m_level; s = out.str();
-  g->drawString(m_x+2, m_y+1, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_WHITE, s);
+  g->drawString(m_x+2, m_y+1, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, s);
   out << m_score; s = out.str();
-  g->drawString(m_x+2, m_y+2, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_WHITE, s);
+  g->drawString(m_x+2, m_y+2, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, s);
 }
