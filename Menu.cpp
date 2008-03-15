@@ -103,9 +103,8 @@ void CTetrisMenu::createItems(void) {
   m_intSelectedItem = 1;
   m_listMenuItems.push_back("Game start");
   m_listMenuItems.push_back("About");
-  m_listMenuItems.push_back("█▓▒░");
   m_listMenuItems.push_back("Quit");
-  m_intMenuLength = 4;
+  m_intMenuLength = 3;
 }
 
 void CTetrisMenu::selectionUp() {
@@ -127,4 +126,5 @@ void CTetrisMenu::selectionDown() {
 }
 
 bool CTetrisMenu::selectionSelect(const int item_number) {
+  return false;
 }
