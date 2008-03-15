@@ -20,11 +20,18 @@
 #include "CommandListener.h"
 #include <stdio.h>
 
-class SKeyboardInput : public Singleton<SKeyboardInput>, public VTickListener {
+//class SKeyboardInput : public Singleton<SKeyboardInput>, public VTickListener {
 
-friend class Singleton<SKeyboardInput>;
+class SKeyboardInput : VTickListener {
+
+//friend class Singleton<SKeyboardInput>;
 
 public:
+
+static SKeyboardInput& getInstance() {
+  static SKeyboardInput theSingleInstance;  // assumes T has a protected default constructor
+  return theSingleInstance;
+}
 
   /**
    * @see TickListener.h

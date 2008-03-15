@@ -17,11 +17,16 @@
 #include "Singleton.h"
 #include <sstream>
 
-class SGraphics : public Singleton<SGraphics> {
-
-friend class Singleton<SGraphics>;
+//class SGraphics : public Singleton<SGraphics> {
+class SGraphics {
+//friend class Singleton<SGraphics>;
 
 public:
+
+static SGraphics& getInstance() {
+  static SGraphics theSingleInstance;  // assumes T has a protected default constructor
+  return theSingleInstance;
+}
 
   // tuetut borderit
   enum BORDER_STYLE {
@@ -39,17 +44,13 @@ public:
 
   //peruspiirtotyökalut
   void drawChar(const int x, const int y, const char c);
-//  void drawChar(const int x, const int y, const int fg, const int bg, const char c); // DEPRICATED
   void drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char c);
-//  void drawSquare(const int x, const int y, const int color); // DEPRICATED
   void drawSquare(const int x, const int y, const GCOLOR color);
   void drawString(const int x, const int y, const char* str);
-//  void drawString(const int x, const int y, const int bg, const int fg, const char* str); // DEPRICATED
   void drawString(const int x, const int y, const GCOLOR bg, const GCOLOR fg, const char* str);
   void drawString(const int x, const int y, const GCOLOR bg, const GCOLOR fg, const std::string str);
 
   //älykkäämmät piirtotyökalut
-//  void drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle); // DEPRICATED
   void drawBox(const int from_x, const int from_y, const int to_x, const int to_y, BORDER_STYLE borderstyle);
 
   //muuta tarpeellista
@@ -58,13 +59,13 @@ public:
   int getHeight();
   int getWidth();
   void setColors(const GCOLOR fg, const GCOLOR bg);
-  void setColors(const int fg, const int bg);
 
 private:
   void moveCursor(const int x, const int y);
   void resetColors(void);
   void setForegroundColor(const GCOLOR fg);
   void setBackgroundColor(const GCOLOR bg);
+  void setColors(const int fg, const int bg);
   int getForegroundColor(GCOLOR col);
   int getBackgroundColor(GCOLOR col);
 

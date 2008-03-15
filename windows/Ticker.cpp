@@ -45,7 +45,7 @@ void STicker::stop() {
 
 void STicker::start() {
   m_running = true;
-  int counter = 0;
+//  int counter = 0;
   while(m_running) {
     Sleep(m_sleepTime);
     for(int i=0; i<m_taskCount; i++) {

@@ -23,8 +23,7 @@ CBoardGraphics::CBoardGraphics(CTetrisBoard *myBoard, int offsetX, int offsetY) 
   // jos ei borderia tms , niin mitat = boardin mitat
   m_width = board->getWidth() * m_squareWidth;
   m_height = board->getHeight() * m_squareHeight;
-  m_borders = true;
-  setBorderStyle(SGraphics::BORDER_GROOVE);
+//  setBorderStyle(SGraphics::BORDER_GROOVE);
   handleFreshBoard();
 }
 
@@ -35,37 +34,14 @@ CBoardGraphics::~CBoardGraphics() {
   // jollei sitten tee siitäkin ilmoitusta listenerin kautta =)
 }
 
-void CBoardGraphics::setBorder(bool visible) {
-  // borderit päällä? jos moisia jaksaa tehdä. lisää tietty leveyttä ja korkeutta +2
-  m_borders = visible; // TODO: pitäisikö olla int, jos bordertyyppejä on useita?
-  handleFreshBoard(); // koko lauta muuttuu jos borderit muuttuu päälle / pois
-}
-
-void CBoardGraphics::setBorderStyle(SGraphics::BORDER_STYLE bs) {
-  m_borderStyle = bs;
-  drawBorder();
-}
-
-void CBoardGraphics::drawBorder() {
-  g->setColors(SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK);
-  if(m_borders)
-    g->drawBox(m_x, m_y, m_x+m_width*m_squareWidth+1, m_y+m_height*m_squareWidth+1, m_borderStyle);
-}
-
-void CBoardGraphics::setLocation(const int x, const int y) {
-  // mistä ruudun koordinaatista tämä aloittaa piirtämään itseään (ylävasen koord)
-  m_x = x;
-  m_y = y;
-}
-
 // tätä käyttäen piirretään solut
 void CBoardGraphics::drawCell(const int x, const int y, CELL_TYPE ct) {
-  int ax = (m_borders) ? x*m_squareWidth+m_x+1 : x*m_squareWidth+m_x;
-  int ay = (m_borders) ? m_height+m_y-y*m_squareHeight : m_height+m_y-y*m_squareHeight-1;
+  int ax = (m_border) ? x*m_squareWidth+m_x+1 : x*m_squareWidth+m_x;
+  int ay = (m_border) ? m_height+m_y-y*m_squareHeight : m_height+m_y-y*m_squareHeight-1;
   g->drawSquare(ax,ay,getCellTypeColor(x, y, ct));
   char chr = getCellTypeChar(x, y, ct);
   if(chr > 0) {
-    g->drawChar(ax,ay,SGraphics::GCOLOR_DARKGRAY,getCellTypeColor(x, y, ct),chr);
+    g->drawChar(ax, ay, SGraphics::GCOLOR_DARKGRAY, getCellTypeColor(x, y, ct), chr);
   }
 }
 

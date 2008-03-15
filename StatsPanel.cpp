@@ -1,31 +1,37 @@
 /**
+ * StatsPanel.cpp
  *
+ * $Revision$
+ * $Id$
  *
- *
+ * Graafinen esitys pelin pistetilanneoliosta.
  */
 
 #include "StatsPanel.h"
 #include <stdio.h>
 #include <string>
 
-#include <sstream>
-
-CStatsPanel::CStatsPanel() {
+CStatsPanel::CStatsPanel(const CTetrisStats *stats, const int x, const int y) {
   g = &SGraphics::getInstance();
-  m_borderStyle = SGraphics::BORDER_SIMPLE;
+  m_borderStyle = SGraphics::BORDER_SINGLE;
+  m_borderFG = SGraphics::GCOLOR_LIGHTCYAN;
   m_width = 8;
   m_height = 6;
-  m_x = 40;
-  m_y = 1;
+  m_x = x;
+  m_y = y;
+  m_score = 0;
+  m_level = 1;
+  m_reml = 0;
+  m_remll = 0;
+  drawBorder();
+  draw();
 }
 
 CStatsPanel::~CStatsPanel() {
 }
 
-//int CStatsPanel::getWidth() { return m_width + 2; }
-//int CStatsPanel::getWidth() { return m_height + 2; }
-
 void CStatsPanel::handleChangeInStats(const int score, const int level, const int reml, const int remll) {
+//  printf("[[ %d %d %d %d ]]", score, level, reml, remll);
   m_score = score;
   m_level = level;
   m_reml = reml;
@@ -34,12 +40,14 @@ void CStatsPanel::handleChangeInStats(const int score, const int level, const in
 }
 
 void CStatsPanel::draw() {
-  //void drawBox(const int from_x, const int from_y, const int to_x, const int to_y, BORDER_STYLE borderstyle);
-  std::string s;
-  std::stringstream out;
-  g->drawBox(m_x, m_y, m_x+m_width+2, m_y+m_width+2, m_borderStyle);
-  out << m_level; s = out.str();
-  g->drawString(m_x+2, m_y+1, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, s);
-  out << m_score; s = out.str();
-  g->drawString(m_x+2, m_y+2, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, s);
+  g->drawString(m_x+2, m_y+2, m_background, m_foreground, intToString(m_score));
+  g->drawString(m_x+2, m_y+3, m_background, m_foreground, intToString(m_level));
+  g->drawString(m_x+2, m_y+4, m_background, m_foreground, intToString(m_reml));
+  g->drawString(m_x+2, m_y+5, m_background, m_foreground, intToString(m_remll));
+}
+
+std::string CStatsPanel::intToString(const int i) {
+  std::ostringstream s;
+  s << i;
+  return s.str();
 }

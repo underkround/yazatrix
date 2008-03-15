@@ -15,7 +15,7 @@ CTetrominoFactory::CTetrominoFactory() {
   // todo: alusta lastlog jne
   m_creationCount = 0;
   srand((unsigned)time(0));
-  m_xiitBlocks = true;
+  m_xiitBlocks = false;
   m_normBlocks = true;
 }
 

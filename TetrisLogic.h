@@ -24,7 +24,7 @@
 #include "TetrisCommon.h"
 #include "TetrominoFactory.h"
 
-#define PREVIEW_TETROMINOES 6
+#define PREVIEW_TETROMINOES 3
 #define GAMEBOARD_WIDTH 12
 #define GAMEBOARD_HEIGHT 20
 #define PREVIEWBOARD_WIDTH 4
@@ -35,6 +35,8 @@ class CTetrisLogic : public VCommandListener, public VTickListener {
 public:
 
   CTetrisLogic();
+
+  CTetrisLogic(const int gameboardWidth, const int gameboardHeight);
 
   virtual ~CTetrisLogic();
 
@@ -122,13 +124,10 @@ private:
   bool            m_gameOver;
   bool            m_running;
   bool            m_moveLock;         // true = nykyist‰ palikkaa ei voida liikuttaa
-  int             m_tetrominoCounter; // gameBoardissa olleiden palikoiden m‰‰r‰
-  int             m_score;
   CTetrominoFactory *m_factory;
   CTickTask       *myTickTask; // ei vastaa t‰m‰n tuhoamisesta
   int             m_previewSpacingY;
   int             m_previewCount;
-  int             m_delay;
 //  CTetrisTimer  m_timer; // timer, joka osaa kutsua t‰m‰n luokan tick():‰ ja jota voi s‰‰t‰‰
 
   /**
@@ -147,12 +146,7 @@ private:
    */
   void rotateTetrominoes(void);
 
-  /**
-   * adjustDelay()
-   *
-   * S‰‰t‰‰ palikan tippumisnopeuden.
-   */
-  void adjustDelay(void);
+  void initialize(void);
 
 };
 

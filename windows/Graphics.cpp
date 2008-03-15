@@ -83,7 +83,7 @@ void SGraphics::drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR
  * @param color   väri
  */
 void SGraphics::drawSquare(const int x, const int y, const GCOLOR color) {
-  setColors(0, getBackgroundColor(color));
+  setColors(GCOLOR_BLACK, getBackgroundColor(color));
   putchxy(x, y, ' '); //'█'
   _setcursortype(0);
 }

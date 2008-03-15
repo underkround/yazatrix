@@ -11,8 +11,6 @@
 #include "TetrisBoard.h"
 #include "TetrisCommon.h"
 
-#include <stdio.h> // TODO: POISTA
-
 CTetrisBoard::CTetrisBoard(void) {
   m_firstReset = true;
   m_width = TETRIS_GUIDELINE_WIDTH;

@@ -10,7 +10,6 @@
  * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
  */
 
-//#include <vector>
 #include <stack>
 #include "TetrisCommon.h"
 #include "BoardChangeListener.h"
@@ -32,13 +31,6 @@ public:
   inline int getHeight(void) {
     return m_height;
   }
-
-/*  inline int getRemovedLines(void) {
-    return m_removedLines;
-  }
-  inline int getRemovedLinesLast(void) {
-    return m_removedLinesLast;
-  }*/
 
   /**
    * GetSlot(int x, int y)

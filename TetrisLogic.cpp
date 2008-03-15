@@ -10,15 +10,22 @@
 
 #include "TetrisLogic.h"
 #include "Ticker.h"
+#include <iostream>
 
 CTetrisLogic::CTetrisLogic() {
-  // rekisteröidytään komentokuuntelijaksi
-//  SKeyboardInput::registerCommandListener( dynamic_cast<VCommandListener*>(this) );
-  // luodaan gameboard ja previewboard
   m_gameBoard = new CTetrisBoard(GAMEBOARD_WIDTH, GAMEBOARD_HEIGHT);
+  initialize();
+}
+
+CTetrisLogic::CTetrisLogic(const int gameboardWidth, const int gameboardHeight) {
+  m_gameBoard = new CTetrisBoard(gameboardWidth, gameboardHeight);
+  initialize();
+}
+
+void CTetrisLogic::initialize() {
   // luodaan factory
   m_factory = new CTetrominoFactory();
-  m_previewSpacingY = 4;
+  m_previewSpacingY = 5;
   m_previewBoard = new CTetrisBoard(PREVIEWBOARD_WIDTH, m_previewSpacingY*PREVIEW_TETROMINOES);
   // luodaan nykyinen tetrominoe ja liitetään se gameBoardiin
   m_currentTetromino = m_factory->createRandom();
@@ -30,15 +37,10 @@ CTetrisLogic::CTetrisLogic() {
     m_previewTetrominoes[i]->attach(m_previewBoard, m_previewSpacingY * i * -1 - m_previewSpacingY/2);
   }
   m_previewCount = 0;
-  m_tetrominoCounter = 0;
-  m_score = 0;
   m_gameOver = false;
   m_moveLock = false;
   m_running = false;
-  m_delay = 500;
-  myTickTask = 0;
-
-  myTickTask = STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), m_delay);
+  myTickTask = STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), m_stats->getDropDelay());
 }
 
 CTetrisLogic::~CTetrisLogic() {
@@ -104,21 +106,11 @@ int CTetrisLogic::handleTick() {
   if(!m_running)
     return 10;
   if(m_currentTetromino->hasLanded()) {
-    m_score += 1;
     // käsketään lautaa tyhjäämään täydet rivit
     int lines = m_gameBoard->clearFullLines();
-    switch(lines) {
-      case 1: m_score += 10;
-      case 2: m_score += 30;
-      case 3: m_score += 60;
-      case 4: m_score += 100;
-      default: break;
-    }
+    m_stats->linesRemoved(lines);
     // pyöräytetään palikoita
     rotateTetrominoes();
-    // säädetään tickin timeria laudan räjäytettyjen rivien perusteella tai pelissä olleiden palikoiden mukaan
-    adjustDelay();
-    printf("                                                 score: %d", m_score);
   } else {
     // tiputetaan nykyistä palikkaa
     m_currentTetromino->moveDown();
@@ -127,11 +119,12 @@ int CTetrisLogic::handleTick() {
     myTickTask = 0;
     return -1;
   }
-  return m_delay;
+  return m_stats->getDropDelay();
 }
 
 void CTetrisLogic::rotateTetrominoes() {
   if(!m_gameOver) {
+    m_stats->tetrominoAdded();
     // Tuhoaa nykyisen pelipalikan (currentTetromino)
     delete m_currentTetromino;
     // Irrottaa seuraavaksi vuorossa olevan preview-palikan previewBoardista
@@ -153,9 +146,4 @@ void CTetrisLogic::rotateTetrominoes() {
       m_gameOver = true;
     }
   }
-}
-
-void CTetrisLogic::adjustDelay() {
-  if(m_delay >= 60)
-    m_delay = (int)(m_delay / 1.1);
 }

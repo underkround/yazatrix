@@ -1,12 +1,12 @@
 #include "TetrisStats.h"
 
 CTetrisStats::CTetrisStats() {
-  int m_tetrominoCounter = 0;
-  int m_score = 0;
-  int m_level = 1;
-  int m_removedLines = 0;
-  int m_removedLinesLast = 0;
-  int m_dropDelay = 500;
+  m_tetrominoCounter = 0;
+  m_score = 0;
+  m_level = 1;
+  m_removedLines = 0;
+  m_removedLinesLast = 0;
+  m_dropDelay = 500;
 }
 
 CTetrisStats::~CTetrisStats() {
@@ -46,11 +46,11 @@ int CTetrisStats::getRemovedLinesLast() {
 }
 
 int CTetrisStats::getDropDelay() {
-  return m_dropDelay;
+  return m_dropDelay / m_level; // TODO: delay logiikka
 }
 
 void CTetrisStats::update() {
-  m_level = (int)(m_tetrominoCounter / 50) + 1;
+  m_level = (int)(m_tetrominoCounter / 20) + 1;
 }
 
 void CTetrisStats::notifyChangeInStats() {
