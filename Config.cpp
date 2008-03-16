@@ -3,6 +3,8 @@
 //*** Protected ***
 SConfig::SConfig(void) {
   //tähän heti tiedoston luku ok?
+  addSetting("asetus", 1);
+  addSetting("toinen asetus", "ASETETTU");
 }
 
 SConfig::~SConfig(void) {
@@ -36,6 +38,20 @@ void SConfig::printSettings() {
 
 //*** Private ***
 
+void SConfig::printSetting(Setting * set) {
+  cout << "Nimi:\t" << set->name << endl;
+  switch(set->type) {
+    case VARIABLE_INTEGER:
+      cout << "Tyyppi:\t" << "kokonaisluku" << endl;
+      cout << "Arvo:\t" << static_cast<SettingInt*>(set)->value << endl << endl;
+      break;
+    case VARIABLE_STRING:
+      cout << "Tyyppi:\t" << "merkkijono" << endl;
+      cout << "Arvo:\t" << static_cast<SettingString*>(set)->value << endl << endl;
+      break;
+  }
+}
+
 void SConfig::addSetting(string in_name, string in_value) {
   VARIABLE_TYPE tyyppi = VARIABLE_STRING;
   Setting * set = new SettingString();
@@ -43,6 +59,7 @@ void SConfig::addSetting(string in_name, string in_value) {
   static_cast<SettingString*>(set)->type = tyyppi;
   static_cast<SettingString*>(set)->value = in_value;
   //settingData.push_back(set);
+  printSetting(set);
   delete set;
 }
 
@@ -53,5 +70,6 @@ void SConfig::addSetting(string in_name, int in_value) {
   static_cast<SettingInt*>(set)->type = tyyppi;
   static_cast<SettingInt*>(set)->value = in_value;
   //settingData.push_back(set);
+  printSetting(set);
   delete set;
 }

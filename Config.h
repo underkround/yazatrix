@@ -79,5 +79,7 @@ class SConfig {
     void addSetting(string in_name, string in_value);
     void addSetting(string in_name, int in_value);
 
+    void SConfig::printSetting(Setting * set);
+
 };
 #endif //__CONFIG_H__
