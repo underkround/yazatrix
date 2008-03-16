@@ -15,7 +15,7 @@ CBoardGraphics::CBoardGraphics(CTetrisBoard *myBoard, int offsetX, int offsetY) 
   g = &SGraphics::getInstance();
   // rekisteröidy boardille kuuntelijaksi
   VBoardChangeListener *bcl = dynamic_cast<VBoardChangeListener*>(this);
-  board->registerBoardChangeListener( bcl );
+  board->registerListener( bcl );
   m_x = offsetX;
   m_y = offsetY;
   m_squareWidth = 1;
@@ -62,7 +62,7 @@ SGraphics::GCOLOR CBoardGraphics::getCellTypeColor(const int x, const int y, con
 
 char CBoardGraphics::getCellTypeChar(const int x, const int y, const CELL_TYPE ct) {
   switch(ct) {
-    case EMPTY: return (x%2) ? '.' : ',';
+    case EMPTY: return (x%2) ? '.' : ' ';
     default: return 0;
   }
 }

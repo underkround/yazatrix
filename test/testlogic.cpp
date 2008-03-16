@@ -25,7 +25,7 @@ int main(void) {
   CStatsPanel *stats = new CStatsPanel(0, 2, 5);
   stats->setLocation(40,2);
 
-  input->registerCommandListener( dynamic_cast<VCommandListener*>(logic) );
+  input->registerListener( dynamic_cast<VCommandListener*>(logic) );
   gbg->setBorderStyle(SGraphics::BORDER_BLOCK);
   pbg->setBorderColor(SGraphics::GCOLOR_LIGHTGREEN, SGraphics::GCOLOR_GREEN);
   pbg->setBorderStyle(SGraphics::BORDER_SQUARE);

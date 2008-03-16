@@ -16,6 +16,7 @@
  */
 
 #include "CommandListener.h"
+#include "Observable.h"
 #include "TickListener.h"
 #include "TickTask.h"
 #include "TetrisStats.h"
@@ -30,7 +31,9 @@
 #define PREVIEWBOARD_WIDTH 4
 #define PREVIEWBOARD_HEIGHT 20
 
-class CTetrisLogic : public VCommandListener, public VTickListener {
+class CTetrisLogic : public VObservable<VBoardChangeListener>, public VCommandListener, public VTickListener {
+
+friend class VObservable<VBoardChangeListener>;
 
 public:
 

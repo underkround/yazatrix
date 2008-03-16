@@ -52,6 +52,12 @@ private:
   int m_taskCount;
   bool m_running; // flag jonka ollessa true, mainloop pyörii
   void removeTask(int index);
+  double processTimeStart;
+
+  /**
+   * Nukkuu tarvittavan määrän jotta valittu tick-intervalli pysyy.
+   */
+  void sleepNextInterval(int tickInterval);
 
 protected:
 

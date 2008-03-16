@@ -15,13 +15,11 @@
 #include <windows.h>
 #include <stdio.h>
 #include <iostream>
-//#define KEYBOARDINPUT_TICKDELAY 2
 
 SKeyboardInput::SKeyboardInput() {
   m_tickDelay = 2;
 //  CTickTask *myTask = STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), m_tickDelay);
   STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), m_tickDelay);
-  m_listenerCount = 0;
 }
 
 int SKeyboardInput::handleTick() {
@@ -93,35 +91,6 @@ void SKeyboardInput::handleKeyPress(char key) {
 //  }
 }
 
-bool SKeyboardInput::registerCommandListener(VCommandListener *listener) {
-  if(m_listenerCount >= LISTENERS_MAX)
-    return false;
-  listeners[m_listenerCount] = listener;
-  m_listenerCount++;
-  return true;
-}
-
-bool SKeyboardInput::unregisterCommandListener(VCommandListener *listener) {
-  int index = -1;
-  for(int i=0; i<m_listenerCount; i++) {
-    if(listeners[i] == listener) {
-      index = i;
-      i = m_listenerCount;
-      break;
-    }
-  }
-  if(index >= 0) {
-    // poistettava löytyi
-    listeners[index] = 0;
-    m_listenerCount--;
-    for(int i=index; index<m_listenerCount; i++) {
-      listeners[i] = listeners[i+1]; // siirretään poistetusta seuraavia yhdellä alaspäin
-    }
-    listeners[m_listenerCount] = 0; // tyhjätään viimeinen alkio, joka olisi nyt kaksi kertaa listassa
-    return true;
-  }
-  return false;
-}
 
 void SKeyboardInput::notifyCommand(VCommandListener::COMMAND cmd) {
   for(int i=0; i<m_listenerCount; i++)

@@ -238,6 +238,7 @@
 			<Option target="vs2008" />
 			<Option target="testmenu" />
 		</Unit>
+		<Unit filename="Observable.h" />
 		<Unit filename="Panel.cpp" />
 		<Unit filename="Panel.h" />
 		<Unit filename="Screen.cpp">
@@ -405,6 +406,7 @@
 			<Option target="vs2008" />
 			<Option target="testmenu" />
 		</Unit>
+		<Unit filename="Ticker.cpp" />
 		<Unit filename="Ticker.h">
 			<Option target="Debug" />
 			<Option target="Release" />

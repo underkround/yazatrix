@@ -11,7 +11,7 @@
  *
  */
 
-template<typename T> class Singleton {
+template<class T> class Singleton {
 
 public:
   static T& getInstance() {

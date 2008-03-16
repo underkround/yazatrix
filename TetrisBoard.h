@@ -10,11 +10,12 @@
  * Y-koordinaatit alkavat alhaalta, eli alin rivi on y==0
  */
 
-#include <stack>
 #include "TetrisCommon.h"
+#include "Observable.h"
 #include "BoardChangeListener.h"
+#include <stack>
 
-class CTetrisBoard {
+class CTetrisBoard : public VObservable<VBoardChangeListener> {
 
 public:
 
@@ -134,22 +135,6 @@ public:
   int clearFullLines(void); // käytetään joka tickillä
 
   /**
-   * registerBoardChangeListener(VBoardChangeListener* bcl)
-   *
-   * Lisää laudan tapahtumakuuntelijan kuuntelijavektoriin.
-   * Ei vastaa kuuntelijaolioiden tuhoamisesta.
-   *
-   * @param bcl   rekisteröityvä kuuntelija, jolle muutostiedot lähetetään
-   */
-  bool registerBoardChangeListener(VBoardChangeListener* listener);
-
-  /**
-   * Poistaa laudan tapahtumakuuntelijan kuuntelijavektorista
-   * Ei tuhoa kuuntelijaa.
-   */
-  bool unregisterBoardChangeListener(VBoardChangeListener* listener);
-
-  /**
    * update()
    *
    * Public -näkyvyyden metodi, jolla boardia muokannut ilmoittaa
@@ -166,17 +151,10 @@ private:
   static const int TETRIS_GUIDELINE_WIDTH = 10;
   static const int TETRIS_GUIDELINE_HEIGHT = 22;
 
-//  int m_score;
-//  int m_level;
-//  int m_removedLines;     // räjähtäneet rivit yhteensä
-//  int m_removedLinesLast; // viimeksi räjähtäneet rivit
   int m_width;  // solujen määrä vaakasuunnassa
   int m_height; // solujen määrä pystysuunnassa
   CELL_TYPE **m_matrix;   // kentän sisältö CELL_TYPE vakioina
   bool m_firstReset;
-  static const int LISTENERS_MAX = 10;
-  int m_listenerCount;
-  VBoardChangeListener * listeners[LISTENERS_MAX];
   std::stack<int> m_changeBufferX;
   std::stack<int> m_changeBufferY;
   std::stack<CELL_TYPE> m_changeBufferCT;

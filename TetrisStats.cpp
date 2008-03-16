@@ -46,7 +46,8 @@ int CTetrisStats::getRemovedLinesLast() {
 }
 
 int CTetrisStats::getDropDelay() {
-  return m_dropDelay / m_level; // TODO: delay logiikka
+  int delay = m_dropDelay / m_level; // TODO: delay logiikka
+  return delay;
 }
 
 void CTetrisStats::update() {
@@ -56,33 +57,4 @@ void CTetrisStats::update() {
 void CTetrisStats::notifyChangeInStats() {
   for(int i=0; i<m_listenerCount; i++)
     listeners[i]->handleChangeInStats(m_score, m_level, m_removedLines, m_removedLinesLast);
-}
-
-bool CTetrisStats::registerListener(VStatsListener* listener) {
-  if(m_listenerCount >= LISTENERS_MAX)
-    return false;
-  listeners[m_listenerCount] = listener;
-  m_listenerCount++;
-  return true;
-}
-
-bool CTetrisStats::unregisterListener(VStatsListener* listener) {
-  int index = -1;
-  for(int i=0; i<m_listenerCount; i++) {
-    if(listeners[i] == listener) {
-      index = i;
-      i = m_listenerCount;
-      break;
-    }
-  }
-  if(index >= 0) {
-    listeners[index] = 0;
-    m_listenerCount--;
-    for(int i=index; index<m_listenerCount; i++) {
-      listeners[i] = listeners[i+1];
-    }
-    listeners[m_listenerCount] = 0;
-    return true;
-  }
-  return false;
 }

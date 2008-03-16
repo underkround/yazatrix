@@ -18,13 +18,15 @@
 #include "Singleton.h"
 #include "TickListener.h"
 #include "CommandListener.h"
+#include "Observable.h"
 #include <stdio.h>
 
-//class SKeyboardInput : public Singleton<SKeyboardInput>, public VTickListener {
+//class SKeyboardInput : public VObservable<VCommandListener>, public Singleton<SKeyboardInput>, public VTickListener {
 
-class SKeyboardInput : VTickListener {
+class SKeyboardInput : public VObservable<VCommandListener>, public VTickListener {
 
 //friend class Singleton<SKeyboardInput>;
+friend class VObservable<VCommandListener>;
 
 public:
 
@@ -38,32 +40,13 @@ static SKeyboardInput& getInstance() {
    */
   virtual int handleTick();
 
-  /**
-   * registerCommandListener(VCommandListener *listener)
-   *
-   * Rekisteröi uuden komentokuuntelijan
-   * @param listener  rekisteröityvä kuuntelija
-   * @return          true, jos kuuntelijoihin mahtui ja rekisteröinti onnistui
-   */
-  bool registerCommandListener(VCommandListener *listener);
-
-  /**
-   * unregisterCommandListener(VCommandListener *listener)
-   *
-   * Poistaa rekisteröityneen kuuntelijan kuuntelijalistalta.
-   * @param listener  poistettava kuuntelija
-   * @return          true, jos poistettava löytyi listasta ja poisto onnistui
-   */
-  bool unregisterCommandListener(VCommandListener *listener);
-
 private:
 
 //  std::vector<VCommandListener*> listeners;
-  static const int LISTENERS_MAX = 10;
+
   int m_tickDelay;
 
-  VCommandListener *listeners[LISTENERS_MAX];
-  int m_listenerCount;
+
 
   inline void dump(char key) {
     printf(" %d ", key);

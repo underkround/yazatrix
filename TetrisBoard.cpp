@@ -12,40 +12,33 @@
 #include "TetrisCommon.h"
 
 CTetrisBoard::CTetrisBoard(void) {
-  m_firstReset = true;
   m_width = TETRIS_GUIDELINE_WIDTH;
   m_height = TETRIS_GUIDELINE_HEIGHT;
-  m_matrix = new CELL_TYPE*[TETRIS_GUIDELINE_HEIGHT];
-  m_listenerCount = 0;
-  for(int iy=0; iy<TETRIS_GUIDELINE_HEIGHT; iy++)
-    m_matrix[iy] = new CELL_TYPE[TETRIS_GUIDELINE_WIDTH];
+  m_firstReset = true;
   reset();
 }
-
 
 CTetrisBoard::CTetrisBoard(const int cols, const int rows) {
-  m_firstReset = true;
   m_width = cols;
   m_height = rows;
-  m_matrix = new CELL_TYPE*[rows];
-  m_listenerCount = 0;
-  for(int iy=0; iy<rows; iy++)
-    m_matrix[iy] = new CELL_TYPE[cols];
-  // alusta matrix nollilla
+  m_firstReset = true;
   reset();
 }
-
 
 CTetrisBoard::~CTetrisBoard() {
   // tuhotaan matrix
   for(int iy=0; iy<m_height; iy++)
     delete [] m_matrix[iy];
   delete [] m_matrix;
-  // listenereitä ei pidä tuhota..
-  // muut onkin sitten kai primitiivejä
 }
 
 void CTetrisBoard::reset(void) {
+  if(m_firstReset) {
+    m_firstReset = false;
+    m_matrix = new CELL_TYPE*[m_height];
+    for(int iy=0; iy<m_height; iy++)
+      m_matrix[iy] = new CELL_TYPE[m_width];
+  }
   // nollataan changebufferit
   while(!m_changeBufferX.empty())   m_changeBufferX.pop();
   while(!m_changeBufferY.empty())   m_changeBufferY.pop();
@@ -56,8 +49,6 @@ void CTetrisBoard::reset(void) {
   }
   // ilmoitetaan tuoreesta boardista
   notifyFreshBoard();
-  if(m_firstReset)
-    m_firstReset = false;
 }
 
 void CTetrisBoard::resetLine(const int y) {
@@ -122,9 +113,8 @@ int CTetrisBoard::clearFullLines(void) {
       removedLines++;
     }
   }
-  if(removedLines > 0) {
+  if(removedLines > 0)
     notifyFreshBoard(); // TODO: ilmoita vain muuttuneet rivit
-  }
   return removedLines;
 }
 
@@ -143,8 +133,7 @@ bool CTetrisBoard::removeLine(const int y) {
 }
 
 void CTetrisBoard::update() {
-//  notifyFreshBoard(); // TODO: käytä changeBufferia ja ilmoita pelkät muutokset
-  // lähetetään bufferin sisältö kuuntelijalle
+  // lähetetään muutosbufferin sisältö kuuntelijoille
   while(!m_changeBufferCT.empty()) {
     notifyChangeInCoord(m_changeBufferX.top(), m_changeBufferY.top(), m_changeBufferCT.top());
     m_changeBufferX.pop();
@@ -152,8 +141,6 @@ void CTetrisBoard::update() {
     m_changeBufferCT.pop();
   }
 }
-
-// ==================== METODIT LISTENEREILLE ====================
 
 void CTetrisBoard::notifyFreshBoard(void) {
   for(int i=0; i<m_listenerCount; i++)
@@ -163,34 +150,4 @@ void CTetrisBoard::notifyFreshBoard(void) {
 void CTetrisBoard::notifyChangeInCoord(const int x, const int y, const CELL_TYPE ct) {
   for(int i=0; i<m_listenerCount; i++)
     listeners[i]->handleChangeInCoord(x, y, ct);
-}
-
-bool CTetrisBoard::registerBoardChangeListener(VBoardChangeListener* listener) {
-  if(m_listenerCount >= LISTENERS_MAX)
-    return false;
-  listeners[m_listenerCount] = listener;
-  m_listenerCount++;
-  return true;
-}
-
-bool CTetrisBoard::unregisterBoardChangeListener(VBoardChangeListener* listener) {
-  int index = -1;
-  for(int i=0; i<m_listenerCount; i++) {
-    if(listeners[i] == listener) {
-      index = i;
-      i = m_listenerCount;
-      break;
-    }
-  }
-  if(index >= 0) {
-    // poistettava löytyi
-    listeners[index] = 0;
-    m_listenerCount--;
-    for(int i=index; index<m_listenerCount; i++) {
-      listeners[i] = listeners[i+1]; // siirretään poistetusta seuraavia yhdellä alaspäin
-    }
-    listeners[m_listenerCount] = 0; // tyhjätään viimeinen alkio, joka olisi nyt kaksi kertaa listassa
-    return true;
-  }
-  return false;
 }

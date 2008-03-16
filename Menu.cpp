@@ -14,7 +14,7 @@ CTetrisMenu::CTetrisMenu(){
   //rekisteröidytään tickerille
   STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
-  SKeyboardInput::getInstance().registerCommandListener( dynamic_cast<VCommandListener*>(this) );
+  SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
   //käytetään grafiikkaa
   g = &SGraphics::getInstance();
   setX(1);
@@ -35,7 +35,7 @@ CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) 
   //rekisteröidytään tickerille
   STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
-  SKeyboardInput::getInstance().registerCommandListener( dynamic_cast<VCommandListener*>(this) );
+  SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
   //käytetään grafiikkaa
   g = &SGraphics::getInstance();
   //paneelille:

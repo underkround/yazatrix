@@ -51,12 +51,14 @@ public:
         return false;
       } else if(ret == TICK_KEEPDELAY) {
         // käytetään edellistä delayn arvoa
-        m_delayToNext = m_lastDelay;
+//        m_delayToNext = m_lastDelay;
+        m_delayToNext = m_lastDelay - sleepTime;
       } else {
         if(ret > 0) {
           // seuraava delay on palautuksen arvo
           m_lastDelay = ret;
-          m_delayToNext = ret;
+//          m_delayToNext = ret;
+          m_delayToNext = ret - sleepTime;
         } else {
           // tuntematon vastaus: poistetaan ajastustehtävä
           return false;

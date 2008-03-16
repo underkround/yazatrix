@@ -12,8 +12,9 @@
  */
 
 #include "StatsListener.h"
+#include "Observable.h"
 
-class CTetrisStats {
+class CTetrisStats : public VObservable<VStatsListener> {
 
 public:
 
@@ -33,10 +34,6 @@ public:
   bool unregisterListener(VStatsListener* listener);
 
 private:
-
-  static const int LISTENERS_MAX = 10;
-  int m_listenerCount;
-  VStatsListener * listeners[LISTENERS_MAX];
 
   int m_tetrominoCounter;
   int m_score;
