@@ -5,10 +5,14 @@ SConfig::SConfig(void) {
   //tähän heti tiedoston luku ok?
   addSetting("asetus", 1);
   addSetting("toinen asetus", "ASETETTU");
+  addSetting("setting 3", "this is setting number three");
+  addSetting("setting 4", 4);
 }
 
 SConfig::~SConfig(void) {
-
+  for (vector<Setting*>::iterator iter = settingData.begin(); iter!=settingData.end(); ++iter) {
+    delete *iter;
+  }
 }
 
 //*** Public ***
@@ -32,8 +36,9 @@ bool SConfig::isNumeric(const char merkki) {
 }
 
 void SConfig::printSettings() {
-  //loopataan läpi asetukset
-  //tulostetaan
+  for (vector<Setting*>::iterator iter = settingData.begin(); iter!=settingData.end(); ++iter) {
+    printSetting(*iter);
+  }
 }
 
 //*** Private ***
@@ -58,9 +63,7 @@ void SConfig::addSetting(string in_name, string in_value) {
   static_cast<SettingString*>(set)->name = in_name;
   static_cast<SettingString*>(set)->type = tyyppi;
   static_cast<SettingString*>(set)->value = in_value;
-  //settingData.push_back(set);
-  printSetting(set);
-  delete set;
+  settingData.push_back(set);
 }
 
 void SConfig::addSetting(string in_name, int in_value) {
@@ -69,7 +72,5 @@ void SConfig::addSetting(string in_name, int in_value) {
   static_cast<SettingInt*>(set)->name = in_name;
   static_cast<SettingInt*>(set)->type = tyyppi;
   static_cast<SettingInt*>(set)->value = in_value;
-  //settingData.push_back(set);
-  printSetting(set);
-  delete set;
+  settingData.push_back(set);
 }
