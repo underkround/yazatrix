@@ -116,7 +116,7 @@ void CTetrisMenu::createItems(void) {
   m_listMenuItems.push_back("Game start");
   m_listMenuItems.push_back("About");
   m_listMenuItems.push_back("Quit");
-  m_intMenuLength = 3;
+  m_intMenuLength = m_listMenuItems.size();
 }
 
 void CTetrisMenu::selectionUp() {
