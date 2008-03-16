@@ -1,8 +1,8 @@
 /**
  * Ticker.cpp
  *
- * $Revision: 114 $
- * $Id: Ticker.cpp 114 2008-03-15 22:36:06Z zem $
+ * $Revision$
+ * $Id$
  *
  * @see Ticker.h
  *
