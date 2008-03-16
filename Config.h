@@ -40,6 +40,19 @@ class SConfig {
 
   enum VARIABLE_TYPE { VARIABLE_STRING, VARIABLE_INTEGER };
 
+  struct Setting {
+    string name;
+    VARIABLE_TYPE type;
+  };
+
+  struct SettingInt : Setting {
+    int value;
+  };
+
+  struct SettingString : Setting {
+    string value;
+  };
+/*
   union Value {
     int number;
     std::string * text;
@@ -50,7 +63,7 @@ class SConfig {
     VARIABLE_TYPE type;
     Value value;
   };
-
+*/
   bool isNumeric(const char merkki);
 
   void printSettings();

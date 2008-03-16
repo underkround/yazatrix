@@ -38,13 +38,20 @@ void SConfig::printSettings() {
 
 void SConfig::addSetting(string in_name, string in_value) {
   VARIABLE_TYPE tyyppi = VARIABLE_STRING;
-  Setting * set = new Setting();
-  set->name = &in_name;
-  set->type = tyyppi;
-  set->value = &in_value;
-  settingData.push_back(set);
+  Setting * set = new SettingString();
+  static_cast<SettingString*>(set)->name = in_name;
+  static_cast<SettingString*>(set)->type = tyyppi;
+  static_cast<SettingString*>(set)->value = in_value;
+  //settingData.push_back(set);
+  delete set;
 }
 
-void SConfig::addSetting(const char* in_name, const int in_value) {
-  VARIABLE_TYPE tyyppi = VARIABLE_TYPE.VARIABLE_INTEGER;
+void SConfig::addSetting(string in_name, int in_value) {
+  VARIABLE_TYPE tyyppi = VARIABLE_INTEGER;
+  Setting * set = new SettingString();
+  static_cast<SettingInt*>(set)->name = in_name;
+  static_cast<SettingInt*>(set)->type = tyyppi;
+  static_cast<SettingInt*>(set)->value = in_value;
+  //settingData.push_back(set);
+  delete set;
 }
