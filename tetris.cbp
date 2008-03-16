@@ -423,6 +423,17 @@
 			<Option target="vs2008" />
 			<Option target="testmenu" />
 		</Unit>
+		<Unit filename="Ticker.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="testboard" />
+			<Option target="vs2008" />
+			<Option target="testgameloop" />
+			<Option target="testtimer" />
+			<Option target="testlogic" />
+			<Option target="testkeyboard" />
+			<Option target="testmenu" />
+		</Unit>
 		<Unit filename="Ticker.h">
 			<Option target="Debug" />
 			<Option target="Release" />
