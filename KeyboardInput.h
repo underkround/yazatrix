@@ -21,19 +21,18 @@
 #include "Observable.h"
 #include <stdio.h>
 
-//class SKeyboardInput : public VObservable<VCommandListener>, public Singleton<SKeyboardInput>, public VTickListener {
+class SKeyboardInput : public VObservable<VCommandListener>, public Singleton<SKeyboardInput>, public VTickListener {
+//class SKeyboardInput : public VObservable<VCommandListener>, public VTickListener {
 
-class SKeyboardInput : public VObservable<VCommandListener>, public VTickListener {
-
-//friend class Singleton<SKeyboardInput>;
+friend class Singleton<SKeyboardInput>;
 friend class VObservable<VCommandListener>;
 
 public:
 
-static SKeyboardInput& getInstance() {
-  static SKeyboardInput theSingleInstance;  // assumes T has a protected default constructor
-  return theSingleInstance;
-}
+/*  static SKeyboardInput& getInstance() {
+    static SKeyboardInput theSingleInstance;  // assumes T has a protected default constructor
+    return theSingleInstance;
+  }*/
 
   /**
    * @see TickListener.h

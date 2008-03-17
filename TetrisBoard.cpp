@@ -77,7 +77,8 @@ CELL_TYPE CTetrisBoard::setSlot(const int x, const int y, const CELL_TYPE conten
 bool CTetrisBoard::isEmpty(){
   for(int iy=0; iy<m_height; iy++)
     for(int ix=0; ix<m_width; ix++)
-      if(m_matrix[iy][ix] != EMPTY)
+//      if(m_matrix[iy][ix] != EMPTY)
+      if(m_matrix[iy][ix] > EMPTY) // monentyyppisiä tyhjiä ruutuja, joiden arvo on nolla tai pienempi
         return false; // vähintään yksi ruutu ei ole tyhjä
   return true;
 }
@@ -85,20 +86,23 @@ bool CTetrisBoard::isEmpty(){
 bool CTetrisBoard::isEmpty(const int x, const int y) {
   if(x < 0 || x >= m_width || y < 0) return false;
   if(y >= m_height) return true;
-  return (m_matrix[y][x] == EMPTY) ? true : false;
+//  return (m_matrix[y][x] == EMPTY) ? true : false;
+  return (m_matrix[y][x] <= EMPTY) ? true : false;
 }
 
 bool CTetrisBoard::isEmpty(const int y) {
   if(y < 0 || y >= m_height) return false;
   for(int i=0; i<m_width; i++)
-    if(m_matrix[y][i] != EMPTY)
+//    if(m_matrix[y][i] != EMPTY)
+    if(m_matrix[y][i] > EMPTY)
       return false; // vähintään yksi ruutu ei ole tyhjä
   return true;
 }
 
 bool CTetrisBoard::isFull(const int y){
   for(int i=0; i<m_width; i++)
-    if(m_matrix[y][i] == EMPTY)
+//    if(m_matrix[y][i] == EMPTY)
+    if(m_matrix[y][i] <= EMPTY)
       return false; // vähintään yksi ruutu on tyhjä
   return true;
 }

@@ -22,6 +22,9 @@ CTetromino::CTetromino(int cellCoordsX[4], int cellCoordsY[4], int maxRotation, 
     m_cellCoordsY[i] = cellCoordsY[i];
   }
   board = 0;
+  m_ghost = false;
+  m_ghostOnBoard = false;
+  m_gy = 0;
 }
 
 CTetromino::~CTetromino(void) {
@@ -239,11 +242,35 @@ void CTetromino::insertToBoard() {
       m_type
     );
   }
+  insertGhostToBoard();
   board->update();
+}
+
+void CTetromino::insertGhostToBoard() {
+  if(!isAttached() || !m_ghost) return;
+  int gy = m_y;
+  int gx = m_x;
+  while(canMoveTo(gx, gy, m_rotation)) {
+    gy--;
+  }
+  gy++;
+  if(gy != m_y) {
+    for(int i=0; i<4; i++) {
+      int rgx = gx + getRelativeX(i, m_rotation);
+      int rgy = gy + getRelativeY(i, m_rotation);
+      if(!containsBoardCoord(rgx, rgy))
+        board->setSlot(rgx, rgy, m_ghostType);
+    }
+    m_gy = gy;
+    m_ghostOnBoard = true;
+  }
+//  board->update();
 }
 
 void CTetromino::removeFromBoard() {
   if(!isAttached()) return;
+//  int gy = m_gy;
+//  int gx = m_x;
   for(int i=0; i<4; i++) {
     board->setSlot(
       m_x + getRelativeX(i, m_rotation),
@@ -251,5 +278,17 @@ void CTetromino::removeFromBoard() {
       EMPTY
     );
   }
+  removeGhostFromBoard();
   board->update();
+}
+
+void CTetromino::removeGhostFromBoard() {
+  if(!isAttached() || !m_ghost || !m_ghostOnBoard) return;
+  for(int i=0; i<4; i++) {
+    int rgx = m_x + getRelativeX(i, m_rotation);
+    int rgy = m_gy + getRelativeY(i, m_rotation);
+    if(!containsBoardCoord(rgx, rgy))
+      board->setSlot(rgx, rgy, EMPTY);
+  }
+//  board->update();
 }

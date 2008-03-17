@@ -13,9 +13,10 @@
 #include "Graphics.h"
 #include "Panel.h"
 #include "TetrisStats.h"
+#include "TickListener.h"
 #include <sstream>
 
-class CStatsPanel : public VStatsListener, public VPanel {
+class CStatsPanel : public VStatsListener, public VPanel, public VTickListener {
 
 public:
 
@@ -27,16 +28,25 @@ public:
 
   virtual void handleChangeInStats(const int score, const int level, const int reml, const int remll);
 
+  virtual int handleTick();
+
 private:
 
   SGraphics               *g;
-//  SGraphics::BORDER_STYLE  m_borderStyle;
+  SGraphics::GCOLOR m_foreground2;
   int m_score;
   int m_level;
   int m_reml;
   int m_remll;
 
+  int m_flashCount;
+  static const int m_flashDelay = 400;
+  bool m_flashOn;
+
   std::string intToString(const int i);
+
+  // temporary for effect
+  void drawBackground();
 
 };
 

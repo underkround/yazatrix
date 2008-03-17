@@ -30,9 +30,6 @@ public:
   int getRemovedLinesLast();
   int getDropDelay();
 
-  bool registerListener(VStatsListener* listener);
-  bool unregisterListener(VStatsListener* listener);
-
 private:
 
   int m_tetrominoCounter;

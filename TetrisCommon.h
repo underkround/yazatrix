@@ -11,43 +11,40 @@
  *
  */
 
+
+/**
+ * CELL_TYPE
+ *
+ * CELL_TYPE on laudan matrixin yksitt‰isen solun tyyppi.
+ *
+ * Nolla edustaa tyhj‰‰ solua.
+ * Negatiiviset arvot ovat tyhji‰ soluja joissa on metadataa/merkityst‰ (esim ghost).
+ * Positiiviset arvot ovat t‰ysi‰ soluja, jotka eroavat toisistaan l‰hinn‰
+ * piirtov‰rins‰ perusteella.
+ */
 enum CELL_TYPE {
-  /* ei kent‰ll‰ */
+  // ghost palikka
+  GHOST = -2,
+  // ei kent‰ll‰, palautetaan jos kysyt‰‰n koordinaattia kent‰n matrixin ohi
   OFFGRID = -1,
-  /*  */
+  // tyhj‰
   EMPTY = 0,
-  /* ZZ
-   *  ZZ
-   */
+
   BLOCK_Z = 1,
-  /*  SS
-   * SS
-   */
   BLOCK_S = 2,
-  /* IIII
-   */
   BLOCK_I = 3,
-  /* OO
-   * OO
-   */
   BLOCK_O = 4,
-  /*   L
-   * LLL
-   */
   BLOCK_L = 5,
-  /* J
-   * JJJ
-   */
   BLOCK_J = 6,
-  /*  T
-   * TTT
-   */
   BLOCK_T = 7,
 
   BLOCK_XIIT1,
   BLOCK_XIIT2,
   BLOCK_XIIT3,
   BLOCK_XIIT4,
+
+  BLOCK_RANDOM
+
 };
 
 

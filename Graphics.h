@@ -17,16 +17,18 @@
 #include "Singleton.h"
 #include <sstream>
 
-//class SGraphics : public Singleton<SGraphics> {
-class SGraphics {
-//friend class Singleton<SGraphics>;
+// TODO: Singleton ei toimi oikein kun kolme tai useampi luokka käyttää sitä
+class SGraphics : public Singleton<SGraphics> {
+//class SGraphics {
+
+friend class Singleton<SGraphics>;
 
 public:
 
-static SGraphics& getInstance() {
-  static SGraphics theSingleInstance;  // assumes T has a protected default constructor
-  return theSingleInstance;
-}
+/*  static SGraphics& getInstance() {
+    static SGraphics theSingleInstance;  // assumes T has a protected default constructor
+    return theSingleInstance;
+  }*/
 
   // tuetut borderit
   enum BORDER_STYLE {

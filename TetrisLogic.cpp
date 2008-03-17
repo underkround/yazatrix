@@ -30,6 +30,7 @@ void CTetrisLogic::initialize() {
   // luodaan nykyinen tetrominoe ja liitetään se gameBoardiin
   m_currentTetromino = m_factory->createRandom();
   m_currentTetromino->attach(m_gameBoard);
+  m_currentTetromino->setGhost(true);
   m_stats = new CTetrisStats();
   // luodaan previewTetrominoet ja liitetään ne previewBoardiin
   for(int i=0; i<PREVIEW_TETROMINOES; i++) {
@@ -144,6 +145,9 @@ void CTetrisLogic::rotateTetrominoes() {
     // Yrittää kiinnittää uuden nykyisen palikan gameBoardiin. Jos ei onnistu, peli loppuu
     if(!m_currentTetromino->attach(m_gameBoard)) {
       m_gameOver = true;
+    } else {
+      // asetetaan ghost päälle gameboardissa olevalle palikalle
+      m_currentTetromino->setGhost(true);
     }
   }
 }

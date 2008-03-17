@@ -17,16 +17,17 @@
 #include "Singleton.h"
 #include "TickTask.h"
 
+// TODO: singleton.h ei toimi tickerin kanssa :( dunno why
 //class STicker : public Singleton<STicker> {
 class STicker {
 //friend class Singleton<STicker>;
 
 public:
 
-static STicker& getInstance() {
-  static STicker theSingleInstance;  // assumes T has a protected default constructor
-  return theSingleInstance;
-}
+  static STicker& getInstance() {
+    static STicker theSingleInstance;  // assumes T has a protected default constructor
+    return theSingleInstance;
+  }
 
   /**
    * Rekisteröi ticklistenerin, joka haluaa tickin
@@ -52,7 +53,6 @@ private:
   int m_taskCount;
   bool m_running; // flag jonka ollessa true, mainloop pyörii
   void removeTask(int index);
-  double processTimeStart;
 
   /**
    * Nukkuu tarvittavan määrän jotta valittu tick-intervalli pysyy.

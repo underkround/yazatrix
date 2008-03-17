@@ -22,11 +22,13 @@ void CTetrisStats::linesRemoved(const int lines) {
     case 4: m_score += 100*m_level;break;
     default: break;
   }
+  notifyChangeInStats();
 }
 
 void CTetrisStats::tetrominoAdded() {
   m_tetrominoCounter++;
   m_score += m_level;
+  notifyChangeInStats();
 }
 
 int CTetrisStats::getLevel() {

@@ -44,6 +44,13 @@ public:
   // ================= METODIT =============================================
 
   /**
+   * Asettaa ghostin p‰‰lle (oletuksena pois)
+   */
+  inline void setGhost(bool value) {
+    m_ghost = value;
+  }
+
+  /**
    * K‰‰nt‰‰ palikkaa myˆt‰p‰iv‰‰n
    */
   bool rotateRight(void);
@@ -132,6 +139,7 @@ private:
    * omiin koordinaatteihinsa
    */
   CELL_TYPE m_type;
+  static const CELL_TYPE m_ghostType = GHOST;
 
   /**
    * Palikan koordinaatit nykyisess‰ kent‰ss‰‰n.
@@ -163,6 +171,10 @@ private:
    * Asetetaan constructorissa.
    */
   int m_rotationMax;
+
+  bool m_ghost;
+  bool m_ghostOnBoard; // kertoo removeGhostFromBoardille onko boardilla ghostia joka poistettaisiin
+  int m_gy;
 
   // ================= METODIT =============================================
 
@@ -224,12 +236,14 @@ private:
    * pelilaudassa oman tyyppins‰ mukaisiksi.
    */
   void insertToBoard();
+  void insertGhostToBoard();
 
   /**
    * Poistaa itsens‰ pelilaudalta, eli kirjoittaa tyhj‰n ruudun arvon
    * jokaiseen ruutuunsa pelilaudassa
    */
   void removeFromBoard();
+  void removeGhostFromBoard();
 
 };
 

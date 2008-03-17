@@ -16,7 +16,7 @@
 STicker::STicker() {
   m_taskCount = 0;
   m_running = false;
-  m_sleepTime = 10;
+  m_sleepTime = 5;
   for(int i=0; i<TICKER_MAX_TASKS; i++)
     m_tasks[i] = 0;
 }

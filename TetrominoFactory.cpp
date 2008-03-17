@@ -17,6 +17,7 @@ CTetrominoFactory::CTetrominoFactory() {
   srand((unsigned)time(0));
   m_xiitBlocks = false;
   m_normBlocks = true;
+  m_randomBlocks = false;
 }
 
 CTetrominoFactory::~CTetrominoFactory() {
@@ -27,6 +28,21 @@ CTetrominoFactory::~CTetrominoFactory() {
  */
 CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
   m_creationCount++;
+
+  if(t == BLOCK_RANDOM) {
+    int x[4];
+    int y[4];
+    x[0] = 0; y[0] = 0;
+    for(int i=1; i<4; i++) {
+      x[i] = x[i-1] + (rand() % 3) - 1;
+      y[i] = x[i-1] + (rand() % 3) - 1;
+    }
+    CELL_TYPE type;
+    type = (CELL_TYPE)(rand() % 7 + 1);
+    int r = 3;
+    return new CTetromino(x, y, r, type);
+  }
+
   // kommenteissa: X = tetrominon origo
   switch(t) {
 
@@ -142,6 +158,9 @@ CTetromino* CTetrominoFactory::create(CELL_TYPE t) {
  * TODO: random =) ja joku logiikka sille
  */
 CTetromino* CTetrominoFactory::createRandom() {
+  if(m_randomBlocks)
+    return create(BLOCK_RANDOM);
+
   // arvotaan uusi palikka
   int next = -1;
   if(m_xiitBlocks && !m_normBlocks)

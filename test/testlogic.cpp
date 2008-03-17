@@ -5,6 +5,7 @@
 #include "../TickListener.h"
 #include "../Ticker.h"
 #include "../StatsPanel.h"
+#include "../StatsListener.h"
 #include <stdio.h>
 
 
@@ -20,10 +21,11 @@ int main(void) {
 
   CTetrisLogic *logic = new CTetrisLogic();
   // ui
-  CBoardGraphics *gbg = new CBoardGraphics(logic->getGameBoard(), 13, 2);
-  CBoardGraphics *pbg = new CBoardGraphics(logic->getPreviewBoard(), 28, 4);
-  CStatsPanel *stats = new CStatsPanel(0, 2, 5);
-  stats->setLocation(40,2);
+  CBoardGraphics *gbg = new CBoardGraphics(logic->getGameBoard(), 18, 2);
+  CBoardGraphics *pbg = new CBoardGraphics(logic->getPreviewBoard(), 34, 4);
+  CStatsPanel *stats = new CStatsPanel(logic->getStats(), 3, 5);
+
+  logic->getStats()->registerListener(dynamic_cast<VStatsListener*>(stats));
 
   input->registerListener( dynamic_cast<VCommandListener*>(logic) );
   gbg->setBorderStyle(SGraphics::BORDER_BLOCK);

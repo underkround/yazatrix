@@ -6,7 +6,7 @@ SConfig::SConfig(void) {
   addSetting("asetus", 1);
   addSetting("toinen asetus", "ASETETTU");
   addSetting("setting 3", "this is setting number three");
-  addSetting("setting 4", 4);
+  addSetting("setting 4", true);
 }
 
 SConfig::~SConfig(void) {

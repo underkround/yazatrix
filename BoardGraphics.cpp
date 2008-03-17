@@ -56,6 +56,7 @@ SGraphics::GCOLOR CBoardGraphics::getCellTypeColor(const int x, const int y, con
     case BLOCK_J: return SGraphics::GCOLOR_LIGHTBLUE;
     case BLOCK_T: return SGraphics::GCOLOR_LIGHTMAGENTA;
     case EMPTY: return SGraphics::GCOLOR_BLACK;
+    case GHOST: return SGraphics::GCOLOR_BLACK;
     default: return SGraphics::GCOLOR_WHITE;
   }
 }
@@ -63,6 +64,7 @@ SGraphics::GCOLOR CBoardGraphics::getCellTypeColor(const int x, const int y, con
 char CBoardGraphics::getCellTypeChar(const int x, const int y, const CELL_TYPE ct) {
   switch(ct) {
     case EMPTY: return (x%2) ? '.' : ' ';
+    case GHOST: return 'x';
     default: return 0;
   }
 }
