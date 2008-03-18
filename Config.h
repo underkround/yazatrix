@@ -38,6 +38,9 @@ class SConfig {
     return theSingleInstance;
   }
 
+  /**
+   * Asetus tiedostossa käytetyt muuttujatyypit
+   */
   enum VARIABLE_TYPE { VARIABLE_STRING, VARIABLE_INTEGER };
 
   struct Setting {
@@ -52,34 +55,64 @@ class SConfig {
   struct SettingString : Setting {
     string value;
   };
-/*
-  union Value {
-    int number;
-    std::string * text;
-  };
 
-  struct Setting {
-    std::string * name;
-    VARIABLE_TYPE type;
-    Value value;
-  };
-*/
+  /**
+   * isNumeric
+   *
+   * Käytetään merkin numeerisuuden tarkistamiseen
+   *
+   * @param merkki tutkittava merkki
+   * @return oliko merkki numeerinen
+   */
   bool isNumeric(const char merkki);
 
+  /**
+   * printSettings
+   *
+   * Tulostaa kaikki asetukset ruudulle. @see printSetting(Setting * set)
+   */
   void printSettings();
 
+  /**
+   * readFile
+   *
+   * Lukee asetukset tiedostosta
+   */
+  void readFile();
+
+  inline void setFilename(string filename) { m_strFilename = filename; };
+
+  int getValueAsInt(string name);
+
+  bool getValueAsBool(string name);
+
+  string getValueAsString(string name);
+
   private:
-    //muuttujat ja vakiot
+    //** muuttujat ja vakiot **
     string m_strFilename;
     vector<Setting*> settingData;
     static const char CHAR_DELIMITER = '=';
     static const char CHAR_COMMENT   = '#';
 
-    //metodit
+    //** metodit **
+
+    /**
+     * addSetting
+     */
     void addSetting(string in_name, string in_value);
     void addSetting(string in_name, int in_value);
 
-    void SConfig::printSetting(Setting * set);
+    /**
+     * printSetting
+     *
+     * Tulostaa halutun asetuksen muotoiltuna ruudulle
+     *
+     * @param set tulostettava asetus
+     */
+    void printSetting(Setting * set);
+
+    bool parseRow(string row);
 
 };
 #endif //__CONFIG_H__
