@@ -194,8 +194,8 @@ bool SConfig::parseRow(string row) {
       return false; //rivillä ei ollut = merkkiä -> ini tiedosto on laittomasti muotoiltu
     }
   }
-  string name = row.substr(0, i++);
-  string value = row.substr(i, row.length()-i);
+  string name = trim(row.substr(0, i++));
+  string value = trim(row.substr(i, row.length()-i));
   if(isNumeric(value)) {
     addSetting(name, stringToInteger(value));
   }
