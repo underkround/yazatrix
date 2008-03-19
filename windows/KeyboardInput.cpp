@@ -17,7 +17,6 @@
 #include <iostream>
 
 SKeyboardInput::SKeyboardInput() {
-  m_tickDelay = 2;
 //  CTickTask *myTask = STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), m_tickDelay);
   STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), m_tickDelay);
 }

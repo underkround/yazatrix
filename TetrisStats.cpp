@@ -23,12 +23,14 @@ void CTetrisStats::linesRemoved(const int lines) {
     default: break;
   }
   notifyChangeInStats();
+  update();
 }
 
 void CTetrisStats::tetrominoAdded() {
   m_tetrominoCounter++;
   m_score += m_level;
   notifyChangeInStats();
+  update();
 }
 
 int CTetrisStats::getLevel() {
@@ -53,7 +55,9 @@ int CTetrisStats::getDropDelay() {
 }
 
 void CTetrisStats::update() {
-  m_level = (int)(m_tetrominoCounter / 20) + 1;
+  int level = (int)(m_tetrominoCounter / 20) + 1;
+  if(m_level <= LEVEL_MAX)
+    m_level = level;
 }
 
 void CTetrisStats::notifyChangeInStats() {

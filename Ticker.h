@@ -46,7 +46,7 @@ public:
 
 private:
 
-  static const int TICKER_MAX_TASKS = 10;
+  static const int TICKER_MAX_TASKS = 5;
   int m_sleepTime;
 
   CTickTask * m_tasks[TICKER_MAX_TASKS]; // TODO: kiintee arvo tilapäisesti

@@ -287,7 +287,7 @@ void CTetromino::removeGhostFromBoard() {
   for(int i=0; i<4; i++) {
     int rgx = m_x + getRelativeX(i, m_rotation);
     int rgy = m_gy + getRelativeY(i, m_rotation);
-    if(!containsBoardCoord(rgx, rgy))
+    if(!containsBoardCoord(rgx, rgy) && board->getSlot(rgx, rgy) == m_ghostType)
       board->setSlot(rgx, rgy, EMPTY);
   }
 //  board->update();

@@ -32,6 +32,7 @@ public:
 
 private:
 
+  static const int LEVEL_MAX = 15;
   int m_tetrominoCounter;
   int m_score;
   int m_level;

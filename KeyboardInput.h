@@ -43,9 +43,7 @@ private:
 
 //  std::vector<VCommandListener*> listeners;
 
-  int m_tickDelay;
-
-
+  static const int m_tickDelay = 5;
 
   inline void dump(char key) {
     printf(" %d ", key);
