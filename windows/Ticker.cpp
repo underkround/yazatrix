@@ -21,6 +21,9 @@ void STicker::sleepNextInterval(int tickInterval) {
   LONGLONG diff = lNow - lCountLast;
   float millis = (float)diff / (float)lFreq;
 */
+/*
+  toinen tapa: GetTickCount
+*/
   Sleep(tickInterval);
 
 //  QueryPerformanceCounter(&count);
