@@ -2,8 +2,8 @@
 
 int main(void) {
   SConfig * settings = &SConfig::getInstance();
-  settings->printSettings();
   settings->setFilename("testi.ini");
   settings->readFile();
+  settings->printSettings();
   return 0;
 }

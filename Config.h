@@ -64,7 +64,26 @@ class SConfig {
    * @param merkki tutkittava merkki
    * @return oliko merkki numeerinen
    */
-  bool isNumeric(const char merkki);
+  bool isNumeric(string str);
+
+  /**
+   * trim
+   *
+   * Poistaa whitespacet merkkijonon edestä ja takaa.
+   *
+   * TODO: ei tajua tabeja :(
+   */
+  string trim(string str);
+
+  /**
+   * stringToInteger
+   *
+   * Muuntaa merkkijonon kokonaisluvuksi
+   *
+   * @param str   muutettava merkkijono
+   * @return      muutettu kokonaisluku
+   */
+  int SConfig::stringToInteger (string str);
 
   /**
    * printSettings
@@ -82,11 +101,26 @@ class SConfig {
 
   inline void setFilename(string filename) { m_strFilename = filename; };
 
-  int getValueAsInt(string name);
+  /**
+   * getValueAsInt
+   *
+   * @return Palauttaa halutun muuttujan arvon kokonaislukumuodossa.
+   */
+  int getValueAsInt(string in_name);
 
-  bool getValueAsBool(string name);
+  /**
+   * getValueAsBool
+   *
+   * @return Palauttaa halutun muuttujan arvon totuusarvomuodossa.
+   */
+  bool getValueAsBool(string in_name);
 
-  string getValueAsString(string name);
+  /**
+   * getValueAsString
+   *
+   * @return Palauttaa halutun muuttujan arvon merkkijonomuodossa.
+   */
+  string getValueAsString(string in_name);
 
   private:
     //** muuttujat ja vakiot **
@@ -99,9 +133,25 @@ class SConfig {
 
     /**
      * addSetting
+     *
+     * Lisää uuden asetuksen, jos saman niminen asetus on jo olemassa, se korvataan
      */
     void addSetting(string in_name, string in_value);
     void addSetting(string in_name, int in_value);
+public:
+    /**
+     * deleteSetting
+     *
+     * Poistaa asetuksen
+     */
+    void deleteSetting(string name);
+
+    /**
+     * settingExists
+     *
+     * Etsii onko halutun niminen asetus olemassa
+     */
+    bool settingExists(string name);
 
     /**
      * printSetting
@@ -112,6 +162,13 @@ class SConfig {
      */
     void printSetting(Setting * set);
 
+    /**
+     * parseRow
+     *
+     * Muuttaa asetustiedostosta (tai jostain muualtakin) luetun rivin asetukseksi.
+     *
+     * @return oliko rivi hyvin muodostettu?
+     */
     bool parseRow(string row);
 
 };
