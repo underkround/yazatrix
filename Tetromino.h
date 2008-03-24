@@ -7,22 +7,34 @@
  * $Revision$
  * $Id$
  *
- * Palikka huolehtii seuraavista asioista:
- *  - palikka voi olla liitettyn‰ yhteen pelilautaan kerrallaan
- *  - palikka tiet‰‰ muotonsa ja mahdolliset rotaationsa
- *  - palikka tiet‰‰ omat koordinaattinsa pelilaudalla
- *  - palikka osaa k‰‰nt‰‰ omaa rotaatiotaan, ja tiet‰‰ uudet koordinaattinsa
- *    pelilaudalla
- *  - palikka osaa liikuttaa itse‰‰n eri suuntiin, ja tiet‰‰ uudet
- *    koordinaattinsa pelilaudalla
- *  - palikka osaa muuttuessaan testata ett‰ sen ruudut ovat tyhj‰t
- *    pelilaudalla
- *  - palikka osaa "polttaa/maalata" itsens‰ pelilautaan kun sen tila on
- *    muuttunut
- *  - palikan tilan muuttuessa se osaa asettaa vanhat ruutunsa laudalla
- *    tyhjiksi
- *  - palikka osaa kertoa onko se laskeutunut (seuraava tiputus osuisi laudan
- *    maastoon)
+ * Tetromino is controllable figure that can be attached to one
+ * TetrisBoard at the time.
+ *
+ * Tetromino has shape defined by maximum of four coordinates
+ * relative to it's origo. Tetromino can have 90 degree rotations
+ * from 1 to 4 (0..3 in code).
+ *
+ * Tetromino is capable of attaching itself to TetrisBoard when
+ * there is no collapse. When attached, tetromino can be rotated
+ * clockwise or counterclockwise or moved to left, right, up, down.
+ * when new position is not colliding with anything.
+ *
+ * Tetromino detects collides by quering TetrisBoard's cells in it's
+ * possible new position. If there is no collision, it can remove
+ * itself from current position and write it's type to new position
+ * in board.
+ *
+ * Responsibilities:
+ *  - has it's shape and rotations, can rotate itself
+ *  - can attach to and detach from TetrisBoards
+ *    - attach can be made if there is no collision
+ *    - detach can be clean -> tetrominoe writes EMPTY to it's former
+ *      location
+ *  - can detect collisions in TetrisBoard
+ *  - can be rotated and moved in board, if no collision
+ *  - knows when it has landed (can't move down)
+ *  - can write ghost marks to maximum location it could drop (can be
+ *    toggled on/off)
  *
  */
 
@@ -34,8 +46,12 @@ class CTetromino {
 public:
 
   /**
-   * Konstruktori, jossa m‰‰ritet‰‰n palikan muoto, sek‰ mit‰ se "maalaa"
-   * boardiin sijaintiinsa.
+   * Constructor that defines the Tetromino's form.
+   *
+   * @param cellCoordsX   4 origo-relative x-coordinates defining the shape
+   * @param cellCoordsY   4 origo-relative y-coordinates defining the shape
+   * @param maxRotation   maximum 90degree rotations from 0 (value of 0..3)
+   * @param type          CELL_TYPE that is written to it's location on board
    */
   CTetromino(int cellCoordsX[4], int cellCoordsY[4], int maxRotation, CELL_TYPE type);
 
@@ -44,87 +60,138 @@ public:
   // ================= METODIT =============================================
 
   /**
-   * Asettaa ghostin p‰‰lle (oletuksena pois)
-   */
+   * Sets the ghost marking on/off. If ghost is on, ghost cell-type is written
+   * to location that tetromino would drop if hard-dropped.
+   *
+   * @param value   true, if ghost piece is used
+   * @since Revision 115
+'   */
   inline void setGhost(bool value) {
     m_ghost = value;
   }
 
   /**
-   * K‰‰nt‰‰ palikkaa myˆt‰p‰iv‰‰n
+   * Rotates tetrominoe clockwise, if possible. Tests collision in current
+   * attached board before rotation is made. If Tetromino is not attached
+   * to any board, nothing is done.
    */
   bool rotateRight(void);
 
   /**
-   * K‰‰nt‰‰ palikkaa vastap‰iv‰‰n
+   * Rotates tetrominoe counterclockwise, if possible. Tests collision in current
+   * attached board before rotation is made. If Tetromino is not attached
+   * to any board, nothing is done.
    */
   bool rotateLeft(void);
 
   /**
-   * @return true, jos palikka on kiinnitetty johonkin boardiin
+   * Checks if tetromino is attached to instance of TetrisBoard.
+   *
+   * @return    true, it tetromino is attached to TetrisBoard
    */
   bool isAttached(void);
 
   /**
-   * Kiinnitt‰‰ palikan lautaan jos ei tule collisionia (jolloin palauttaa
-   * false).
-   * Kiinnittyminen tapahtuu vaakasuunnassa keskelle, pystysuunnassa
-   * palikan pivot-point/origo tulee kent‰n ylimp‰‰n riviin. Jos palikka
-   * on ennest‰‰n toisessa laudassa, tehd‰‰n siihen ensin clean detach.
+   * Attaches Tetromino to TetrisBoard. While attaching, Tetromino checks
+   * that attaching could be done eg. there is no collision in board.
+   * In case of collision, no attach is done and false is returned.
+   *
+   * If attach is successful, Tetromino will position it's origo to horizontal
+   * center of board, and vertically to the top row of board.
+   *
+   * If Tetromino is already attached to another board, clean detach from it
+   * is made.
+   *
+   * @param targetBoard   instance of TetrisBoard that Tetromino needs to attach
+   * @return              true, if attaching was possible (no collision)
    */
   bool attach(CTetrisBoard *targetBoard);
 
   /**
-   * Kiinnittyy boardiin jos ei tule collisionia (collisionissa liitosta ei
-   * tapahdu ja palautetaan false)
-   * Kiinnittyminen tapahtuu vaakasuunnassa keskelle, pystysuunnassa laudan
-   * ylimp‰‰n koordinaattiin + offset
+   * @see attach(CTetrisBoard)
+   *
+   * Vertical attach position is top row of board plus offsetY.
+   *
+   * @see attach(CTetrisBoard)
+   * @param targetBoard   instance of TetrisBoard that Tetromino needs to attach
+   * @param offsetY       offset from top row of TetrisBoard (negative shifts downwards)
+   * @return              true, if attaching was possible (no collision)
    */
   bool attach(CTetrisBoard *targetBoard, int offsetY);
 
+  /**
+   * @see attach(CTetrisBoard)
+   *
+   * Vertical attach position is top row of board plus offsetY.
+   * Horizontal attach position is board center plus offsetX.
+   *
+   * @param targetBoard   instance of TetrisBoard that Tetromino needs to attach
+   * @param offsetY       offset from top row of TetrisBoard (negative shifts downwards)
+   * @return              true, if attaching was possible (no collision)
+   */
   bool attach(CTetrisBoard *targetBoard, int offsetX, int offsetY);
 
   /**
-   * Detachaa nykyisest‰ boardista, jos clear = true, tyhj‰‰ sijaintinsa laudassa
+   * Detach from current TetrisBoard. If clear flag is set true, makes clean detach
+   * (writes EMPTY to current cells in TetrisBoard). If clear is set false,
+   * Tetromino's cells in board are left with Tetromino's type.
+   *
+   * @param clear         if true, writes EMPTY to it's location
    */
   bool detach(bool clear);
 
   /**
-   * Detachaa nykyisest‰ boardista, ei tyhj‰‰ sijaintinsa laudassa
+   * Make no-clean detach from current TetrisBoard.
+   *
+   * @see detach(bool)
    */
   bool detach();
 
+  /**
+   * Try to move Tetromino one cell. If there would be
+   * collision in new coordinates in board, nothing is done.
+   */
   bool moveLeft(void);
-
   bool moveRight(void);
-
-  bool moveUp(int n);
-
   bool moveDown(void);
 
+  /**
+   * Try to move Tetromino by given count of cells.
+   * If there would be collision in new coordinates in board,
+   * nothing is done.
+   *
+   * @param n     number of cells to move
+   */
+  bool moveUp(int n);
   bool moveDown(int n);
 
   /**
-   * Tiputtaa palikkaa niinkauan alas kuin se ei tˆrm‰‰ mihink‰‰n
+   * Move Tetromino down until next move would collide.
    */
   bool drop(void);
 
   /**
-   * Onko palikka laskeutunut:
-   * a) seuraava tiputus olisi collision
-   * b) palikka ei ole miss‰‰n boardissa
+   * Check if Tetromino has landed. Tetromino has landed if next move
+   * downwards would collide.
+   * Tetromino is also [TODO: tulkittu laskeutuneeksi jos] it's not attached
+   * to any TetrisBoard.
+   *
+   * @return    true, if next move downwards would collide, or not detached
    */
   bool hasLanded(void);
 
   /**
-   * Palikka on boardissa ja jokainen sen ruutu on laudan sis‰puolella
-   * (palikka voi aluksi olla yl‰puolelta boardin ulkopuolella)
+   * Check if Tetromino is attached to TetrisBoard and all of it's cells are
+   * visible in board (cells can go over board from top).
+   *
+   * @return    true, if all cells are inside TetrisBoard
    */
   bool isFullyVisible(void);
 
 // ===========================================================================
-// PRIVATE
-// ==
+// PRIVATE MEMBERS
+
+// TODO: lontoonna
 
 private:
 
@@ -150,19 +217,14 @@ private:
   int m_y;
 
   /**
-   * Palikan muoto, eli koordinaatit joissa palikalla on solu
-   * rotaatiossa 0 (oletus) pivot-pointtinsa suhteen
-   * (eli negatiivisia ja positiivisia koordinaatteja).
-   * Tetromino koostuu nelj‰st‰ solusta/ruudusta, eli tetrominolla
-   * tauluissa on aina nelj‰ koordinaattiparia.
+   * The form of the tetromino. 4 pairs of coordinates relative to
+   * Tetromino's origo defining the cells it has in rotation 0.
    */
   int m_cellCoordsX[4];
   int m_cellCoordsY[4];
 
   /**
-   * Palikan nykyinen orientaatio
-   *
-   * Orientaatio on
+   * Current 90degree rotation of Tetromino. Value of 0..3.
    */
   int m_rotation;
 
@@ -176,7 +238,10 @@ private:
   bool m_ghostOnBoard; // kertoo removeGhostFromBoardille onko boardilla ghostia joka poistettaisiin
   int m_gy;
 
-  // ================= METODIT =============================================
+// ===========================================================================
+// PRIVATE METHODS
+
+private:
 
   /**
    * Asettaa rotaaion r jos mahdollista

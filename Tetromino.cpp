@@ -151,11 +151,6 @@ bool CTetromino::drop() {
 }
 
 bool CTetromino::hasLanded() {
-  // TODO: palikan liikutus dropin jälkeen vielä yhden tickin verran
-  // Tee hasLanded boolean
-  //  - kun palikka dropataan, sitä ei aseteta vielä
-  //  - kun palikkaa tiputetaan yhdellä (pelaaja tai tick), eikä se liiku
-  //    enää, hasLanded = true (ja detach laudasta?)
   if(board == 0) return true;
   if( !canMoveTo(m_x, m_y - 1, m_rotation) )
     return true;
@@ -216,10 +211,10 @@ int CTetromino::getRelativeX(const int x, const int rotation) {
 
 int CTetromino::getRelativeY(const int y, const int rotation) {
   switch(rotation) {
-    case 0: { return  m_cellCoordsY[y]; }
-    case 3: { return  m_cellCoordsX[y]; }
-    case 2: { return -m_cellCoordsY[y]; }
-    case 1: { return -m_cellCoordsX[y]; }
+    case 0: return  m_cellCoordsY[y];
+    case 3: return  m_cellCoordsX[y];
+    case 2: return -m_cellCoordsY[y];
+    case 1: return -m_cellCoordsX[y];
   }
   return -1;
 }
@@ -264,13 +259,10 @@ void CTetromino::insertGhostToBoard() {
     m_gy = gy;
     m_ghostOnBoard = true;
   }
-//  board->update();
 }
 
 void CTetromino::removeFromBoard() {
   if(!isAttached()) return;
-//  int gy = m_gy;
-//  int gx = m_x;
   for(int i=0; i<4; i++) {
     board->setSlot(
       m_x + getRelativeX(i, m_rotation),
@@ -290,5 +282,4 @@ void CTetromino::removeGhostFromBoard() {
     if(!containsBoardCoord(rgx, rgy) && board->getSlot(rgx, rgy) == m_ghostType)
       board->setSlot(rgx, rgy, EMPTY);
   }
-//  board->update();
 }

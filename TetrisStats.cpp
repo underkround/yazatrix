@@ -50,11 +50,13 @@ int CTetrisStats::getRemovedLinesLast() {
 }
 
 int CTetrisStats::getDropDelay() {
-  int delay = m_dropDelay / m_level; // TODO: delay logiikka
+  // TODO: oikea delay-logiikka
+  int delay = m_dropDelay / m_level;
   return delay;
 }
 
 void CTetrisStats::update() {
+  // TODO: oikeaoppinen levelin laskeminen. lasketaanko r‰j‰ytetyist‰ riveist‰ vai palikoiden m‰‰r‰st‰?
   int level = (int)(m_tetrominoCounter / 20) + 1;
   if(m_level <= LEVEL_MAX)
     m_level = level;
