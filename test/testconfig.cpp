@@ -1,4 +1,5 @@
 #include "../Config.h"
+#include "../Highscore.h"
 
 int main(void) {
   SConfig * settings = &SConfig::getInstance();

@@ -121,7 +121,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add option="-Wall" />
 				</Compiler>
 				<Linker>
@@ -253,6 +253,19 @@
 			<Option target="testlogic" />
 			<Option target="testkeyboard" />
 			<Option target="testmenu" />
+			<Option target="testconfig" />
+		</Unit>
+		<Unit filename="Highscore.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="vs2008" />
+			<Option target="testconfig" />
+		</Unit>
+		<Unit filename="Highscore.h">
+			<Option target="Release" />
+			<Option target="testboard" />
+			<Option target="vs2008" />
+			<Option target="testconfig" />
 		</Unit>
 		<Unit filename="KeyboardInput.h">
 			<Option target="Debug" />
@@ -527,6 +540,7 @@
 			<Option target="testgameloop" />
 			<Option target="testlogic" />
 			<Option target="testmenu" />
+			<Option target="testconfig" />
 		</Unit>
 		<Unit filename="windows\KeyboardInput.cpp">
 			<Option target="Debug" />

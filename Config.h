@@ -126,8 +126,6 @@ class SConfig {
     //** muuttujat ja vakiot **
     string m_strFilename;
     vector<Setting*> settingData;
-    static const char CHAR_DELIMITER = '=';
-    static const char CHAR_COMMENT   = '#';
 
     //** metodit **
 
