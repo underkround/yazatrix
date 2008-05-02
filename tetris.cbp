@@ -277,6 +277,10 @@
 			<Option target="vs2008" />
 			<Option target="testmenu" />
 		</Unit>
+		<Unit filename="Main.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="Menu.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -369,6 +373,11 @@
 			<Option target="testlogic" />
 			<Option target="testmenu" />
 			<Option target="vs2008" />
+		</Unit>
+		<Unit filename="Tetris.ini">
+			<Option compile="1" />
+			<Option target="Debug" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="TetrisBoard.cpp">
 			<Option target="Debug" />
