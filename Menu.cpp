@@ -138,5 +138,19 @@ void CTetrisMenu::selectionDown() {
 }
 
 bool CTetrisMenu::selectionSelect(const int item_number) {
-  return false;
+  switch(item_number) {
+    case 0:
+      g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "ammutaan verkkoa     ");
+      break;
+    case 1:
+      g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "tehnyt antti ja jussi");
+      break;
+    case 2:
+      g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "quit                 ");
+      break;
+    default:
+      g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "lol xiit wallhack    ");
+      return false;
+  }
+  return true;
 }
