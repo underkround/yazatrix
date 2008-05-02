@@ -6,6 +6,13 @@
 #include <string>
 #include <iostream>
 
+#include "./BoardGraphics.h"
+#include "./TetrisLogic.h"
+#include "./TickListener.h"
+#include "./Ticker.h"
+#include "./StatsPanel.h"
+#include "./StatsListener.h"
+
 #define MENU_TICKDELAY 10
 
 using namespace std;
@@ -140,13 +147,34 @@ void CTetrisMenu::selectionDown() {
 bool CTetrisMenu::selectionSelect(const int item_number) {
   switch(item_number) {
     case 0:
-      g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "ammutaan verkkoa     ");
+      //
+        SKeyboardInput *input = &SKeyboardInput::getInstance();
+
+        CTetrisLogic *logic = new CTetrisLogic();
+        CBoardGraphics *gbg = new CBoardGraphics(logic->getGameBoard(), 18, 2);
+        CBoardGraphics *pbg = new CBoardGraphics(logic->getPreviewBoard(), 34, 4);
+        CStatsPanel *stats = new CStatsPanel(logic->getStats(), 3, 5);
+
+        logic->getStats()->registerListener(dynamic_cast<VStatsListener*>(stats));
+
+        input->registerListener( dynamic_cast<VCommandListener*>(logic) );
+        gbg->setBorderStyle(SGraphics::BORDER_BLOCK);
+        pbg->setBorderColor(SGraphics::GCOLOR_LIGHTGREEN, SGraphics::GCOLOR_GREEN);
+        pbg->setBorderStyle(SGraphics::BORDER_SQUARE);
+
+        STicker::getInstance().start();
+        logic->start();
+
+        delete gbg;
+        delete pbg;
+        delete logic;
       break;
     case 1:
       g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "tehnyt antti ja jussi");
       break;
     case 2:
-      g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "quit                 ");
+      g->drawString(2, 6, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Bye!");
+      STicker::getInstance().stop();
       break;
     default:
       g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "lol xiit wallhack    ");
