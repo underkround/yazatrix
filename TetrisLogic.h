@@ -25,11 +25,11 @@
 #include "TetrisCommon.h"
 #include "TetrominoFactory.h"
 
-#define PREVIEW_TETROMINOES 3
+//#define PREVIEW_TETROMINOES 3
 #define GAMEBOARD_WIDTH 12
 #define GAMEBOARD_HEIGHT 20
-#define PREVIEWBOARD_WIDTH 4
-#define PREVIEWBOARD_HEIGHT 20
+//#define PREVIEWBOARD_WIDTH 4
+//#define PREVIEWBOARD_HEIGHT 20 //jahas t‰t‰ ei k‰ytet‰ miss‰‰n
 
 class CTetrisLogic : public VObservable<VBoardChangeListener>, public VCommandListener, public VTickListener {
 
@@ -118,11 +118,17 @@ public:
 
 private:
 
+  SConfig *settings;
+  int             m_previewBoardSize;
+  //int             m_previewBoardHeight;
+  int             m_previewBoardWidth;
+
   // r‰j‰ytetyt rivit saadaan boardilta kysym‰ll‰
   CTetrisBoard    *m_gameBoard;        // pelilauta, jossa pelaaminen tapahtuu
   CTetrisBoard    *m_previewBoard;     // previewBoard, jossa n‰kyy seuraavat palikat
   CTetromino      *m_currentTetromino; // nykyinen palikka, kiinnitetty pelilautaan
-  CTetromino      *m_previewTetrominoes[PREVIEW_TETROMINOES];
+  //CTetromino      *m_previewTetrominoes[m_previewBoardSize];
+  CTetromino      *m_previewTetrominoes[3]; //TODO: yhyy miksi n‰m‰ on tehty arrayn‰, kun ei voida lukea arvoa configista t‰h‰n ennen t‰t‰ m‰‰rittely‰!
   CTetrisStats    *m_stats;
   bool            m_gameOver;
   bool            m_running;

@@ -2,6 +2,9 @@
 #include "./menu.h"
 #include "./Ticker.h"
 
+#include <iostream>
+using namespace std;
+
 /**
  * Main.cpp
  *
@@ -25,6 +28,7 @@ int main(int argc, char** argv) {
     settings->readFile();
   }
 
+  /**/
   STicker::getInstance().start();
   CTetrisMenu * menu = new CTetrisMenu(2, 2, 10, 3);
   menu->show();

@@ -13,27 +13,35 @@
 #include <iostream>
 
 CTetrisLogic::CTetrisLogic() {
-  m_gameBoard = new CTetrisBoard(GAMEBOARD_WIDTH, GAMEBOARD_HEIGHT);
+  settings = &SConfig::getInstance();
+  m_previewBoardSize = settings->getValueAsInt("preview size");
+  //m_previewBoardHeight = settings->getValueAsInt("preview height");
+  m_previewBoardWidth = settings->getValueAsInt("preview width");
+  m_gameBoard = new CTetrisBoard(settings->getValueAsInt("board width"), settings->getValueAsInt("board height"));
   initialize();
 }
 
-CTetrisLogic::CTetrisLogic(const int gameboardWidth, const int gameboardHeight) {
+/**
+ * @deprecated didn't work well with configuration file and was never used anyway
+ */
+/*CTetrisLogic::CTetrisLogic(const int gameboardWidth, const int gameboardHeight) {
+  settings = &SConfig::getInstance();
   m_gameBoard = new CTetrisBoard(gameboardWidth, gameboardHeight);
   initialize();
-}
+}*/
 
 void CTetrisLogic::initialize() {
   // luodaan factory
   m_factory = new CTetrominoFactory();
   m_previewSpacingY = 5;
-  m_previewBoard = new CTetrisBoard(PREVIEWBOARD_WIDTH, m_previewSpacingY*PREVIEW_TETROMINOES);
+  m_previewBoard = new CTetrisBoard(m_previewBoardWidth, m_previewSpacingY*m_previewBoardSize);
   // luodaan nykyinen tetrominoe ja liitetään se gameBoardiin
   m_currentTetromino = m_factory->createRandom();
   m_currentTetromino->attach(m_gameBoard);
   m_currentTetromino->setGhost(true);
   m_stats = new CTetrisStats();
   // luodaan previewTetrominoet ja liitetään ne previewBoardiin
-  for(int i=0; i<PREVIEW_TETROMINOES; i++) {
+  for(int i=0; i<m_previewBoardSize; i++) {
     m_previewTetrominoes[i] = m_factory->createRandom();
     m_previewTetrominoes[i]->attach(m_previewBoard, m_previewSpacingY * i * -1 - m_previewSpacingY/2);
   }
@@ -45,7 +53,7 @@ void CTetrisLogic::initialize() {
 }
 
 CTetrisLogic::~CTetrisLogic() {
-  for(int i=0; i<PREVIEW_TETROMINOES; i++)
+  for(int i=0; i<m_previewBoardSize; i++)
     delete m_previewTetrominoes[i];
   delete m_currentTetromino;
   delete m_factory;
@@ -133,15 +141,15 @@ void CTetrisLogic::rotateTetrominoes() {
     // Ottaa previewTetromino-taulukosta seuraavaksi vuorossa olevan nykyiseksi.
     m_currentTetromino = m_previewTetrominoes[0];
     // Nostaa jäljelle jääneiden preview-palikoiden vuoronumeroa yhdellä.
-    for(int i=0; i<PREVIEW_TETROMINOES-1; i++) {
+    for(int i=0; i<m_previewBoardSize-1; i++) {
       m_previewTetrominoes[i] = m_previewTetrominoes[i+1];
       // Nostaa jäljelle jääneiden preview-palikoiden sijaintia previewBoardissa
       m_previewTetrominoes[i]->moveUp(m_previewSpacingY);
     }
     // Luo preview-taulun loppuun uuden palikan.
-    m_previewTetrominoes[PREVIEW_TETROMINOES-1] = m_factory->createRandom();
+    m_previewTetrominoes[m_previewBoardSize-1] = m_factory->createRandom();
     // Kiinnittää preview-taulun loppuun luodun palikan previewBoardiin omalle paikalleen
-    m_previewTetrominoes[PREVIEW_TETROMINOES-1]->attach(m_previewBoard, m_previewSpacingY * PREVIEW_TETROMINOES * -1 + m_previewSpacingY/2);
+    m_previewTetrominoes[m_previewBoardSize-1]->attach(m_previewBoard, m_previewSpacingY * m_previewBoardSize * -1 + m_previewSpacingY/2);
     // Yrittää kiinnittää uuden nykyisen palikan gameBoardiin. Jos ei onnistu, peli loppuu
     if(!m_currentTetromino->attach(m_gameBoard)) {
       m_gameOver = true;

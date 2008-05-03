@@ -22,6 +22,8 @@ CTetrisMenu::CTetrisMenu(){
   STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
   SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
+  //käytetään asetuksia
+  s = &SConfig::getInstance();
   //käytetään grafiikkaa
   g = &SGraphics::getInstance();
   setX(1);
@@ -43,6 +45,8 @@ CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) 
   STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
   SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
+  //käytetään asetuksia
+  s = &SConfig::getInstance();
   //käytetään grafiikkaa
   g = &SGraphics::getInstance();
   //paneelille:
@@ -123,6 +127,7 @@ void CTetrisMenu::createItems(void) {
   m_listMenuItems.push_back("Game start");
   m_listMenuItems.push_back("About");
   m_listMenuItems.push_back("Quit");
+  m_listMenuItems.push_back("View config");
   m_intMenuLength = m_listMenuItems.size();
 }
 
@@ -148,7 +153,9 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
   switch(item_number) {
     case 0:
       //
+        //SKeyboardInput::getInstance().unregisterListener( dynamic_cast<VCommandListener*>(this) );
         SKeyboardInput *input = &SKeyboardInput::getInstance();
+        input->unregisterListener(dynamic_cast<VCommandListener*>(this));
 
         CTetrisLogic *logic = new CTetrisLogic();
         CBoardGraphics *gbg = new CBoardGraphics(logic->getGameBoard(), 18, 2);
@@ -167,7 +174,10 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
 
         delete gbg;
         delete pbg;
+        input->unregisterListener(dynamic_cast<VCommandListener*>(logic));
         delete logic;
+        input->registerListener(dynamic_cast<VCommandListener*>(this)); //TODO: miksi tämä ei palauta kontrollia käyttäjälle?
+
       break;
     case 1:
       g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "tehnyt antti ja jussi");
@@ -175,6 +185,10 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
     case 2:
       g->drawString(2, 6, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Bye!");
       STicker::getInstance().stop();
+      break;
+    case 3:
+      g->drawString(0, 0, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Configuration:\n\n");
+      s->printSettings();
       break;
     default:
       g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "lol xiit wallhack    ");

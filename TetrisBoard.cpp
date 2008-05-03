@@ -12,13 +12,15 @@
 #include "TetrisCommon.h"
 
 CTetrisBoard::CTetrisBoard(void) {
-  m_width = TETRIS_GUIDELINE_WIDTH;
-  m_height = TETRIS_GUIDELINE_HEIGHT;
+  settings = &SConfig::getInstance();
+  m_width = settings->getValueAsInt("boardwidth");
+  m_height = settings->getValueAsInt("boardheight");
   m_firstReset = true;
   reset();
 }
 
 CTetrisBoard::CTetrisBoard(const int cols, const int rows) {
+  //settings = &SConfig::getInstance();
   m_width = cols;
   m_height = rows;
   m_firstReset = true;

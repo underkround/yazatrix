@@ -15,6 +15,7 @@
 #include "Graphics.h"
 #include "CommandListener.h"
 #include "TickListener.h"
+#include "Config.h"
 #include <vector>
 #include <string>
 
@@ -92,6 +93,7 @@ class CTetrisMenu : VPanel, VCommandListener, VTickListener {
   int m_x, m_y, m_width, m_height;
   SGraphics::GCOLOR menu_fg, menu_bg, selected_fg, selected_bg;
   SGraphics *g;
+  SConfig *s;
 
   /**
    * CreateItems

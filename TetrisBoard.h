@@ -13,6 +13,7 @@
 #include "TetrisCommon.h"
 #include "Observable.h"
 #include "BoardChangeListener.h"
+#include "Config.h"
 #include <stack>
 
 class CTetrisBoard : public VObservable<VBoardChangeListener> {
@@ -148,8 +149,9 @@ public:
 
 private:
 
-  static const int TETRIS_GUIDELINE_WIDTH = 10;
-  static const int TETRIS_GUIDELINE_HEIGHT = 22;
+  //static const int TETRIS_GUIDELINE_WIDTH = 10;
+  //static const int TETRIS_GUIDELINE_HEIGHT = 22;
+  SConfig *settings;
 
   int m_width;  // solujen määrä vaakasuunnassa
   int m_height; // solujen määrä pystysuunnassa

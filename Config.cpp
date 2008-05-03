@@ -27,6 +27,7 @@ void SConfig::readFile(void) {
     while (! kahva.eof() )
     {
       getline(kahva, rivi);
+      //cout << rivi << "\n";
       parseRow(rivi);
     }
     kahva.close();
