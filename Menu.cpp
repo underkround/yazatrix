@@ -151,7 +151,7 @@ void CTetrisMenu::selectionDown() {
 
 bool CTetrisMenu::selectionSelect(const int item_number) {
   switch(item_number) {
-    case 0:
+    case 0: {
       //
         //SKeyboardInput::getInstance().unregisterListener( dynamic_cast<VCommandListener*>(this) );
         SKeyboardInput *input = &SKeyboardInput::getInstance();
@@ -178,21 +178,21 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         delete logic;
         input->registerListener(dynamic_cast<VCommandListener*>(this)); //TODO: miksi tämä ei palauta kontrollia käyttäjälle?
 
-      break;
-    case 1:
+      break; }
+    case 1: {
       g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "tehnyt antti ja jussi");
-      break;
-    case 2:
+      break; }
+    case 2: {
       g->drawString(2, 6, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Bye!");
       STicker::getInstance().stop();
-      break;
-    case 3:
+      break; }
+    case 3: {
       g->drawString(0, 0, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Configuration:\n\n");
       s->printSettings();
-      break;
-    default:
+      break; }
+    default: {
       g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "lol xiit wallhack    ");
-      return false;
+      return false; }
   }
   return true;
 }

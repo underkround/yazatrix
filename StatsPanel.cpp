@@ -37,6 +37,9 @@ CStatsPanel::~CStatsPanel() {
 }
 
 int CStatsPanel::handleTick() {
+  return -1;
+  /* effect not working as intended
+   *
   if(m_flashOn) {
     m_borderFG = SGraphics::GCOLOR_LIGHTCYAN;
     m_flashOn = false;
@@ -58,6 +61,7 @@ void CStatsPanel::drawBackground() {
     }
   }
   draw();
+   */
 }
 
 void CStatsPanel::handleChangeInStats(const int score, const int level, const int reml, const int remll) {
@@ -65,12 +69,13 @@ void CStatsPanel::handleChangeInStats(const int score, const int level, const in
   m_level = level;
   m_reml = reml;
 //  m_remll = remll;
+  /* out of use: not workinc correctly
+   *
   if(remll > 0) {
-    // rekisteröidy tickerille efektin vuoksi
+    // register for line destruction effect
     STicker::getInstance().registerListener(static_cast<VTickListener*>(this), m_flashDelay);
-    // aseta flashcounter
     m_flashCount = remll*2;
-  }
+  }*/
   draw();
 }
 
