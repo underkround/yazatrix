@@ -53,8 +53,9 @@ void CTetrisLogic::initialize() {
 }
 
 CTetrisLogic::~CTetrisLogic() {
-  for(int i=0; i<m_previewBoardSize; i++)
+  for(int i=0; i<m_previewBoardSize; i++) {
     delete m_previewTetrominoes[i];
+  }
   delete m_currentTetromino;
   delete m_factory;
   delete m_stats;

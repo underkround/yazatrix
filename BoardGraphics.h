@@ -23,6 +23,7 @@
 #include "Panel.h"
 #include "TetrisBoard.h"
 #include "Graphics.h"
+#include "Config.h"
 
 class CBoardGraphics : public VBoardChangeListener, public VPanel {
 
@@ -47,6 +48,7 @@ private:
 
   CTetrisBoard *board;    // tämä ei ole vastuussa boardin tuhoamisesta!
   SGraphics *g;           // eikä myöskään grafiikan tuhoamisesta!
+  SConfig *settings;
   int m_squareWidth;
   int m_squareHeight;
 

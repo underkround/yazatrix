@@ -169,12 +169,14 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         pbg->setBorderColor(SGraphics::GCOLOR_LIGHTGREEN, SGraphics::GCOLOR_GREEN);
         pbg->setBorderStyle(SGraphics::BORDER_SQUARE);
 
-        STicker::getInstance().start();
         logic->start();
+        STicker::getInstance().start();
 
         delete gbg;
         delete pbg;
         input->unregisterListener(dynamic_cast<VCommandListener*>(logic));
+        logic->getStats()->unregisterListener(dynamic_cast<VStatsListener*>(stats));
+        delete stats;
         delete logic;
         input->registerListener(dynamic_cast<VCommandListener*>(this)); //TODO: miksi tämä ei palauta kontrollia käyttäjälle?
 

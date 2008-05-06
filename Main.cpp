@@ -29,7 +29,6 @@ int main(int argc, char** argv) {
   }
 
   /**/
-  STicker::getInstance().start();
   CTetrisMenu * menu = new CTetrisMenu(2, 2, 10, 3);
   menu->show();
   STicker::getInstance().start();

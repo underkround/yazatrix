@@ -19,9 +19,6 @@
 using namespace std;
 
 //*** public ***
-/**
- * Piirtotilan initialisoinnit
- */
 SGraphics::SGraphics(void) {
   //piilotetaan kursori (asettamalla sen korkeudeksi 0%)
   _setcursortype(0);
@@ -29,9 +26,6 @@ SGraphics::SGraphics(void) {
   clrscr();
 }
 
-/**
- * Piirtotilan sulkeminen
- */
 SGraphics::~SGraphics(void) {
   //varmistetaan että käyttäjä palaa konsoliin perusväreissä
   //resetColors();
@@ -39,30 +33,10 @@ SGraphics::~SGraphics(void) {
   //clrscr();
 }
 
-/**
- * drawChar
- *
- * Piirtää yhden merkin määrättyyn kohtaan ruudulle
- *
- * @param x   x-koordinaatti
- * @param y   y-koordinaatti
- * @param c   merkki
- */
 void SGraphics::drawChar(const int x, const int y, const char c) {
   putchxy(x, y, c);
 }
 
-/**
- * drawChar
- *
- * Piirtää yhden merkin määrättyyn kohtaan ruudulle halutuilla väreillä
- *
- * @param x     x-koordinaatti
- * @param y     y-koordinaatti
- * @param fg    tekstin väri
- * @param bg    taustan väri
- * @param c     merkki
- */
 void SGraphics::drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char c) {
   setColors(fg, bg);
   putchxy(x, y, c);
@@ -73,46 +47,17 @@ void SGraphics::drawChar(const int x, const int y, const GCOLOR fg, const GCOLOR
   putchxy(x, y, c);
 }*/
 
-/**
- * drawSquare
- *
- * värittää yhden ruudun halutulla värillä
- *
- * @param x       x-koordinaatti
- * @param y       y-koordinaatti
- * @param color   väri
- */
 void SGraphics::drawSquare(const int x, const int y, const GCOLOR color) {
   setColors(GCOLOR_BLACK, getBackgroundColor(color));
   putchxy(x, y, ' '); //'█'
   _setcursortype(0);
 }
 
-/**
- * drawString
- *
- * Piirtää merkkijonon määrättyyn kohtaan ruudulle
- *
- * @param x     x-koordinaatti
- * @param y     y-koordinaatti
- * @param str   merkkijono
- */
 void SGraphics::drawString(const int x, const int y, const char* str) {
   moveCursor(y, x);
   cout << str;
 }
 
-/**
- * drawString
- *
- * Piirtää merkkijonon määrättyyn kohtaan ruudulle halutulla värillä
- *
- * @param x     x-koordinaatti
- * @param y     y-koordinaatti
- * @param fg    tekstin väri
- * @param bg    taustan väri
- * @param str   merkkijono
- */
 void SGraphics::drawString(const int x, const int y, const GCOLOR fg, const GCOLOR bg, const char* str) {
   moveCursor(y, x);
   setColors(getForegroundColor(fg), getBackgroundColor(bg));
@@ -125,17 +70,6 @@ void SGraphics::drawString(const int x, const int y, const GCOLOR fg, const GCOL
   cout << str;
 }
 
-/**
- * drawBox
- *
- * Piirtää ruudulle laatikon
- *
- * @param from_x        vasemman yläkulman x-koordinaatti
- * @param from_y        vasemman yläkulman y-koordinaatti
- * @param to_x          oikean alakulman x-koordinaatti
- * @param to_y          oikean alakulman y-koordinaatti
- * @param borderstyle   reunuksen tyyli
- */
 //void SGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle) {
 void SGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const BORDER_STYLE borderstyle) {
   char n,e,w,s,se,nw,ne,sw;
@@ -233,29 +167,14 @@ void SGraphics::drawBox(const int from_x, const int from_y, const int to_x, cons
   drawChar(to_x, to_y, se);
 }
 
-/**
- * getX
- *
- * @return kursorin sijainti ruudulla x-akselin suhteen
- */
 int SGraphics::getX() {
   return wherex();
 }
 
-/**
- * getY
- *
- * @return kursorin sijainti ruudulla y-akselin suhteen
- */
 int SGraphics::getY() {
   return wherey();
 }
 
-/**
- * getHeight
- *
- * @return käytössä olevan ruudun korkeus
- */
 int SGraphics::getHeight() {
   text_info *x = new text_info;
   gettextinfo(x);
@@ -265,11 +184,6 @@ int SGraphics::getHeight() {
   return out;
 }
 
-/**
- * getWidth
- *
- * @return käytössä olevan ruudun leveys
- */
 int SGraphics::getWidth() {
   text_info *x = new text_info;
   gettextinfo(x);
@@ -280,60 +194,25 @@ int SGraphics::getWidth() {
 }
 
 //*** private ***
-/**
- * moveCursor
- *
- * Siirtää kursoria kohtaan (x, y)
- *
- * @param x     x-koordinaatti
- * @param y     y-koordinaatti
- */
 void SGraphics::moveCursor(const int x, const int y) {
   gotoxy(y, x);
 }
 
-/**
- * resetColors
- *
- * @deprecated tämä olikin ihan turha, käytä => conio.h::normvideo();
- */
 void SGraphics::resetColors(void) {
   textcolor(DEFAULT_FOREGROUND_GCOLOR);
   textbackground(DEFAULT_BACKGROUND_GCOLOR);
 }
 
-/**
- * setForegroundColor
- *
- * Asettaa tekstin piirtovärin
- *
- * @param fg    väri
- */
 void SGraphics::setForegroundColor(const GCOLOR fg) {
   textcolor(getForegroundColor(fg));
   currentForegroundColor = fg;
 }
 
-/**
- * setBackgroundColor
- *
- * Asettaa taustan piirtovärin
- *
- * @param bg    väri
- */
 void SGraphics::setBackgroundColor(const GCOLOR bg) {
   textbackground(getBackgroundColor(bg));
   currentBackgroundColor = bg;
 }
 
-/**
- * setColors
- *
- * Asettaa sekä tekstin että taustan piirtovärit
- *
- * @param fg    tekstin väri
- * @param bg    taustan väri
- */
 void SGraphics::setColors(const GCOLOR fg, const GCOLOR bg) {
   textcolor(getForegroundColor(fg));
   currentForegroundColor = fg;
@@ -341,14 +220,6 @@ void SGraphics::setColors(const GCOLOR fg, const GCOLOR bg) {
   currentBackgroundColor = bg;
 }
 
-/**
- * setColors
- *
- * Asettaa sekä tekstin että taustan piirtovärit
- *
- * @param fg    tekstin väri
- * @param bg    taustan väri
- */
 void SGraphics::setColors(const int fg, const int bg) {
   textcolor(fg);
   currentForegroundColor = (GCOLOR)fg;
@@ -356,17 +227,26 @@ void SGraphics::setColors(const int fg, const int bg) {
   currentBackgroundColor = (GCOLOR)bg;
 }
 
+SGraphics::GCOLOR SGraphics::getColor(const std::string& color) {
+    if(color == "black")         return GCOLOR_BLACK;
+    if(color == "blue")          return GCOLOR_BLUE;
+    if(color == "green")         return GCOLOR_GREEN;
+    if(color == "cyan")          return GCOLOR_CYAN;
+    if(color == "red")           return GCOLOR_RED;
+    if(color == "magenta")       return GCOLOR_MAGENTA;
+    if(color == "brown")         return GCOLOR_BROWN;
+    if(color == "light gray")    return GCOLOR_LIGHTGRAY;
+    if(color == "dark gray")     return GCOLOR_DARKGRAY;
+    if(color == "light blue")    return GCOLOR_LIGHTBLUE;
+    if(color == "light green")   return GCOLOR_LIGHTGREEN;
+    if(color == "light cyan")    return GCOLOR_LIGHTCYAN;
+    if(color == "light red")     return GCOLOR_LIGHTRED;
+    if(color == "light magenta") return GCOLOR_LIGHTMAGENTA;
+    if(color == "yellow")        return GCOLOR_YELLOW;
+    if(color == "white")         return GCOLOR_WHITE;
+    return GCOLOR_WHITE;
+}
 
-/**
- * getForegroundColor
- *
- * Palauttaa implementoinnin mukaisen numeron taustavärille
- * (jos alusta ei tue kaikkia värejä, päätetään mikä väri
- * korvaa)
- *
- * @param col   värin nimi
- * @return      värin numeroarvo tässä implementaatiossa
- */
 int SGraphics::getForegroundColor(GCOLOR col) {
   switch(col) {
     case GCOLOR_BLACK:     return 0;
@@ -389,14 +269,6 @@ int SGraphics::getForegroundColor(GCOLOR col) {
   }
 }
 
-/**
- * getBackgroundColor
- *
- * Palauttaa implementoinnin mukaisen numeron piirtovärille
- *
- * @param col   värin nimi
- * @return      värin numeroarvo tässä implementaatiossa
- */
 int SGraphics::getBackgroundColor(GCOLOR col) {
   return getForegroundColor(col); // ainakin coniossa background on sama kuin foreground
 }

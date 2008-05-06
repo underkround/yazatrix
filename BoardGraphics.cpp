@@ -46,17 +46,18 @@ void CBoardGraphics::drawCell(const int x, const int y, CELL_TYPE ct) {
 }
 
 SGraphics::GCOLOR CBoardGraphics::getCellTypeColor(const int x, const int y, const CELL_TYPE ct) {
+  settings = &SConfig::getInstance();
   switch(ct) {
-    case OFFGRID: return SGraphics::GCOLOR_WHITE;
-    case BLOCK_Z: return SGraphics::GCOLOR_LIGHTRED;
-    case BLOCK_S: return SGraphics::GCOLOR_LIGHTGREEN;
-    case BLOCK_I: return SGraphics::GCOLOR_LIGHTCYAN;
-    case BLOCK_O: return SGraphics::GCOLOR_YELLOW;
-    case BLOCK_L: return SGraphics::GCOLOR_BROWN;
-    case BLOCK_J: return SGraphics::GCOLOR_LIGHTBLUE;
-    case BLOCK_T: return SGraphics::GCOLOR_LIGHTMAGENTA;
-    case EMPTY: return SGraphics::GCOLOR_BLACK;
-    case GHOST: return SGraphics::GCOLOR_BLACK;
+    case OFFGRID: return g->getColor(settings->getValueAsString("color offgrid"));
+    case BLOCK_Z: return g->getColor(settings->getValueAsString("color block Z"));
+    case BLOCK_S: return g->getColor(settings->getValueAsString("color block S"));
+    case BLOCK_I: return g->getColor(settings->getValueAsString("color block I"));
+    case BLOCK_O: return g->getColor(settings->getValueAsString("color block O"));
+    case BLOCK_L: return g->getColor(settings->getValueAsString("color block L"));
+    case BLOCK_J: return g->getColor(settings->getValueAsString("color block J"));
+    case BLOCK_T: return g->getColor(settings->getValueAsString("color block T"));
+    case EMPTY:   return g->getColor(settings->getValueAsString("color empty"));
+    case GHOST:   return g->getColor(settings->getValueAsString("color ghost"));
     default: return SGraphics::GCOLOR_WHITE;
   }
 }

@@ -7,6 +7,8 @@
  * $Id$
  * $Revision$
  *
+ * Tämä luokka huolehtii asetuksista, luokan käyttäjän ongelma on huolehtia siitä että kysyy asetuksia oikeassa tietotyypissä.
+ *
  */
 
 /*
