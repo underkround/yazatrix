@@ -6,8 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include "Graphics.h"
-
-#define SCORE_AMOUNT 10 //topten
+#include "Config.h"
 
 //miten on, mahtaako näiden using lauseiden yksitellen määrittäminen vaikuttaa käännöksen lopputulokseen?
 using std::vector;
@@ -45,8 +44,10 @@ public:
 
 private:
   SGraphics * g;
+  SConfig * settings;
   vector<Score*> scores;
   string m_strFilename;
+  int score_amount;
 };
 
 

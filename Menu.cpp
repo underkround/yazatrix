@@ -65,6 +65,8 @@ CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) 
 }
 
 CTetrisMenu::~CTetrisMenu(void) {
+  m_listMenuItems.clear();
+  delete &m_listMenuItems;
 }
 
 void CTetrisMenu::show() {
@@ -178,7 +180,7 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         logic->getStats()->unregisterListener(dynamic_cast<VStatsListener*>(stats));
         delete stats;
         delete logic;
-        input->registerListener(dynamic_cast<VCommandListener*>(this)); //TODO: miksi tämä ei palauta kontrollia käyttäjälle?
+        input->registerListener(dynamic_cast<VCommandListener*>(this));
 
       break; }
     case 1: {
