@@ -16,6 +16,7 @@
 
 #include "Tetromino.h"
 #include "TetrisCommon.h"
+#include "Config.h"
 
 class CTetrominoFactory {
 
@@ -40,6 +41,7 @@ class CTetrominoFactory {
     bool m_xiitBlocks;
     bool m_normBlocks;
     bool m_randomBlocks;
+    SConfig * settings;
 
     // tilastoa luoduista palikoista
     // todo: indeksitaulukko jossa totals[TETROMINOE] = m‰‰r‰

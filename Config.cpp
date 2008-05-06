@@ -32,7 +32,7 @@ void SConfig::readFile(void) {
     }
     kahva.close();
   }
-  else cout << "yhyy :("; //fail
+  else cout << "Configuration file \"" << m_strFilename << "\" could not be loaded."; //fail yhyy :(
 }
 
 int SConfig::getValueAsInt(string in_name) {

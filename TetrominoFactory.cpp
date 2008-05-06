@@ -13,11 +13,12 @@
 
 CTetrominoFactory::CTetrominoFactory() {
   // todo: alusta lastlog jne
+  settings = &SConfig::getInstance();
   m_creationCount = 0;
   srand((unsigned)time(0));
-  m_xiitBlocks = false;
-  m_normBlocks = true;
-  m_randomBlocks = false;
+  m_normBlocks = settings->getValueAsBool("normal blocks");
+  m_xiitBlocks = settings->getValueAsBool("xiit blocks");
+  m_randomBlocks = settings->getValueAsBool("random blocks");
 }
 
 CTetrominoFactory::~CTetrominoFactory() {

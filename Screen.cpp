@@ -1,3 +1,12 @@
+/**
+ * Screen.cpp
+ *
+ * $Revision$
+ * $Id$
+ *
+ * @see Screen.h
+ */
+
 #include "Screen.h"
 #include "Ticker.h"
 
