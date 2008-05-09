@@ -1,9 +1,10 @@
 #include "TetrisStats.h"
 
 CTetrisStats::CTetrisStats() {
+  settings = &SConfig::getInstance();
   m_tetrominoCounter = 0;
   m_score = 0;
-  m_level = 1;
+  m_level = settings->getValueAsInt("level");
   m_removedLines = 0;
   m_removedLinesLast = 0;
   m_dropDelay = 500;
@@ -16,10 +17,10 @@ void CTetrisStats::linesRemoved(const int lines) {
   m_removedLinesLast = lines;
   m_removedLines += lines;
   switch(lines) {
-    case 1: m_score += 10*m_level;break;
-    case 2: m_score += 30*m_level;break;
-    case 3: m_score += 60*m_level;break;
-    case 4: m_score += 100*m_level;break;
+    case 1: m_score += settings->getValueAsInt("score 1 line")*m_level;break;
+    case 2: m_score += settings->getValueAsInt("score 2 lines")*m_level;break;
+    case 3: m_score += settings->getValueAsInt("score 3 lines")*m_level;break;
+    case 4: m_score += settings->getValueAsInt("score 4 lines")*m_level;break;
     default: break;
   }
   notifyChangeInStats();
@@ -57,7 +58,7 @@ int CTetrisStats::getDropDelay() {
 
 void CTetrisStats::update() {
   // TODO: oikeaoppinen levelin laskeminen. lasketaanko räjäytetyistä riveistä vai palikoiden määrästä?
-  int level = (int)(m_tetrominoCounter / 20) + 1;
+  int level = (int)(m_tetrominoCounter / settings->getValueAsInt("level increase")) + 1;
   if(m_level <= LEVEL_MAX)
     m_level = level;
 }

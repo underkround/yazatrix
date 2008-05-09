@@ -23,6 +23,7 @@
 
 #include "StatsListener.h"
 #include "Observable.h"
+#include "Config.h"
 
 class CTetrisStats : public VObservable<VStatsListener> {
 
@@ -73,6 +74,7 @@ private: // private class members
   int         m_removedLinesLast;
   int         m_dropDelay;
   int         m_currentLevelTetrominoCounter;
+  SConfig     *settings;
 
 private: // private methods
 
