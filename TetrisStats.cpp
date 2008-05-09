@@ -7,7 +7,7 @@ CTetrisStats::CTetrisStats() {
   m_level = settings->getValueAsInt("level");
   m_removedLines = 0;
   m_removedLinesLast = 0;
-  m_dropDelay = 500;
+  m_dropDelay = settings->getValueAsInt("delay");
 }
 
 CTetrisStats::~CTetrisStats() {
