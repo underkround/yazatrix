@@ -33,10 +33,10 @@ CTetrisMenu::CTetrisMenu(){
   m_height = 25;
   m_width = 80;
   setColorSet(
-              SGraphics::GCOLOR_WHITE,  //menu fg
-              SGraphics::GCOLOR_BLACK,  //menu bg
-              SGraphics::GCOLOR_BLACK,  //selection fg
-              SGraphics::GCOLOR_WHITE); //selection bg
+              g->getColor(s->getValueAsString("menu foreground color")),           //menu fg
+              g->getColor(s->getValueAsString("menu background color")),           //menu bg
+              g->getColor(s->getValueAsString("menu selected foreground color")),  //selection fg
+              g->getColor(s->getValueAsString("menu selected background color"))); //selection bg
   createItems();
 }
 
@@ -57,10 +57,10 @@ CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) 
     m_height = height;
   }
   setColorSet(
-              SGraphics::GCOLOR_WHITE,  //menu fg
-              SGraphics::GCOLOR_GREEN,  //menu bg
-              SGraphics::GCOLOR_BLACK,  //selection fg
-              SGraphics::GCOLOR_WHITE); //selection bg
+              g->getColor(s->getValueAsString("menu foreground color")),           //menu fg
+              g->getColor(s->getValueAsString("menu background color")),           //menu bg
+              g->getColor(s->getValueAsString("menu selected foreground color")),  //selection fg
+              g->getColor(s->getValueAsString("menu selected background color"))); //selection bg
   createItems();
 }
 
