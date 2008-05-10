@@ -12,27 +12,26 @@
  * kuunteluun (yksi näppäimistöbufferi jota lukea..)
  *
  * Changelog
+ *   - korvattiin Singleton-templaten käyttö paikallisella getInstance:lla
  *   - vaihdettiin vektori pointteritaulukkoon
  */
 
-#include "Singleton.h"
 #include "TickListener.h"
 #include "CommandListener.h"
 #include "Observable.h"
 #include <stdio.h>
 
-class SKeyboardInput : public VObservable<VCommandListener>, public Singleton<SKeyboardInput>, public VTickListener {
-//class SKeyboardInput : public VObservable<VCommandListener>, public VTickListener {
+class SKeyboardInput : public VObservable<VCommandListener>, public VTickListener {
 
-friend class Singleton<SKeyboardInput>;
 friend class VObservable<VCommandListener>;
 
 public:
 
-/*  static SKeyboardInput& getInstance() {
-    static SKeyboardInput theSingleInstance;  // assumes T has a protected default constructor
+  /** Access to this singleton class */
+  static SKeyboardInput& getInstance() {
+    static SKeyboardInput theSingleInstance;
     return theSingleInstance;
-  }*/
+  }
 
   /**
    * @see TickListener.h
@@ -71,7 +70,7 @@ protected:
 
   /**
    * Konstruktori määritellään näkyvyydellä protected, jolloin
-   * pakotetaan käyttämään Instance() -metodia
+   * pakotetaan käyttämään getInstance() -metodia
    *
    * Rekisteröidytään konstruktorissa STickerille tick-listeneriksi,
    * että saadaan prosessoriaikaa näppäimistöbufferin lukuun.

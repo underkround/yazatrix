@@ -266,6 +266,7 @@
 			<Option target="testboard" />
 			<Option target="vs2008" />
 			<Option target="testconfig" />
+			<Option target="Debug" />
 		</Unit>
 		<Unit filename="KeyboardInput.h">
 			<Option target="Debug" />
@@ -280,6 +281,12 @@
 		<Unit filename="Main.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
+		</Unit>
+		<Unit filename="MainController.cpp">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="MainController.h">
+			<Option target="Debug" />
 		</Unit>
 		<Unit filename="Menu.cpp">
 			<Option target="Debug" />
@@ -336,16 +343,6 @@
 			<Option target="vs2008" />
 			<Option target="Debug" />
 			<Option target="Release" />
-		</Unit>
-		<Unit filename="Singleton.h">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="testtimer" />
-			<Option target="testlogic" />
-			<Option target="testkeyboard" />
-			<Option target="vs2008" />
-			<Option target="testmenu" />
-			<Option target="testconfig" />
 		</Unit>
 		<Unit filename="StatsListener.h">
 			<Option target="Debug" />

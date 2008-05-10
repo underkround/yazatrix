@@ -20,7 +20,6 @@
 - vaikeuteen liittyvät asetukset?
 */
 
-#include "Singleton.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -35,8 +34,9 @@ class SConfig {
 
   public:
 
+  /** Singleton */
   static SConfig& getInstance() {
-    static SConfig theSingleInstance;  // assumes T has a protected default constructor
+    static SConfig theSingleInstance;
     return theSingleInstance;
   }
 

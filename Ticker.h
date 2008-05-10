@@ -14,18 +14,14 @@
  */
 
 #include "TickListener.h"
-#include "Singleton.h"
 #include "TickTask.h"
 
-// TODO: singleton.h ei toimi tickerin kanssa :( dunno why
-//class STicker : public Singleton<STicker> {
 class STicker {
-//friend class Singleton<STicker>;
 
 public:
 
   static STicker& getInstance() {
-    static STicker theSingleInstance;  // assumes T has a protected default constructor
+    static STicker theSingleInstance;
     return theSingleInstance;
   }
 

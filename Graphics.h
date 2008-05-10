@@ -14,29 +14,25 @@
  * lisää build asetuksien linker asetuksiiin link libraries listaan libconio.a
  */
 
-#include "Singleton.h"
 #include <sstream>
 
-// TODO: Singleton ei toimi oikein kun kolme tai useampi luokka käyttää sitä
-class SGraphics : public Singleton<SGraphics> {
-//class SGraphics {
-
-friend class Singleton<SGraphics>;
+class SGraphics {
 
 public:
 
-/*  static SGraphics& getInstance() {
-    static SGraphics theSingleInstance;  // assumes T has a protected default constructor
+  /** Singleton */
+  static SGraphics& getInstance() {
+    static SGraphics theSingleInstance;
     return theSingleInstance;
-  }*/
+  }
 
-  // tuetut borderit
+  // handled borders
   enum BORDER_STYLE {
     BORDER_NONE,        BORDER_SIMPLE,    BORDER_SINGLE,    BORDER_GROOVE,
     BORDER_DOTTED,      BORDER_SQUARE,    BORDER_BLOCK
   };
 
-  // tuetut värit
+  // handled colors
   enum GCOLOR {
     GCOLOR_BLACK,       GCOLOR_BLUE,      GCOLOR_GREEN,     GCOLOR_CYAN,
     GCOLOR_RED,         GCOLOR_MAGENTA,   GCOLOR_BROWN,     GCOLOR_YELLOW,
