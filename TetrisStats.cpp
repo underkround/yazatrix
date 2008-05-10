@@ -1,3 +1,13 @@
+/**
+ * TetrisStats.cpp
+ *
+ * $Revision$
+ * $Id$
+ *
+ * @see TetrisStats.h
+ *
+ */
+
 #include "TetrisStats.h"
 
 CTetrisStats::CTetrisStats() {

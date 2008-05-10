@@ -1,3 +1,13 @@
+/**
+ * Menu.cpp
+ *
+ * $Revision$
+ * $Id$
+ *
+ * @see Menu.h
+ *
+ */
+
 #include "Menu.h"
 #include "Graphics.h"
 #include "Ticker.h"

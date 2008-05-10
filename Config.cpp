@@ -1,3 +1,13 @@
+/**
+ * Config.cpp
+ *
+ * $Revision$
+ * $Id$
+ *
+ * @see Config.h
+ *
+ */
+
 #include "Config.h"
 #include <iostream>
 #include <fstream>

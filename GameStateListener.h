@@ -1,5 +1,5 @@
-#ifndef GAMESTATELISTENER_H_INCLUDED
-#define GAMESTATELISTENER_H_INCLUDED
+#ifndef __GAMESTATELISTENER_H__
+#define __GAMESTATELISTENER_H__
 
 /**
  * GameStateListener.h
@@ -31,4 +31,4 @@ public:
 
 };
 
-#endif // GAMESTATELISTENER_H_INCLUDED
+#endif // __GAMESTATELISTENER_H__
