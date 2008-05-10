@@ -115,6 +115,8 @@ public:
    */
   int handleTick(void);
 
+  inline bool isRunning() { return m_running; }
+
 // ==================== PRIVATE ====================
 
 private:

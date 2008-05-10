@@ -16,16 +16,11 @@
 #include <string>
 #include <iostream>
 
-#include "./BoardGraphics.h"
-#include "./TetrisLogic.h"
-#include "./StatsPanel.h"
-#include "./StatsListener.h"
-
 using namespace std;
 
 CTetrisMenu::CTetrisMenu(){
   //rekisteröidytään näppäimistölle
-  SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
+  SKeyboardInput::getInstance().registerListener(static_cast<VCommandListener*>(this));
   //käytetään asetuksia
   s = &SConfig::getInstance();
   //käytetään grafiikkaa
@@ -42,11 +37,12 @@ CTetrisMenu::CTetrisMenu(){
               g->getColor(s->getValueAsString("menu selected front color")),     //selection fg
               g->getColor(s->getValueAsString("menu selected back color")));     //selection bg
   createItems();
+  m_game_cleanup = false;
 }
 
 CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) {
   //rekisteröidytään näppäimistölle
-  SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
+  SKeyboardInput::getInstance().registerListener(static_cast<VCommandListener*>(this));
   //käytetään asetuksia
   s = &SConfig::getInstance();
   //käytetään grafiikkaa
@@ -64,11 +60,14 @@ CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) 
               g->getColor(s->getValueAsString("menu selected front color")),  //selection fg
               g->getColor(s->getValueAsString("menu selected back color")));  //selection bg
   createItems();
+  m_game_cleanup = false;
 }
 
 CTetrisMenu::~CTetrisMenu(void) {
   m_listMenuItems.clear();
   delete &m_listMenuItems;
+  if(m_game_cleanup)
+    gameCleanup();
 }
 
 void CTetrisMenu::show() {
@@ -155,69 +154,45 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
 
     /** Start game */
     case 0: {
+        g->clearScreen();
 
-        // hiding, style #1
-        //hide();
-        //g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "                     ");
-        // hiding, style #2
-        for(int x=0; x < g->getWidth(); x++)
-          for(int y=0; y < g->getHeight(); y++)
-            g->drawChar(x, y, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_BLACK, ' ');
+        if(m_game_cleanup)
+          gameCleanup();
 
-        //SKeyboardInput::getInstance().unregisterListener( dynamic_cast<VCommandListener*>(this) );
-        SKeyboardInput *input = &SKeyboardInput::getInstance();
-        input->unregisterListener(dynamic_cast<VCommandListener*>(this));
+        // Poistetaan menu komentokuuntelijoista.
+        // Toinen tapa olisi laittaa flag jolloin menu ei reagoisi komentoihin kun peli on käynnissä,
+        // mutta tällä tapaa säästetään turhia kutsuja. Menu rekisteröidään uudelleen kuuntelijaksi
+        // kun peli on ohi (handleGameState-metodissa).
+        SKeyboardInput::getInstance().unregisterListener(static_cast<VCommandListener*>(this));
 
-        CTetrisLogic *logic = new CTetrisLogic();
-        CBoardGraphics *gbg = new CBoardGraphics(logic->getGameBoard(), 18, 2);
-        CBoardGraphics *pbg = new CBoardGraphics(logic->getPreviewBoard(), 34, 4);
-        CStatsPanel *stats = new CStatsPanel(logic->getStats(), 3, 5);
+        // jos aiemmin on luotu peli, vapautetaan sen viemä muisti ensin.
+        // TODO:  tämä ei ole paras paikka muistin vapautukselle, mutta oikeammassa paikassa tuli erinäisiä ongelmia,
+        //        johtuen pelin rakenteesta ja monesta sisäkkäisestä kutsusta.
+        m_game_logic = new CTetrisLogic();
+        m_game_gbg = new CBoardGraphics(m_game_logic->getGameBoard(), 18, 2);
+        m_game_pbg = new CBoardGraphics(m_game_logic->getPreviewBoard(), 34, 4);
+        m_game_stats = new CStatsPanel(m_game_logic->getStats(), 3, 5);
 
+        // rekisteröidään menu vastaanottamaan tieto pelin loppumisesta
+        m_game_logic->registerListener(static_cast<VGameStateListener*>(this));
         // rekisteröidään stats-paneeli vastaanottamaan statsit
-        logic->getStats()->registerListener(dynamic_cast<VStatsListener*>(stats));
-
+        m_game_logic->getStats()->registerListener(static_cast<VStatsListener*>(m_game_stats));
         // rekisteröidään pelilautapaneeli vastaanottamaan pelitilat
-        logic->registerListener(gbg);
+        m_game_logic->registerListener(m_game_gbg);
+        // rekisteröidään peli vastaanottamaan komentoja
+        SKeyboardInput::getInstance().registerListener(static_cast<VCommandListener*>(m_game_logic));
+        // ulkoasuhifistelyä
+        m_game_gbg->setBorderStyle(g->getBorder(s->getValueAsString("board border style")));
+        m_game_pbg->setBorderColor(g->getColor(s->getValueAsString("preview border color front")),
+                                   g->getColor(s->getValueAsString("preview border color back"))
+                                  );
+        m_game_pbg->setBorderStyle(g->getBorder(s->getValueAsString("preview border style")));
+        if(!m_game_logic->isRunning())
+          m_game_gbg->handleGameState(VGameStateListener::PAUSE);
 
-        input->registerListener( dynamic_cast<VCommandListener*>(logic) );
-        gbg->setBorderStyle(g->getBorder(s->getValueAsString("board border style")));
-        pbg->setBorderColor(g->getColor(s->getValueAsString("preview border color front")),
-                            g->getColor(s->getValueAsString("preview border color back"))
-                            );
-        pbg->setBorderStyle(g->getBorder(s->getValueAsString("preview border style")));
-
-        // === peli alkaa
-        logic->start();
-        STicker::getInstance().start();
-        // === peli loppuu
-
-        printf("111111111111111111111111111111111111111111111111111111111111111111111111");
-        printf("111111111111111111111111111111111111111111111111111111111111111111111111");
-        printf("111111111111111111111111111111111111111111111111111111111111111111111111");
-
-        delete gbg;
-        delete pbg;
-        input->unregisterListener(dynamic_cast<VCommandListener*>(logic));
-        logic->getStats()->unregisterListener(dynamic_cast<VStatsListener*>(stats));
-        delete stats;
-        delete logic;
-        input->registerListener(dynamic_cast<VCommandListener*>(this));
-
-        // rekisteröidytään takaisin näppäimistökuuntelijaksi
-        //SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
-        STicker::getInstance().start();
-
-        printf("222222222222222222222222222222222222222222222222222222222222222222222222");
-        printf("222222222222222222222222222222222222222222222222222222222222222222222222");
-        printf("222222222222222222222222222222222222222222222222222222222222222222222222");
-
-        // hiding, style #2
-        for(int x=0; x < g->getWidth(); x++)
-          for(int y=0; y < g->getHeight(); y++)
-            g->drawChar(x, y, SGraphics::GCOLOR_BLUE , SGraphics::GCOLOR_BLUE, ' ');
-
-        show();
-
+        // peli on käynnistetty, ja se rupeaa pyörimään seuraavalla tickillä
+        // merkitään pelioliot tuhottavaksi uuden pelin käynnistyksessä, tai ohjelman lopussa
+        m_game_cleanup = true;
       break; }
 
     /** About */
@@ -243,4 +218,43 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
       return false; }
   }
   return true;
+}
+
+void CTetrisMenu::handleGameState(VGameStateListener::GAMESTATE state) {
+  switch(state) {
+    case VGameStateListener::EXIT: {
+      SKeyboardInput::getInstance().unregisterListener(static_cast<VCommandListener*>(m_game_logic));
+      m_game_logic->getStats()->unregisterListener(static_cast<VStatsListener*>(m_game_stats));
+
+      // muistin vapautus kuuluisi tähän, mutta johtuen monimutkaisista kutsujonoista, nämä
+      // deletet aiheuttavata kaatumisen, joten tilapäisesti on siirrytty käyttämään m_game_cleanup
+      // flagia ja cleanup-metodia pelin luonnissa sekä destructorissa.
+      //delete m_game_gbg;
+      //delete m_game_pbg;
+      //delete m_game_stats;
+      //delete m_game_logic;
+
+      // rekisteröidytään takaisin näppäimistökuuntelijaksi
+      SKeyboardInput::getInstance().registerListener(static_cast<VCommandListener*>(this));
+      //STicker::getInstance().start();
+
+      g->clearScreen();
+      show();
+      break;
+    }
+
+    default: {
+      break;
+    }
+  }
+}
+
+void CTetrisMenu::gameCleanup() {
+  if(m_game_cleanup) {
+    delete m_game_gbg;
+    delete m_game_pbg;
+    delete m_game_stats;
+    delete m_game_logic;
+    m_game_cleanup = false;
+  }
 }

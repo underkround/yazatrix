@@ -247,6 +247,7 @@
 		</Unit>
 		<Unit filename="GameStateListener.h">
 			<Option target="Debug" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="Graphics.h">
 			<Option target="Debug" />

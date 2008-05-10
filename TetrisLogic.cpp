@@ -73,10 +73,10 @@ bool CTetrisLogic::start(void) {
 }
 
 void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
-  if(m_gameOver) {
+  /*if(m_gameOver) {
     STicker::getInstance().stop();
     return;
-  }
+  }*/
   if(!m_running)
     start();
   if(m_running && !m_gameOver) {
@@ -109,11 +109,13 @@ void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
       case GAME_COMMAND_QUIT:
         // TODO: pysäytä timer
         m_gameOver = true;
-        notifyGameState(VGameStateListener::GAMEOVER);
+        notifyGameState(VGameStateListener::GAMEOVER); // abort running game
         break;
       default:
         break;
     }
+  } else if(m_gameOver && cmd == GAME_COMMAND_QUIT) {
+    notifyGameState(VGameStateListener::EXIT); // game already over - exit from game
   }
 }
 
@@ -160,6 +162,7 @@ void CTetrisLogic::rotateTetrominoes() {
     // Yrittää kiinnittää uuden nykyisen palikan gameBoardiin. Jos ei onnistu, peli loppuu
     if(!m_currentTetromino->attach(m_gameBoard)) {
       m_gameOver = true;
+      notifyGameState(VGameStateListener::GAMEOVER);
     } else {
       // asetetaan ghost päälle gameboardissa olevalle palikalle
       m_currentTetromino->setGhost(settings->getValueAsBool("ghost"));

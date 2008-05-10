@@ -55,6 +55,7 @@ private:
   SConfig *settings;
   int m_squareWidth;
   int m_squareHeight;
+  bool m_visible;
 
   void drawCell(const int x, const int y, CELL_TYPE ct); // x ja y ovat boardin koordinaatteja, eivät ruudun
 

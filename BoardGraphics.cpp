@@ -12,9 +12,10 @@
 
 CBoardGraphics::CBoardGraphics(CTetrisBoard *myBoard, int offsetX, int offsetY) {
   board = myBoard;
+  m_visible = true;
   g = &SGraphics::getInstance();
   // rekisteröidy boardille kuuntelijaksi
-  VBoardChangeListener *bcl = dynamic_cast<VBoardChangeListener*>(this);
+  VBoardChangeListener *bcl = static_cast<VBoardChangeListener*>(this);
   board->registerListener( bcl );
   m_x = offsetX;
   m_y = offsetY;
@@ -36,6 +37,7 @@ CBoardGraphics::~CBoardGraphics() {
 
 // tätä käyttäen piirretään solut
 void CBoardGraphics::drawCell(const int x, const int y, CELL_TYPE ct) {
+  if(!m_visible) return;
   int ax = (m_border) ? x*m_squareWidth+m_x+1 : x*m_squareWidth+m_x;
   int ay = (m_border) ? m_height+m_y-y*m_squareHeight : m_height+m_y-y*m_squareHeight-1;
   g->drawSquare(ax,ay,getCellTypeColor(x, y, ct));
@@ -109,17 +111,24 @@ void CBoardGraphics::handleGameState(VGameStateListener::GAMESTATE state) {
   switch(state) {
     case VGameStateListener::PAUSE: {
       //handleFreshBoard();
-      int x = m_x + m_width / 2 - 5;
+      int x = m_x + m_width / 2 - 4;
       int y = m_y + m_height / 2;
-      g->drawString(x, y, SGraphics::GCOLOR_YELLOW, SGraphics::GCOLOR_BLACK, "GAME PAUSED");
+      g->drawString(x, y-1, SGraphics::GCOLOR_YELLOW, SGraphics::GCOLOR_BLACK, "* PAUSED *");
+      g->drawString(x, y+1, SGraphics::GCOLOR_YELLOW, SGraphics::GCOLOR_BLACK, "(button p)");
       break;
     }
 
     case VGameStateListener::GAMEOVER: {
       //handleFreshBoard();
-      int x = m_x + m_width / 2 - 4;
+      int x = m_x + m_width / 2 - 5;
       int y = m_y + m_height / 2;
-      g->drawString(x, y, SGraphics::GCOLOR_YELLOW, SGraphics::GCOLOR_BLACK, "GAME OVER!");
+      g->drawString(x, y-1, SGraphics::GCOLOR_YELLOW, SGraphics::GCOLOR_BLACK, " GAME OVER! ");
+      g->drawString(x, y+1, SGraphics::GCOLOR_YELLOW, SGraphics::GCOLOR_BLACK, "(press esc)");
+      break;
+    }
+
+    case VGameStateListener::EXIT: {
+      m_visible = false;
       break;
     }
 

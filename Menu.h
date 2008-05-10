@@ -14,12 +14,19 @@
 #include "Panel.h"
 #include "Graphics.h"
 #include "CommandListener.h"
+#include "GameStateListener.h"
 #include "Config.h"
 #include <vector>
 #include <string>
 
-class CTetrisMenu : public VPanel, VCommandListener {
-  public:
+#include "./BoardGraphics.h"
+#include "./TetrisLogic.h"
+#include "./StatsPanel.h"
+#include "./StatsListener.h"
+
+class CTetrisMenu : public VPanel, public VCommandListener, public VGameStateListener {
+
+public:
   CTetrisMenu();
   CTetrisMenu(int x_position, int y_position, int width, int height);
   virtual ~CTetrisMenu(void);
@@ -75,7 +82,10 @@ class CTetrisMenu : public VPanel, VCommandListener {
    */
   virtual void handleCommand(VCommandListener::COMMAND cmd);
 
-  private:
+  /** @see GameStateListener.h */
+  virtual void handleGameState(VGameStateListener::GAMESTATE state);
+
+private:
   //Luokan omat muuttujat
   int m_intMenuLength;
   int m_intSelectedItem;
@@ -84,6 +94,13 @@ class CTetrisMenu : public VPanel, VCommandListener {
   SGraphics::GCOLOR menu_fg, menu_bg, selected_fg, selected_bg;
   SGraphics *g;
   SConfig *s;
+
+  // peliluokat
+  CTetrisLogic    *m_game_logic;
+  CBoardGraphics  *m_game_gbg;
+  CBoardGraphics  *m_game_pbg;
+  CStatsPanel     *m_game_stats;
+  bool            m_game_cleanup;
 
   /**
    * CreateItems
@@ -120,7 +137,7 @@ class CTetrisMenu : public VPanel, VCommandListener {
    *
    * @return palauttaa tiedon toiminnon onnistumisesta
    */
-   inline bool selectionSelect() { return selectionSelect(m_intSelectedItem); }
+  inline bool selectionSelect() { return selectionSelect(m_intSelectedItem); }
 
   /**
    * selectionSelect
@@ -130,7 +147,12 @@ class CTetrisMenu : public VPanel, VCommandListener {
    * @param item_number haluttu menu item
    * @return palauttaa tiedon toiminnon onnistumisesta
    */
-   bool selectionSelect(const int item_number);
+  bool selectionSelect(const int item_number);
+
+  /**
+   */
+  void gameCleanup(void);
+
 };
 
 #endif //__MENU_H__
