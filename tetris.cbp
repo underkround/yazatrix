@@ -31,6 +31,8 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio.a" />
+					<Add library="C:\Program Files\codeblocks\devpaks\lib\libconio_unicode.a" />
 				</Linker>
 			</Target>
 			<Target title="testboard">
