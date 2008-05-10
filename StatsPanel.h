@@ -14,6 +14,7 @@
 #include "Panel.h"
 #include "TetrisStats.h"
 #include "TickListener.h"
+#include "Config.h"
 #include <sstream>
 
 class CStatsPanel : public VStatsListener, public VPanel, public VTickListener {
@@ -33,6 +34,7 @@ public:
 private:
 
   SGraphics               *g;
+  SConfig                 *s;
   SGraphics::GCOLOR m_foreground2;
   int m_score;
   int m_level;

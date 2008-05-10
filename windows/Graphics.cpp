@@ -247,6 +247,16 @@ SGraphics::GCOLOR SGraphics::getColor(const std::string& color) {
     return GCOLOR_WHITE;
 }
 
+SGraphics::BORDER_STYLE SGraphics::getBorder(const std::string& border) {
+    if(border == "simple")  return BORDER_SIMPLE;
+    if(border == "single")  return BORDER_SINGLE;
+    if(border == "groove")  return BORDER_GROOVE;
+    if(border == "dotted")  return BORDER_DOTTED;
+    if(border == "square")  return BORDER_SQUARE;
+    if(border == "block")   return BORDER_BLOCK;
+    return BORDER_NONE;
+}
+
 int SGraphics::getForegroundColor(GCOLOR col) {
   switch(col) {
     case GCOLOR_BLACK:     return 0;

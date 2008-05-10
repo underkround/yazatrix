@@ -14,8 +14,9 @@
 
 CStatsPanel::CStatsPanel(const CTetrisStats *stats, const int x, const int y) {
   g = &SGraphics::getInstance();
-  m_borderStyle = SGraphics::BORDER_SINGLE;
-  m_borderFG = SGraphics::GCOLOR_LIGHTCYAN;
+  s = &SConfig::getInstance();
+  m_borderStyle = g->getBorder(s->getValueAsString("stats border style"));
+  m_borderFG = g->getColor(s->getValueAsString("stats border color"));
 //  stats->registerListener(dynamic_cast<VStatsListener*>(this));
   m_width = 12;
   m_height = 6;
@@ -25,10 +26,10 @@ CStatsPanel::CStatsPanel(const CTetrisStats *stats, const int x, const int y) {
   m_level = 1;
   m_reml = 0;
   m_remll = 0;
-  m_foreground = SGraphics::GCOLOR_LIGHTMAGENTA;
-  m_foreground2 = SGraphics::GCOLOR_MAGENTA;
+  m_foreground = g->getColor(s->getValueAsString("stats color points"));
+  m_foreground2 = g->getColor(s->getValueAsString("stats color text"));
   m_flashCount = 0;
-  m_flashOn = true;
+  m_flashOn = s->getValueAsBool("stats flash");
   drawBorder();
   draw();
 }

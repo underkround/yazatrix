@@ -33,10 +33,10 @@ CTetrisMenu::CTetrisMenu(){
   m_height = 25;
   m_width = 80;
   setColorSet(
-              g->getColor(s->getValueAsString("menu foreground color")),           //menu fg
-              g->getColor(s->getValueAsString("menu background color")),           //menu bg
-              g->getColor(s->getValueAsString("menu selected foreground color")),  //selection fg
-              g->getColor(s->getValueAsString("menu selected background color"))); //selection bg
+              g->getColor(s->getValueAsString("menu front color")),              //menu fg
+              g->getColor(s->getValueAsString("menu back color")),               //menu bg
+              g->getColor(s->getValueAsString("menu selected front color")),     //selection fg
+              g->getColor(s->getValueAsString("menu selected back color")));     //selection bg
   createItems();
 }
 
@@ -57,10 +57,10 @@ CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) 
     m_height = height;
   }
   setColorSet(
-              g->getColor(s->getValueAsString("menu foreground color")),           //menu fg
-              g->getColor(s->getValueAsString("menu background color")),           //menu bg
-              g->getColor(s->getValueAsString("menu selected foreground color")),  //selection fg
-              g->getColor(s->getValueAsString("menu selected background color"))); //selection bg
+              g->getColor(s->getValueAsString("menu front color")),           //menu fg
+              g->getColor(s->getValueAsString("menu back color")),            //menu bg
+              g->getColor(s->getValueAsString("menu selected front color")),  //selection fg
+              g->getColor(s->getValueAsString("menu selected back color")));  //selection bg
   createItems();
 }
 
@@ -170,9 +170,11 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         logic->getStats()->registerListener(dynamic_cast<VStatsListener*>(stats));
 
         input->registerListener( dynamic_cast<VCommandListener*>(logic) );
-        gbg->setBorderStyle(SGraphics::BORDER_BLOCK);
-        pbg->setBorderColor(SGraphics::GCOLOR_LIGHTGREEN, SGraphics::GCOLOR_GREEN);
-        pbg->setBorderStyle(SGraphics::BORDER_SQUARE);
+        gbg->setBorderStyle(g->getBorder(s->getValueAsString("board border style")));
+        pbg->setBorderColor(g->getColor(s->getValueAsString("preview border color front")),
+                            g->getColor(s->getValueAsString("preview border color back"))
+                            );
+        pbg->setBorderStyle(g->getBorder(s->getValueAsString("preview border style")));
 
         logic->start();
         STicker::getInstance().start();

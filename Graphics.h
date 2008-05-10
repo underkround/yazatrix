@@ -178,6 +178,17 @@ public:
    */
   GCOLOR getColor(const std::string& color);
 
+  /**
+   * getBorder
+   *
+   * Palauttaa borderin nimen perusteella
+   *
+   * @param border  haluttu border
+   * @return        border
+   *
+   */
+  BORDER_STYLE getBorder(const std::string& border);
+
 private:
 
   /**
