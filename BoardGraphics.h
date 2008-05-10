@@ -24,8 +24,9 @@
 #include "TetrisBoard.h"
 #include "Graphics.h"
 #include "Config.h"
+#include "GameStateListener.h"
 
-class CBoardGraphics : public VBoardChangeListener, public VPanel {
+class CBoardGraphics : public VBoardChangeListener, public VPanel, public VGameStateListener {
 
 public:
   /**
@@ -38,11 +39,14 @@ public:
 
   virtual ~CBoardGraphics();
 
-  /** Tarkemmat selitykset @ BoardChangeListener.h */
+  /** @see BoardChangeListener.h */
   virtual void handleFreshBoard();
   virtual void handleChangeInLines(const int *changedLines[], const int numLines);
   virtual void handleChangeInCoord(const int x, const int y, const CELL_TYPE ct);
   virtual void handleChangeInStats(const int score, const int reml, const int remll, const int level);
+
+  /** @see GameStateListener.h */
+  virtual void handleGameState(VGameStateListener::GAMESTATE state);
 
 private:
 

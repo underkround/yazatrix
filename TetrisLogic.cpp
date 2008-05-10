@@ -66,12 +66,17 @@ CTetrisLogic::~CTetrisLogic() {
 bool CTetrisLogic::start(void) {
   if(!m_gameOver) {
     m_running = true;
+    notifyGameState(VGameStateListener::RESUME);
     return true;
   }
   return false;
 }
 
 void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
+  if(m_gameOver) {
+    STicker::getInstance().stop();
+    return;
+  }
   if(!m_running)
     start();
   if(m_running && !m_gameOver) {
@@ -99,11 +104,12 @@ void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
         break;
       case GAME_COMMAND_PAUSE:
         m_running = false; // TODO: parempi pause. tämä on vaan tilapäinen
+        notifyGameState(VGameStateListener::PAUSE);
         break;
       case GAME_COMMAND_QUIT:
         // TODO: pysäytä timer
         m_gameOver = true;
-
+        notifyGameState(VGameStateListener::GAMEOVER);
         break;
       default:
         break;
@@ -112,6 +118,10 @@ void CTetrisLogic::handleCommand(VCommandListener::COMMAND cmd) {
 }
 
 int CTetrisLogic::handleTick() {
+  if(m_gameOver) {
+    myTickTask = 0;
+    return -1;
+  }
   // testataan onko nykyinen palikka jos laskeutunut
   if(!m_running)
     return 10;
@@ -124,10 +134,6 @@ int CTetrisLogic::handleTick() {
   } else {
     // tiputetaan nykyistä palikkaa
     m_currentTetromino->moveDown();
-  }
-  if(m_gameOver) {
-    myTickTask = 0;
-    return -1;
   }
   return m_stats->getDropDelay();
 }
@@ -159,4 +165,9 @@ void CTetrisLogic::rotateTetrominoes() {
       m_currentTetromino->setGhost(settings->getValueAsBool("ghost"));
     }
   }
+}
+
+void CTetrisLogic::notifyGameState(VGameStateListener::GAMESTATE state) {
+  for(int i=0; i<m_listenerCount; i++)
+    listeners[i]->handleGameState(state);
 }

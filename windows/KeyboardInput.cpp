@@ -80,7 +80,11 @@ void SKeyboardInput::handleKeyPress(char key) {
         notifyCommand(VCommandListener::GAME_COMMAND_QUIT);
         break;
 
-      // q - instant exit
+      case 112:
+        notifyCommand(VCommandListener::GAME_COMMAND_PAUSE);
+        break;
+
+      // q - instant exitco
       case 113:
         STicker::getInstance().stop();
         break;

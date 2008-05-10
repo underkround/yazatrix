@@ -173,7 +173,11 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         CBoardGraphics *pbg = new CBoardGraphics(logic->getPreviewBoard(), 34, 4);
         CStatsPanel *stats = new CStatsPanel(logic->getStats(), 3, 5);
 
+        // rekisteröidään stats-paneeli vastaanottamaan statsit
         logic->getStats()->registerListener(dynamic_cast<VStatsListener*>(stats));
+
+        // rekisteröidään pelilautapaneeli vastaanottamaan pelitilat
+        logic->registerListener(gbg);
 
         input->registerListener( dynamic_cast<VCommandListener*>(logic) );
         gbg->setBorderStyle(g->getBorder(s->getValueAsString("board border style")));
@@ -182,11 +186,14 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
                             );
         pbg->setBorderStyle(g->getBorder(s->getValueAsString("preview border style")));
 
+        // === peli alkaa
         logic->start();
         STicker::getInstance().start();
+        // === peli loppuu
 
-        // rekisteröidytään takaisin näppäimistökuuntelijaksi
-        SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
+        printf("111111111111111111111111111111111111111111111111111111111111111111111111");
+        printf("111111111111111111111111111111111111111111111111111111111111111111111111");
+        printf("111111111111111111111111111111111111111111111111111111111111111111111111");
 
         delete gbg;
         delete pbg;
@@ -196,10 +203,20 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         delete logic;
         input->registerListener(dynamic_cast<VCommandListener*>(this));
 
+        // rekisteröidytään takaisin näppäimistökuuntelijaksi
+        //SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
+        STicker::getInstance().start();
+
+        printf("222222222222222222222222222222222222222222222222222222222222222222222222");
+        printf("222222222222222222222222222222222222222222222222222222222222222222222222");
+        printf("222222222222222222222222222222222222222222222222222222222222222222222222");
+
         // hiding, style #2
         for(int x=0; x < g->getWidth(); x++)
           for(int y=0; y < g->getHeight(); y++)
-            g->drawChar(x, y, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_BLACK, ' ');
+            g->drawChar(x, y, SGraphics::GCOLOR_BLUE , SGraphics::GCOLOR_BLUE, ' ');
+
+        show();
 
       break; }
 

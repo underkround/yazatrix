@@ -103,3 +103,28 @@ void CBoardGraphics::handleChangeInCoord(const int x, const int y, const CELL_TY
 void CBoardGraphics::handleChangeInStats(int score, int reml, int remll, int level) {
   // atm ei tehdä mitään muutosilmoituksilla
 }
+
+void CBoardGraphics::handleGameState(VGameStateListener::GAMESTATE state) {
+  // TODO
+  switch(state) {
+    case VGameStateListener::PAUSE: {
+      //handleFreshBoard();
+      int x = m_x + m_width / 2 - 5;
+      int y = m_y + m_height / 2;
+      g->drawString(x, y, SGraphics::GCOLOR_YELLOW, SGraphics::GCOLOR_BLACK, "GAME PAUSED");
+      break;
+    }
+
+    case VGameStateListener::GAMEOVER: {
+      //handleFreshBoard();
+      int x = m_x + m_width / 2 - 4;
+      int y = m_y + m_height / 2;
+      g->drawString(x, y, SGraphics::GCOLOR_YELLOW, SGraphics::GCOLOR_BLACK, "GAME OVER!");
+      break;
+    }
+
+    default: {
+      handleFreshBoard();
+    }
+  }
+}

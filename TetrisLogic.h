@@ -24,6 +24,7 @@
 #include "Tetromino.h"
 #include "TetrisCommon.h"
 #include "TetrominoFactory.h"
+#include "GameStateListener.h"
 
 //#define PREVIEW_TETROMINOES 3
 #define GAMEBOARD_WIDTH 12
@@ -31,9 +32,9 @@
 //#define PREVIEWBOARD_WIDTH 4
 //#define PREVIEWBOARD_HEIGHT 20 //jahas t‰t‰ ei k‰ytet‰ miss‰‰n
 
-class CTetrisLogic : public VObservable<VBoardChangeListener>, public VCommandListener, public VTickListener {
+class CTetrisLogic : public VObservable<VGameStateListener>, public VCommandListener, public VTickListener {
 
-friend class VObservable<VBoardChangeListener>;
+friend class VObservable<VGameStateListener>;
 
 public:
 
@@ -156,6 +157,8 @@ private:
   void rotateTetrominoes(void);
 
   void initialize(void);
+
+  void notifyGameState(VGameStateListener::GAMESTATE state);
 
 };
 
