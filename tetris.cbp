@@ -282,12 +282,6 @@
 			<Option target="Debug" />
 			<Option target="Release" />
 		</Unit>
-		<Unit filename="MainController.cpp">
-			<Option target="Debug" />
-		</Unit>
-		<Unit filename="MainController.h">
-			<Option target="Debug" />
-		</Unit>
 		<Unit filename="Menu.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />

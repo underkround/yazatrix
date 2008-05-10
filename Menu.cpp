@@ -19,7 +19,7 @@ using namespace std;
 
 CTetrisMenu::CTetrisMenu(){
   //rekisteröidytään tickerille
-  STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
+  //STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
   SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
   //käytetään asetuksia
@@ -58,7 +58,7 @@ CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) 
   }
   setColorSet(
               SGraphics::GCOLOR_WHITE,  //menu fg
-              SGraphics::GCOLOR_BLACK,  //menu bg
+              SGraphics::GCOLOR_GREEN,  //menu bg
               SGraphics::GCOLOR_BLACK,  //selection fg
               SGraphics::GCOLOR_WHITE); //selection bg
   createItems();
@@ -70,6 +70,7 @@ CTetrisMenu::~CTetrisMenu(void) {
 }
 
 void CTetrisMenu::show() {
+  draw();
   vector<string>::iterator iter = m_listMenuItems.begin();
   for(int i=0;i<m_intMenuLength;i++,iter++) {
     drawMenuItem(i, *iter);
@@ -153,8 +154,10 @@ void CTetrisMenu::selectionDown() {
 
 bool CTetrisMenu::selectionSelect(const int item_number) {
   switch(item_number) {
+
+    /** Start game */
     case 0: {
-      //
+        hide();
         //SKeyboardInput::getInstance().unregisterListener( dynamic_cast<VCommandListener*>(this) );
         SKeyboardInput *input = &SKeyboardInput::getInstance();
         input->unregisterListener(dynamic_cast<VCommandListener*>(this));
@@ -183,17 +186,24 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         input->registerListener(dynamic_cast<VCommandListener*>(this));
 
       break; }
+
+    /** About */
     case 1: {
       g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "tehnyt antti ja jussi");
       break; }
+
+    /** Quit */
     case 2: {
-      g->drawString(2, 6, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Bye!");
+      g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Bye!                 ");
       STicker::getInstance().stop();
       break; }
+
+    /** Configuration */
     case 3: {
       g->drawString(0, 0, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Configuration:\n\n");
       s->printSettings();
       break; }
+
     default: {
       g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "lol xiit wallhack    ");
       return false; }

@@ -81,3 +81,11 @@ void VPanel::drawBorder(void) {
     SGraphics::getInstance().drawBox(m_x, m_y, m_x+m_width+1, m_y+m_height+1, m_borderStyle);
   }
 }
+
+void VPanel::hide(void) {
+  int w = (m_border) ? m_width+2 : m_width;
+  int h = (m_border) ? m_height+2 : m_height;
+  for(int x = m_x; x<m_x+w; x++)
+    for(int y = m_y; y<m_y+h; y++)
+      SGraphics::getInstance().drawChar(x, y, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_BLACK, ' ');
+}

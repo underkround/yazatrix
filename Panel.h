@@ -37,6 +37,9 @@ public:
   // panelin tulee piirt‰‰ itsens‰ kun t‰t‰ kutsutaan
   virtual void draw(void);
 
+  // piirt‰‰ taustav‰ri‰ paneelin kohtaan
+  virtual void hide(void);
+
 protected:
 
   SGraphics::BORDER_STYLE m_borderStyle;
