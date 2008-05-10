@@ -1,6 +1,7 @@
 #include "./Config.h"
 #include "./menu.h"
 #include "./Ticker.h"
+#include "./Graphics.h"
 
 #include <iostream>
 using namespace std;
@@ -34,7 +35,8 @@ int main(int argc, char** argv) {
   }
 
   /**/
-  CTetrisMenu * menu = new CTetrisMenu(30, 5, 13, 6);
+  SGraphics * graphics = &SGraphics::getInstance();
+  CTetrisMenu * menu = new CTetrisMenu((graphics->getWidth()/2-6), 5, 12, 6);
   menu->show();
   STicker::getInstance().start();
 
