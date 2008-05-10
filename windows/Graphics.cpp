@@ -70,6 +70,11 @@ void SGraphics::drawString(const int x, const int y, const GCOLOR fg, const GCOL
   cout << str;
 }
 
+void SGraphics::clearScreen() {
+  resetColors();
+  clrscr();
+}
+
 //void SGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const int borderstyle) {
 void SGraphics::drawBox(const int from_x, const int from_y, const int to_x, const int to_y, const BORDER_STYLE borderstyle) {
   char n,e,w,s,se,nw,ne,sw;

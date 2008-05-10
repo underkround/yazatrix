@@ -102,6 +102,14 @@ public:
   void drawString(const int x, const int y, const GCOLOR bg, const GCOLOR fg, const char* str);
   void drawString(const int x, const int y, const GCOLOR bg, const GCOLOR fg, const std::string str);
 
+  /**
+   * clearScreen
+   *
+   * Ruudun pyyhkiminen tyhjäksi
+   *
+   */
+  void clearScreen();
+
   //*** älykkäämmät piirtotyökalut ***
 
   /**

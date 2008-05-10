@@ -24,11 +24,11 @@
 using namespace std;
 
 CTetrisMenu::CTetrisMenu(){
-  //rekisterÃ¶idytÃ¤Ã¤n nÃ¤ppÃ¤imistÃ¶lle
+  //rekisteröidytään näppäimistölle
   SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
-  //kÃ¤ytetÃ¤Ã¤n asetuksia
+  //käytetään asetuksia
   s = &SConfig::getInstance();
-  //kÃ¤ytetÃ¤Ã¤n grafiikkaa
+  //käytetään grafiikkaa
   g = &SGraphics::getInstance();
   setX(1);
   setY(1);
@@ -45,11 +45,11 @@ CTetrisMenu::CTetrisMenu(){
 }
 
 CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) {
-  //rekisterÃ¶idytÃ¤Ã¤n nÃ¤ppÃ¤imistÃ¶lle
+  //rekisteröidytään näppäimistölle
   SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
-  //kÃ¤ytetÃ¤Ã¤n asetuksia
+  //käytetään asetuksia
   s = &SConfig::getInstance();
-  //kÃ¤ytetÃ¤Ã¤n grafiikkaa
+  //käytetään grafiikkaa
   g = &SGraphics::getInstance();
   //paneelille:
   {
@@ -173,10 +173,10 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         CBoardGraphics *pbg = new CBoardGraphics(logic->getPreviewBoard(), 34, 4);
         CStatsPanel *stats = new CStatsPanel(logic->getStats(), 3, 5);
 
-        // rekisterÃ¶idÃ¤Ã¤n stats-paneeli vastaanottamaan statsit
+        // rekisteröidään stats-paneeli vastaanottamaan statsit
         logic->getStats()->registerListener(dynamic_cast<VStatsListener*>(stats));
 
-        // rekisterÃ¶idÃ¤Ã¤n pelilautapaneeli vastaanottamaan pelitilat
+        // rekisteröidään pelilautapaneeli vastaanottamaan pelitilat
         logic->registerListener(gbg);
 
         input->registerListener( dynamic_cast<VCommandListener*>(logic) );
@@ -203,7 +203,7 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         delete logic;
         input->registerListener(dynamic_cast<VCommandListener*>(this));
 
-        // rekisterÃ¶idytÃ¤Ã¤n takaisin nÃ¤ppÃ¤imistÃ¶kuuntelijaksi
+        // rekisteröidytään takaisin näppäimistökuuntelijaksi
         //SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
         STicker::getInstance().start();
 
@@ -227,7 +227,8 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
 
     /** Quit */
     case 2: {
-      g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Bye!                 ");
+      g->clearScreen();
+      g->drawString(1, 1, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Bye!");
       STicker::getInstance().stop();
       break; }
 
