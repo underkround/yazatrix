@@ -18,10 +18,6 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-  int foo[5][5];
-  foo[2][3] = 17;
-  printf(" %d ", foo[2][3]);
-
   char * configfile = NULL;
   configfile = "Tetris.ini"; //default config file
   SConfig * settings = &SConfig::getInstance();
