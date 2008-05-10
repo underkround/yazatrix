@@ -14,12 +14,11 @@
 #include "Panel.h"
 #include "Graphics.h"
 #include "CommandListener.h"
-#include "TickListener.h"
 #include "Config.h"
 #include <vector>
 #include <string>
 
-class CTetrisMenu : public VPanel, VCommandListener, VTickListener {
+class CTetrisMenu : public VPanel, VCommandListener {
   public:
   CTetrisMenu();
   CTetrisMenu(int x_position, int y_position, int width, int height);
@@ -75,15 +74,6 @@ class CTetrisMenu : public VPanel, VCommandListener, VTickListener {
    *
    */
   virtual void handleCommand(VCommandListener::COMMAND cmd);
-
-
-  /**
-   * TickListeneriltä peritty
-   *
-   * @see TickListener.h
-   */
-  virtual int handleTick();
-  //int handleTick(void);
 
   private:
   //Luokan omat muuttujat

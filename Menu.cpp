@@ -8,18 +8,12 @@
 
 #include "./BoardGraphics.h"
 #include "./TetrisLogic.h"
-#include "./TickListener.h"
-#include "./Ticker.h"
 #include "./StatsPanel.h"
 #include "./StatsListener.h"
-
-#define MENU_TICKDELAY 10
 
 using namespace std;
 
 CTetrisMenu::CTetrisMenu(){
-  //rekisteröidytään tickerille
-  //STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
   SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
   //käytetään asetuksia
@@ -41,8 +35,6 @@ CTetrisMenu::CTetrisMenu(){
 }
 
 CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) {
-  //rekisteröidytään tickerille
-  //STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
   SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
   //käytetään asetuksia
@@ -119,10 +111,6 @@ void CTetrisMenu::handleCommand(VCommandListener::COMMAND cmd) {
     default:
       break;
   }
-}
-
-int CTetrisMenu::handleTick(void) {
-  return MENU_TICKDELAY;
 }
 
 void CTetrisMenu::createItems(void) {
