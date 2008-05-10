@@ -245,6 +245,9 @@
 			<Option target="testmenu" />
 			<Option target="testconfig" />
 		</Unit>
+		<Unit filename="GameStateListener.h">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="Graphics.h">
 			<Option target="Debug" />
 			<Option target="Release" />

@@ -42,7 +42,7 @@ CTetrisMenu::CTetrisMenu(){
 
 CTetrisMenu::CTetrisMenu(int x_position, int y_position, int width, int height) {
   //rekisteröidytään tickerille
-  STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
+  //STicker::getInstance().registerListener(dynamic_cast<VTickListener*>(this), MENU_TICKDELAY);
   //rekisteröidytään näppäimistölle
   SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
   //käytetään asetuksia
@@ -83,10 +83,10 @@ void CTetrisMenu::drawMenuItem(const int line, const string text) {
 
 void CTetrisMenu::drawMenuItem(const int line, const string text, const bool isSelected) {
   if(isSelected) {
-    g->drawString(m_x, (m_y+line), selected_fg, selected_bg, text);
+    g->drawString(m_x+2, (m_y+line+2), selected_fg, selected_bg, text);
   }
   else {
-    g->drawString(m_x, (m_y+line), menu_fg, menu_bg, text);
+    g->drawString(m_x+2, (m_y+line+2), menu_fg, menu_bg, text);
   }
 }
 
@@ -157,7 +157,15 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
 
     /** Start game */
     case 0: {
-        hide();
+
+        // hiding, style #1
+        //hide();
+        //g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "                     ");
+        // hiding, style #2
+        for(int x=0; x < g->getWidth(); x++)
+          for(int y=0; y < g->getHeight(); y++)
+            g->drawChar(x, y, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_BLACK, ' ');
+
         //SKeyboardInput::getInstance().unregisterListener( dynamic_cast<VCommandListener*>(this) );
         SKeyboardInput *input = &SKeyboardInput::getInstance();
         input->unregisterListener(dynamic_cast<VCommandListener*>(this));
@@ -179,6 +187,9 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         logic->start();
         STicker::getInstance().start();
 
+        // rekisteröidytään takaisin näppäimistökuuntelijaksi
+        SKeyboardInput::getInstance().registerListener( dynamic_cast<VCommandListener*>(this) );
+
         delete gbg;
         delete pbg;
         input->unregisterListener(dynamic_cast<VCommandListener*>(logic));
@@ -186,6 +197,11 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         delete stats;
         delete logic;
         input->registerListener(dynamic_cast<VCommandListener*>(this));
+
+        // hiding, style #2
+        for(int x=0; x < g->getWidth(); x++)
+          for(int y=0; y < g->getHeight(); y++)
+            g->drawChar(x, y, SGraphics::GCOLOR_BLACK, SGraphics::GCOLOR_BLACK, ' ');
 
       break; }
 

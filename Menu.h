@@ -19,7 +19,7 @@
 #include <vector>
 #include <string>
 
-class CTetrisMenu : VPanel, VCommandListener, VTickListener {
+class CTetrisMenu : public VPanel, VCommandListener, VTickListener {
   public:
   CTetrisMenu();
   CTetrisMenu(int x_position, int y_position, int width, int height);
@@ -90,7 +90,7 @@ class CTetrisMenu : VPanel, VCommandListener, VTickListener {
   int m_intMenuLength;
   int m_intSelectedItem;
   std::vector<std::string> m_listMenuItems;
-  int m_x, m_y, m_width, m_height;
+  //int m_x, m_y, m_width, m_height;
   SGraphics::GCOLOR menu_fg, menu_bg, selected_fg, selected_bg;
   SGraphics *g;
   SConfig *s;

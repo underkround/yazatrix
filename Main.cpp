@@ -16,6 +16,11 @@ using namespace std;
  */
 
 int main(int argc, char** argv) {
+
+  int foo[5][5];
+  foo[2][3] = 17;
+  printf(" %d ", foo[2][3]);
+
   char * configfile = NULL;
   configfile = "Tetris.ini"; //default config file
   SConfig * settings = &SConfig::getInstance();
@@ -29,7 +34,7 @@ int main(int argc, char** argv) {
   }
 
   /**/
-  CTetrisMenu * menu = new CTetrisMenu(2, 2, 10, 3);
+  CTetrisMenu * menu = new CTetrisMenu(30, 5, 13, 6);
   menu->show();
   STicker::getInstance().start();
 
