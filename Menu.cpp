@@ -81,40 +81,47 @@ void CTetrisMenu::show() {
 
 void CTetrisMenu::drawLogo() {
   const int xOffset = 2;
-  const int yOffset = 20;
-  const int maxHeight = 10;
-  const int maxWidth = 40;
+  const int yOffset = 12;
+  const int maxHeight = 8;
+  const int maxWidth = 56;
+  /*
+X     X    X    XXXXX    X    XXXXX  XXXX   X  X   X
+ X   X    X X       X   X X     X    X   X  X  X   X
+  X X    X   X     X   X   X    X    X   X  X   X X
+   X     XXXXX    X    XXXXX    X    XXXX   X    X
+   X     X   X   X     X   X    X    X X    X   X X
+   X     X   X  X      X   X    X    X  X   X  X   X
+   X     X   X  XXXXX  X   X    X    X   X  X  X   X
+   */
   int temp[maxHeight][maxWidth] = {
-    {1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4 }
+    {1,2,3,4,0,0,1,2,3,4,0,1,2,3,4,0,1,1,1,1,1,2,3,4,0,1,2,3,4,0,1,1,1,1,1,2,3,1,1,1,1,2,3,4,1,2,3,1,2,3,4,1,2,3,4,0 },
+    {0,1,2,3,4,1,2,3,4,0,1,2,1,2,3,4,0,0,0,0,1,2,3,4,1,2,1,2,3,4,0,0,1,2,3,4,0,1,2,3,4,1,2,3,1,2,3,1,2,3,4,1,2,3,4,0 },
+    {0,0,1,2,1,2,3,4,0,1,2,3,4,1,2,3,4,0,0,1,2,3,4,1,2,3,4,1,2,3,4,0,1,2,3,4,0,1,2,3,4,1,2,3,1,2,3,4,1,2,1,2,3,4,0,0 },
+    {0,0,0,1,2,3,4,0,0,1,1,1,1,1,2,3,4,0,1,2,3,4,0,1,1,1,1,1,2,3,4,0,1,2,3,4,0,1,1,1,1,2,3,4,1,2,3,4,0,1,2,3,4,0,0,0 },
+    {0,0,0,1,2,3,4,0,0,1,2,0,0,1,2,3,4,1,2,3,4,0,0,1,2,3,4,1,2,3,4,0,1,2,3,4,0,1,2,1,2,3,4,0,1,2,3,4,1,2,1,2,3,4,0,0 },
+    {0,0,0,1,2,3,4,0,0,1,2,3,4,1,2,3,1,2,3,4,0,0,0,1,2,3,4,1,2,3,4,0,1,2,3,4,0,1,2,3,1,2,3,4,1,2,3,1,2,3,4,1,2,3,4,0 },
+    {0,0,0,1,2,3,4,0,0,1,2,3,4,1,2,3,1,1,1,1,1,2,3,1,2,3,4,1,2,3,4,0,1,2,3,4,0,1,2,3,4,1,2,3,1,2,3,1,2,3,4,1,2,3,4,0 },
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }
   };
-  g->setColors(SGraphics::GCOLOR_MAGENTA, SGraphics::GCOLOR_BLACK);
   for(int i=0;i<maxWidth;i++) {
     for(int j=0;j<maxHeight;j++) {
       switch(temp[j][i]) {
         case 1:
-          g->drawChar(i+yOffset, j+xOffset, 219);
+          g->drawChar(i+yOffset, j+xOffset, SGraphics::GCOLOR_LIGHTMAGENTA, SGraphics::GCOLOR_BLACK, 219);
           break;
         case 2:
-          g->drawChar(i+yOffset, j+xOffset, 178);
+          g->drawChar(i+yOffset, j+xOffset, SGraphics::GCOLOR_MAGENTA, SGraphics::GCOLOR_BLACK, 178);
           break;
         case 3:
-          g->drawChar(i+yOffset, j+xOffset, 177);
+          g->drawChar(i+yOffset, j+xOffset, SGraphics::GCOLOR_MAGENTA, SGraphics::GCOLOR_BLACK, 177);
           break;
         case 4:
-          g->drawChar(i+yOffset, j+xOffset, 176);
+          g->drawChar(i+yOffset, j+xOffset, SGraphics::GCOLOR_MAGENTA, SGraphics::GCOLOR_BLACK, 176);
           break;
       }
     }
   }
+  g->drawString(yOffset, (xOffset+maxHeight), SGraphics::GCOLOR_DARKGRAY, SGraphics::GCOLOR_BLACK, "y e t   a n o t h e r   z e m m - a n t s y   t e t r i x");
 }
 
 void CTetrisMenu::drawMenuItem(const int line, const string text) {
@@ -237,9 +244,9 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
     /** About */
     case 1: {
       g->setColors(SGraphics::GCOLOR_LIGHTGREEN, SGraphics::GCOLOR_BLACK);
-      g->drawBox((g->getWidth()/2-15), (g->getHeight()/2+5), (g->getWidth()/2+15), (g->getHeight()/2+8), g->getBorder("groove"));
-      g->drawString((g->getWidth()/2-13), (g->getHeight()/2+6), SGraphics::GCOLOR_LIGHTGRAY, SGraphics::GCOLOR_BLACK, "  made by antti and jussi");
-      g->drawString((g->getWidth()/2-13), (g->getHeight()/2+7), SGraphics::GCOLOR_DARKGRAY, SGraphics::GCOLOR_BLACK, "        IIO6S 2008");
+      g->drawBox((g->getWidth()/2-15), (g->getHeight()/2+8), (g->getWidth()/2+15), (g->getHeight()/2+11), g->getBorder("groove"));
+      g->drawString((g->getWidth()/2-13), (g->getHeight()/2+9), SGraphics::GCOLOR_LIGHTGRAY, SGraphics::GCOLOR_BLACK, "  made by antti and jussi");
+      g->drawString((g->getWidth()/2-13), (g->getHeight()/2+10), SGraphics::GCOLOR_DARKGRAY, SGraphics::GCOLOR_BLACK, "        IIO6S 2008");
       break; }
 
     /** Quit */
