@@ -84,15 +84,6 @@ void CTetrisMenu::drawLogo() {
   const int yOffset = 12;
   const int maxHeight = 8;
   const int maxWidth = 56;
-  /*
-X     X    X    XXXXX    X    XXXXX  XXXX   X  X   X
- X   X    X X       X   X X     X    X   X  X  X   X
-  X X    X   X     X   X   X    X    X   X  X   X X
-   X     XXXXX    X    XXXXX    X    XXXX   X    X
-   X     X   X   X     X   X    X    X X    X   X X
-   X     X   X  X      X   X    X    X  X   X  X   X
-   X     X   X  XXXXX  X   X    X    X   X  X  X   X
-   */
   int temp[maxHeight][maxWidth] = {
     {1,2,3,4,0,0,1,2,3,4,0,1,2,3,4,0,1,1,1,1,1,2,3,4,0,1,2,3,4,0,1,1,1,1,1,2,3,1,1,1,1,2,3,4,1,2,3,1,2,3,4,1,2,3,4,0 },
     {0,1,2,3,4,1,2,3,4,0,1,2,1,2,3,4,0,0,0,0,1,2,3,4,1,2,1,2,3,4,0,0,1,2,3,4,0,1,2,3,4,1,2,3,1,2,3,1,2,3,4,1,2,3,4,0 },

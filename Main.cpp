@@ -14,6 +14,13 @@ using namespace std;
  * $Id$
  * $Revision$
  *
+ * Code statistics:
+ *
+ * Code only:     2811 lines  (51%)
+ * Empty:         754 lines   (14%)
+ * Comment        1868 lines  (34%)
+ * Code+comment:  104 lines   ( 2%)
+ * Total:         5537 lines
  */
 
 int main(int argc, char** argv) {
