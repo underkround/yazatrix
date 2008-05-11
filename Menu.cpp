@@ -207,7 +207,7 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
         //        johtuen pelin rakenteesta ja monesta sisäkkäisestä kutsusta.
         m_game_logic = new CTetrisLogic();
         m_game_gbg = new CBoardGraphics(m_game_logic->getGameBoard(), 18, 2);
-        m_game_pbg = new CBoardGraphics(m_game_logic->getPreviewBoard(), 34, 4);
+        m_game_pbg = new CBoardGraphics(m_game_logic->getPreviewBoard(), (m_game_gbg->getWidth()+24), 4);
         m_game_stats = new CStatsPanel(m_game_logic->getStats(), 3, 5);
 
         // rekisteröidään menu vastaanottamaan tieto pelin loppumisesta
