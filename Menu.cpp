@@ -71,10 +71,49 @@ CTetrisMenu::~CTetrisMenu(void) {
 }
 
 void CTetrisMenu::show() {
+  drawLogo();
   draw();
   vector<string>::iterator iter = m_listMenuItems.begin();
   for(int i=0;i<m_intMenuLength;i++,iter++) {
     drawMenuItem(i, *iter);
+  }
+}
+
+void CTetrisMenu::drawLogo() {
+  const int xOffset = 2;
+  const int yOffset = 20;
+  const int maxHeight = 10;
+  const int maxWidth = 40;
+  int temp[maxHeight][maxWidth] = {
+    {1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4 }
+  };
+  g->setColors(SGraphics::GCOLOR_MAGENTA, SGraphics::GCOLOR_BLACK);
+  for(int i=0;i<maxWidth;i++) {
+    for(int j=0;j<maxHeight;j++) {
+      switch(temp[j][i]) {
+        case 1:
+          g->drawChar(i+yOffset, j+xOffset, 219);
+          break;
+        case 2:
+          g->drawChar(i+yOffset, j+xOffset, 178);
+          break;
+        case 3:
+          g->drawChar(i+yOffset, j+xOffset, 177);
+          break;
+        case 4:
+          g->drawChar(i+yOffset, j+xOffset, 176);
+          break;
+      }
+    }
   }
 }
 
@@ -127,7 +166,7 @@ void CTetrisMenu::createItems(void) {
   m_listMenuItems.push_back("Game start");
   m_listMenuItems.push_back("About");
   m_listMenuItems.push_back("Quit");
-  m_listMenuItems.push_back("View config");
+  //m_listMenuItems.push_back("View config");
   m_intMenuLength = m_listMenuItems.size();
 }
 
@@ -197,7 +236,10 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
 
     /** About */
     case 1: {
-      g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "tehnyt antti ja jussi");
+      g->setColors(SGraphics::GCOLOR_LIGHTGREEN, SGraphics::GCOLOR_BLACK);
+      g->drawBox((g->getWidth()/2-15), (g->getHeight()/2+5), (g->getWidth()/2+15), (g->getHeight()/2+8), g->getBorder("groove"));
+      g->drawString((g->getWidth()/2-13), (g->getHeight()/2+6), SGraphics::GCOLOR_LIGHTGRAY, SGraphics::GCOLOR_BLACK, "  made by antti and jussi");
+      g->drawString((g->getWidth()/2-13), (g->getHeight()/2+7), SGraphics::GCOLOR_DARKGRAY, SGraphics::GCOLOR_BLACK, "        IIO6S 2008");
       break; }
 
     /** Quit */
@@ -207,12 +249,12 @@ bool CTetrisMenu::selectionSelect(const int item_number) {
       STicker::getInstance().stop();
       break; }
 
-    /** Configuration */
+    /** Configuration *
     case 3: {
       g->drawString(0, 0, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "Configuration:\n\n");
       s->printSettings();
       break; }
-
+    */
     default: {
       g->drawString(2, 10, SGraphics::GCOLOR_WHITE, SGraphics::GCOLOR_BLACK, "lol xiit wallhack    ");
       return false; }

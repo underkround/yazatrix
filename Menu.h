@@ -39,6 +39,13 @@ public:
   void show();
 
   /**
+   * drawLogo
+   *
+   * Piirtää pelin logon
+   */
+  void drawLogo();
+
+  /**
    * drawMenuItem
    *
    * Piirtää yhden rivin menua

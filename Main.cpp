@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 
   /**/
   SGraphics * graphics = &SGraphics::getInstance();
-  CTetrisMenu * menu = new CTetrisMenu((graphics->getWidth()/2-6), graphics->getHeight()/2-3, 12, 6);
+  CTetrisMenu * menu = new CTetrisMenu((graphics->getWidth()/2-6), graphics->getHeight()/2, 12, 5);
   menu->show();
   STicker::getInstance().start();
 
